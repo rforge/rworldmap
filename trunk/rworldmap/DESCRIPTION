@@ -7,3 +7,4 @@ Author: Andy South, with contributions from Roger Bivand, Matthew Staines, Barry
 Maintainer: Andy South <andy.south@cefas.co.uk>
 Description: Enables mapping of country level and gridded user datasets.
 License: GPL (>= 2)
+Depends: R (>= 2.7.0), sp, maptools

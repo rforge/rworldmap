@@ -3,6 +3,7 @@ function(mapRegion='world')
    {  
     #sets map region from names passed to it
     #by returning a data frame containing wesn
+    #maybe also define ocean regions
     
     listMapRegions=c('eurasia','africa','latin america','uk','oceania','asia')
     if ( mapRegion == 'world' )

@@ -7,8 +7,7 @@ Example half degree grid data : people per cell estimates for 2000 from IIASA (I
 }
 \usage{
 data(gridExampleData)
-#used as the default dataset in other functions, e.g. 
-mapGridAscii()
+
 }
 \format{
   The format is:
@@ -36,6 +35,9 @@ From International Institute for Applied System Analysis (IIASA) GGI Scenario Da
 http://www.iiasa.ac.at/Research/GGI/DB/
 The data are made available for individual, academic research purposes only and on a "as is" basis, subject to revisions without further notice. 
 Commercial applications are not permitted.
+
+The data is used as the default dataset in other functions, e.g. mapGridAscii(), when no
+data file is given.
 }
 \source{
 http://www.iiasa.ac.at/web-apps/ggi/GgiDb/dsd?Action=htmlpage&page=about

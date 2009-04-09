@@ -6,7 +6,23 @@
 Maps user half degree gridded data at country level by first aggregating.
 }
 \usage{
-mapHalfDegreeGridToCountries(inFile = "", aggregateOption = "sum", nameCountryColumn = "", suggestForFailedCodes = F, projection = "EqualArea", numCats = 7, we = -160, ea = 160, so = -80, no = 90, mapRegion = "world", catMethod = "pretty", colourPalette = "heat", addLegend = T)
+mapHalfDegreeGridToCountries(
+inFile=""
+, aggregateOption="sum"  #"mean","max","min"
+, nameCountryColumn = ""
+, suggestForFailedCodes = FALSE 
+, projection="EqualArea"  #"none", "EqualArea" 
+, mapResolution="low" #                                                 
+, numCats = 7 # *may be ignored by catMethod
+, we=-160
+, ea=160
+, so=-80
+, no=90 
+, mapRegion = "world"   #sets map extents, overrides we,ea etc.
+, catMethod="pretty"   #any vector defining breaks, "fixedWidth","quantiles"
+, colourPalette= "heat" #"heat","white2Black","palette" for current palette
+, addLegend=TRUE 
+)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -15,6 +31,7 @@ mapHalfDegreeGridToCountries(inFile = "", aggregateOption = "sum", nameCountryCo
   \item{nameCountryColumn}{ optional name of column containing country names (used in reporting of success/failure) }
   \item{suggestForFailedCodes}{ T/F whether you want system to suggest for failed codes NOT YET WORKING }
   \item{projection}{ 'none' or 'EqualArea' }
+  \item{mapResolution}{options low, medium, only for projection='none' initially}
   \item{numCats}{ number of categories, may be overided e.g. if catMethod ='pretty' }
   \item{we}{ map extents, can be overidden by mapRegion }
   \item{ea}{ map extents, can be overidden by mapRegion }
@@ -56,5 +73,5 @@ mapHalfDegreeGridToCountries( aggregateOption="mean" )
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{ aplot }
+

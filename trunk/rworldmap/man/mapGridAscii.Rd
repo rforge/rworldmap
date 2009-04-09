@@ -6,12 +6,19 @@
 To map user gridded data, either a gridascii filename or an sp SpatialGridDataFrame object specifying a global half degree grid dataset
 }
 \usage{
-mapGridAscii(inFile = "", numCats = 10, logIndex = T, we = -180, ea = 180, so = -90, no = 90, numHistBarsPerCat = 1, addTo0ForLog = 0.01, mapRegion = "world", titleHist = "", addHist = F, addLegend = T, addCountryOutlines = T, plotData = T)
+mapGridAscii(
+inFile = "", numCats = 5, logIndex = TRUE, we = -180, 
+    ea = 180, so = -90, no = 90, numHistBarsPerCat = 1, addTo0ForLog = 0.01, 
+    mapRegion = "world", titleHist = "", addHist = FALSE, addLegend = TRUE, 
+    addCountryOutlines = TRUE, plotData = TRUE, catMethod = "logFixedWidth", 
+    colourPalette = "heat", nameColumnToPlot = "", countryBorderCol = "grey"
+	) 
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{inFile}{ either a gridascii filename or an sp SpatialGridDataFrame object specifying a global half degree grid dataset, if none specified an internal example data is used  }
   \item{numCats}{ number of categories to put the data in, may be overidden if catMethod ='pretty' } 
+  \item{logIndex}{ TODO: I think this parameter is obsolete.... }
   \item{we}{ map extents, can be overidden by mapRegion }
   \item{ea}{ map extents, can be overidden by mapRegion }
   \item{so}{ map extents, can be overidden by mapRegion }
@@ -26,7 +33,8 @@ mapGridAscii(inFile = "", numCats = 10, logIndex = T, we = -180, ea = 180, so = 
   \item{plotData}{ T/F whether to plot the data on the map }
   \item{catMethod}{ method for categorisation of data "pretty", "fixedWidth", "logfixedWidth","quantiles", or a numeric vector defining breaks  } 
   \item{colourPalette}{ "heat","white2Black","palette":for current palette }
-  
+  \item{nameColumnToPlot}{Only for multi-attribute spatialGridDataframes}
+  \item{countryBorderCol}{Colour for country borders}
 }
 \details{
   ~~ If necessary, more details than the description above ~~
@@ -60,5 +68,5 @@ mapGridAscii(mapRegion="africa")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{ aplot }
+

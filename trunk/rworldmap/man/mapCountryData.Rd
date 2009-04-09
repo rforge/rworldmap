@@ -6,7 +6,28 @@
 Accepts user country level data as either a text file or R data frame, with countries referenced by a range of common codes. Joins that data to a map, and reports on successes and failures. Plots map according to various user provided paramete4rs specifying classification, colours, legend etc. 
 }
 \usage{
-mapCountryData(inFile = "", nameColumnToPlot = "", joinCode = "ISO3", nameJoinColumn = "ISO3V10", nameCountryColumn = "Country", suggestForFailedCodes = F, projection = "EqualArea", numCats = 7, we = -160, ea = 160, so = -80, no = 90, mapRegion = "world", catMethod = "pretty", colourPalette = "heat", addLegend = T)
+mapCountryData(inFile = ""
+                          , nameColumnToPlot = ""
+                          , joinCode = "ISO3" 
+                          , nameJoinColumn = "ISO3V10"
+                          , nameCountryColumn = "Country"
+                          , suggestForFailedCodes = FALSE 
+                          , projection="none" 
+                          , mapResolution="low"                         
+                          , numCats = 7 
+                          , we=-160
+                          , ea=160
+                          , so=-80
+                          , no=90 
+                          , mapRegion = "world"   
+                          , catMethod="pretty"   
+                          , colourPalette= "heat" 
+                          , addLegend=TRUE
+                          , textFileType = 'csv'   
+                          , verbose = FALSE 
+                          , countryBorderCol = 'grey'
+                          , mapTitle = 'columnName' 
+                          )   
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -17,6 +38,7 @@ mapCountryData(inFile = "", nameColumnToPlot = "", joinCode = "ISO3", nameJoinCo
   \item{nameCountryColumn}{ optional name of column containing country names (used in reporting of success/failure) }
   \item{suggestForFailedCodes}{ T/F whether you want system to suggest for failed codes NOT YET WORKING }
   \item{projection}{ map projection : 'none' or 'EqualArea' }
+  \item{mapResolution}{options low, medium, only for projection='none' initially  }
   \item{numCats}{ number of categories to put the data in, may be overidden if catMethod ='pretty' }
   \item{we}{ map extents, can be overidden by mapRegion }
   \item{ea}{ map extents, can be overidden by mapRegion }
@@ -32,15 +54,14 @@ mapCountryData(inFile = "", nameColumnToPlot = "", joinCode = "ISO3", nameJoinCo
   \item{mapTitle}{ title to add to the map, any string or 'columnName' to set it to the name of the data column  }
 }
 
-\section{Warning }
-{will generate unhelpful errors in data categorisation if inappropriate options are chosen, e.g. with catMethod:Quantiles if numCats too high so that unique breaks cannot be defined }
+\section{Warning}{will generate unhelpful errors in data categorisation if inappropriate 
+options are chosen, e.g. with catMethod:Quantiles if numCats too high so that unique breaks cannot be defined.
+}
 
 \details{
   ~~ If necessary, more details than the description above ~~
 }
-\value{
 
-}
 \references{ ~put references to the literature/web site here ~ }
 \author{ andy south }
 \note{ ~~further notes~~ 
@@ -65,5 +86,5 @@ mapCountryData( dFexampleCountryData
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{ aplot }
+

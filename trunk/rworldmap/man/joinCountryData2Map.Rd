@@ -6,8 +6,17 @@
 Joins user data referenced by country codes to internal map ready for plotting, reports on which countries joined.
 }
 \usage{
-joinCountryData2Map(dF, joinCode = "ISO3", nameJoinColumn = "ISO3V10", nameCountryColumn = "Country", suggestForFailedCodes = F, projection = "EqualArea")
-}
+joinCountryData2Map(dF
+, joinCode = "ISO3" 
+, nameJoinColumn = "ISO3V10"
+, nameCountryColumn = "Country"
+, suggestForFailedCodes = FALSE 
+, projection="EqualArea"  #options "none", "EqualArea"
+, mapResolution="low" 
+, verbose = TRUE   
+)
+ }
+
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{dF}{ R data frame with at least one column for country reference and one column of data }
@@ -16,7 +25,9 @@ joinCountryData2Map(dF, joinCode = "ISO3", nameJoinColumn = "ISO3V10", nameCount
   \item{nameCountryColumn}{ optional name of column containing country names (used in reporting of success/failure) }
   \item{suggestForFailedCodes}{ T/F whether you want system to suggest for failed codes NOT YET WORKING }
   \item{projection}{ which map projection to use, options 'none', 'EqualArea' latter uses Mollweide  }
-}
+  \item{mapResolution}{options low, medium, only for projection='none' initially}
+  \item{verbose}{if set to FALSE it doesn't print progress messages to console}
+  }
 \details{
   ~~ If necessary, more details than the description above ~~
 }
@@ -39,5 +50,5 @@ joinCountryData2Map(dF, joinCode = "ISO3", nameJoinColumn = "ISO3V10", nameCount
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{ dplot }
+

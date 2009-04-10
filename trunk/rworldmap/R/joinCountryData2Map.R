@@ -25,10 +25,10 @@ function( dF
 
     #test whether user joinCode is one of permitted
     listJoinCodes <- c("ISO2","ISO3","FIPS","NAME","UN") 
-    if (joinCode %in% listJoinCodes == F)
+    if (joinCode %in% listJoinCodes == FALSE)
        {
         warning("your joinCode (",joinCode,") in joinCountryData2Map() is not one of those supported. Options are :",listJoinCodes,"\n")
-        return(F)
+        return(FALSE)
        }
 
     #dF2 <- merge.data.frame(dF, dFlookupCodes, by=nameJoinColumn)

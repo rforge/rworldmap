@@ -22,7 +22,7 @@ function()
     mtext('mapCountryData( nameColumnToPlot="EPI", joinCode = "ISO3"
 , nameJoinColumn = "ISO3V10")',line=-1)              
                   #, nameCountryColumn = "Country"
-                  #, suggestForFailedCodes = F 
+                  #, suggestForFailedCodes = FALSE 
                   #, projection="EqualArea"  #options "none", "EqualArea"                          
                   #, numCats = 7
                   #, we=-160
@@ -31,7 +31,7 @@ function()
                   #, no=90 
                   #, catMethod="pretty"
                   #, colourPalette= "heat" 
-                  #, addLegend=T   
+                  #, addLegend=TRUE  
                   #)   
     
     #windows()
@@ -85,8 +85,8 @@ function()
     #windows()
     #adding histogram
     #8
-    mapGridAscii(catMethod="logFixedWidth",addHist=T)    
-    mtext('mapGridAscii(catMethod="logFixedWidth",addHist=T)',outer=TRUE,line=-1)
+    mapGridAscii(catMethod="logFixedWidth",addHist=TRUE)    
+    mtext('mapGridAscii(catMethod="logFixedWidth",addHist=TRUE)',outer=TRUE,line=-1)
         
     #windows() 
     #9

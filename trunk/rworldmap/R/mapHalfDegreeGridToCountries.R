@@ -33,10 +33,10 @@ function( inFile=""
        sGDF <- gridExampleData # copying from the example data            
     } else if ( is.character(inFile)) 
     {           
-       if ( file.exists(inFile) == F )
+       if ( !file.exists(inFile) )
           {
            warning("the file: ",inFile," seems not to exist, exiting mapHalfDegreeGridToCountries()\n")
-           return(F)
+           return(FALSE)
           }
        #reading file into a SpatialGridDataFrame   
        sGDF <- readAsciiGrid(fname=inFile)    

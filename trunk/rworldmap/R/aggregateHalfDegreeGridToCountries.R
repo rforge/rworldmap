@@ -18,10 +18,10 @@ function( inFile=""
 
     if ( is.character(inFile) )
     {
-       if ( file.exists(inFile) == F )
+       if ( !file.exists(inFile) )
           {
            warning("the file: ",inFile," seems not to exist, exiting aggregateHalfDegreeGridToCountries()\n")
-           return(F)
+           return(FALSE)
           }
        #reading file into a SpatialGridDataFrame   
        sGDF <- readAsciiGrid(fname=inFile)
@@ -70,8 +70,8 @@ function( inFile=""
                          #, by=list(ISO3166_numeric = dF$ISO3166_numeric)
                          , by=list(UN = dF$UN)
                          , FUN = aggregateOption
-                         , na.rm=T )
-                         #, mean, na.rm=T )
+                         , na.rm=TRUE )
+                         #, mean, na.rm=TRUE )
                          
     #renaming the aggregated column name from x, with filename if the input was a file (if a sGDF it causes error use names instead)
     if ( is.character(inFile) )

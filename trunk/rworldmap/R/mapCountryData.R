@@ -48,16 +48,16 @@ function( inFile = ""
        nameColumnToPlot <- names(dFexampleCountryData)[5] #column 5 in EPI data is Popn2005                
     } else if ( is.character(inFile)) 
     {
-       if ( file.exists(inFile) == F )
+       if ( !file.exists(inFile) )
           {
            warning("the file: ",inFile," seems not to exist, exiting ",functionName,"\n")
-           return(F)
+           return(FALSE)
           }
        #reading text file either csv or other delimiter (space or tab)
        if ( textFileType == 'csv' )   
-       {dF <- read.csv( inFile, header=T, as.is=T,na.string='-9999' )
+       {dF <- read.csv( inFile, header=TRUE, as.is=TRUE,na.string='-9999' )
        } else
-       {dF <- read.table( inFile, header=T, as.is=T,na.string='-9999' )
+       {dF <- read.table( inFile, header=TRUE, as.is=TRUE,na.string='-9999' )
        }
        
     } else
@@ -68,12 +68,12 @@ function( inFile = ""
     # check that the column name exists in the data frame
     if ( is.na(match(nameColumnToPlot, names(dF)) )) 
        {warning("your chosen nameColumnToPlot :'",nameColumnToPlot,"' seems not to exist in your data, columns = ", names(dF))
-        return(F)} 
+        return(FALSE)} 
                      
     #checking if there is any data in the dataFrame
     if ( length(dF[,1]) < 1 )
        {warning("seems to be no data in your chosen file or dataframe in ",functionName) 
-        return(F)}
+        return(FALSE)}
   
     ## setting map extents if a mapRegion has been specified
     if (mapRegion != "world")
@@ -122,7 +122,7 @@ function( inFile = ""
     #a) joining data to the map
     mapToPlot <- joinCountryData2Map(dF, joinCode, nameJoinColumn, nameCountryColumn, suggestForFailedCodes, projection, mapResolution, verbose)
     #if join has failed, then exit this function too, message from join should be enough
-    if ( class(mapToPlot)!="SpatialPolygonsDataFrame" ) return(F)
+    if ( class(mapToPlot)!="SpatialPolygonsDataFrame" ) return(FALSE)
 
     #b) classify data into categories   
     

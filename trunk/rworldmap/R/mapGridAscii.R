@@ -60,10 +60,10 @@ function( inFile = ""
                   
     } else if ( is.character(inFile)) 
     {
-       if ( file.exists(inFile) == F )
+       if ( !file.exists(inFile) )
           {
            warning("the file: ",inFile," seems not to exist, exiting mapGridAscii()\n")
-           return(F)
+           return(FALSE)
           }
        #reading file into a SpatialGridDataFrame   
        sGDF <- readAsciiGrid(fname=inFile)
@@ -72,7 +72,7 @@ function( inFile = ""
     } else
     {
        warning(inFile," seems not to be a valid file name or a SpatialGridDataFrame, exiting mapGridAscii()\n") 
-       return(F)
+       return(FALSE)
     }
        
     #now set above to cope with multi-attribute grids
@@ -126,9 +126,9 @@ function( inFile = ""
     #adding country outlines
     if ( addCountryOutlines )
        {
-        #map('world',add=T,col="grey")
+        #map('world',add=TRUE,col="grey")
         data(wrld_simpl)
-        plot(wrld_simpl,add=T,border=countryBorderCol)
+        plot(wrld_simpl,add=TRUE,border=countryBorderCol)
        }
     
     #add legend to map, can change this to a better legend using the fields package
@@ -166,9 +166,9 @@ function( inFile = ""
         #16/3/09 numHistBarsPerCat doesn't work with new method of classifying
         #thats Ok we may just set it to 1 permanently : it was dificult for people to get their head around anyway
         
-        #breaksVector <- seq( from=min(dFbyCountry[[colNameRaw]],na.rm=T),to= max(dFbyCountry[[colNameRaw]],na.rm=T), length.out=numHistBreaks )
+        #breaksVector <- seq( from=min(dFbyCountry[[colNameRaw]],na.rm=TRUE),to= max(dFbyCountry[[colNameRaw]],na.rm=TRUE), length.out=numHistBreaks )
         numHistBreaks <- 1 + numCats * numHistBarsPerCat
-        #breaksVector <- seq( from=min(sGDF[[attrName]],na.rm=T),to=max(sGDF[[attrName]],na.rm=T), length.out=numHistBreaks )
+        #breaksVector <- seq( from=min(sGDF[[attrName]],na.rm=TRUE),to=max(sGDF[[attrName]],na.rm=TRUE), length.out=numHistBreaks )
         breaksVector <- seq( from=0,to=numCats, length.out=numHistBreaks )
         #cols4Hist <- rep(1:numCats, each=numHistBarsPerCat)
         #16/3/09 allowing colours to be set from palette

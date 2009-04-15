@@ -41,7 +41,7 @@ mapCountryData(mapRegion="asia",projection="none")
 #mapping gridded data, with no file specified it uses internal example data
 mapGridAscii()
 #adding histogram
-mapGridAscii(addHist=T)  
+mapGridAscii(addHist=TRUE)  
 #specifying region 
 mapGridAscii(mapRegion="africa")  
 #aggregating gridded data to country level, with no file specified it uses internal example data

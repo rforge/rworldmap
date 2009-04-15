@@ -60,7 +60,7 @@ inFile = "", numCats = 5, logIndex = TRUE, we = -180,
 
 mapGridAscii()
 
-mapGridAscii(addHist=T)    
+mapGridAscii(addHist=TRUE)    
     
 mapGridAscii(mapRegion="africa")
 

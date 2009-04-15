@@ -1,13 +1,16 @@
 \name{dFexampleCountryData}
 \alias{dFexampleCountryData}
 \docType{data}
-\title{ Example dataset for country level data (Environmental Performance Index) }
+\title{ Example dataset for country level data (2008 Environmental Performance Index) }
 \description{
-Example dataset for country level data (Environmental Performance Index)
+A dataframe containing example country level data for 149 countries. 
+This is the 2008 Environmental Performance Index (EPI) downloaded from http://epi.yale.edu/. 
+Used here with permission, further details on the data can be found there. 
+The data are referenced by ISO 3 letter country codes and country names. 
 }
 \usage{data(dFexampleCountryData)}
 \format{
-  A data frame with 150 observations on the following 80 variables.
+  A data frame with 149 observations on the following 80 variables.
   \describe{
     \item{\code{ISO3V10}}{a character vector}
     \item{\code{Country}}{a character vector}
@@ -92,16 +95,24 @@ Example dataset for country level data (Environmental Performance Index)
   }
 }
 \details{
-  ~~ If necessary, more details than the __description__ above ~~
+2008 Environmental Performance Index (EPI) data downloaded from : http://epi.yale.edu/Downloads 
+
+Disclaimers 
+This 2008 Environmental Performance Index (EPI) tracks national environmental results on a quantitative basis, 
+measuring proximity to an established set of policy targets using the best data available. Data constraints 
+and limitations in methodology make this a work in progress. Further refinements will be undertaken over the 
+next few years. 
+Comments, suggestions, feedback, and referrals to better data sources are welcome at: 
+http://epi.yale.edu or epi@yale.edu.
 }
 \source{
 http://epi.yale.edu/Downloads
 }
 \references{
-  ~~ possibly secondary sources and usages ~~
+Esty, Daniel C., M.A. Levy, C.H. Kim, A. de Sherbinin, T. Srebotnjak, and V. Mara. 2008. 
+2008 Environmental Performance Index. New Haven: Yale Center for Environmental Law and Policy.
 }
 \examples{
 data(dFexampleCountryData)
-## maybe str(dFexampleCountryData) ; plot(dFexampleCountryData) ...
 }
 \keyword{datasets}

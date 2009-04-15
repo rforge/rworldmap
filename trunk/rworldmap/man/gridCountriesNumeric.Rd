@@ -3,7 +3,10 @@
 \docType{data}
 \title{ Half degree grid specifying the country at each cell }
 \description{
-Half degree grid specifying the country (numeric code) at each cell (sp, SpatialGridDataFrame), used by the function aggregateHalfDegreeGridToCountries()
+Half degree grid specifying the country (numeric code) at each cell.
+Uses a simple grid map defining a single country identity for each half degree cell. 
+A more detailed map defining division of cells between neighbouring countries will be added in future. 
+(sp, SpatialGridDataFrame), used by the function aggregateHalfDegreeGridToCountries()
 }
 \usage{data(gridCountriesNumeric)}
 \format{

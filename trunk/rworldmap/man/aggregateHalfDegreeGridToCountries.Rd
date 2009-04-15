@@ -3,7 +3,10 @@
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ Aggregates global half degree gridded data to countries }
 \description{
-Aggregates global half degree gridded data to countries (options for sum, mean, min, max )
+Aggregates global half degree gridded data to countries (options for sum, mean, min, max ).
+Uses a very simple grid map defining a single country identity for each half degree cell. 
+(other more sophisticated approaches dividing cells between multiple countries will be investigated in future).
+The country identity at each cell is specified in data(gridCountriesNumeric). 
 }
 \usage{
 aggregateHalfDegreeGridToCountries(inFile = "", aggregateOption = "sum")

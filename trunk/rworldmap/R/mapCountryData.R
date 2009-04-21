@@ -45,7 +45,8 @@ function( inFile = ""
        message(paste("using example data because no file specified in",functionName,"\n"))
        data(dFexampleCountryData)
        dF <- dFexampleCountryData # copying from the example data
-       nameColumnToPlot <- names(dFexampleCountryData)[5] #column 5 in EPI data is Popn2005                
+       #also setting a defsult nameColumnToPlot if it isn't set
+       if ( nameColumnToPlot == "" ) nameColumnToPlot <- names(dFexampleCountryData)[5] #column 5 in EPI data is Popn2005                
     } else if ( is.character(inFile)) 
     {
        if ( !file.exists(inFile) )

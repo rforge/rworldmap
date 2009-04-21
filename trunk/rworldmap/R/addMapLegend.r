@@ -21,6 +21,17 @@ function(
                     ,axisCatMethod="fixedWidth"         #controls how colour bar is divided up
                     ){
 require(fields)
+
+
+
+#Confusingly, there are two sets of break points in this function.
+#The bar is divided equally, and the axis labels positioned equally stored in colourBarBreaks.
+
+#The labels are tidied versions of the break points used in plotting.
+#Tidying up is done by rounding to a few significant figures, and prettyNum.
+
+
+
 #Ensures that addMapLegend() matches the defaults of mapCountryData().
 if(identical(plottedData,"")){data(dFexampleCountryData);plottedData<-dFexampleCountryData$Population2005}
 
@@ -36,13 +47,11 @@ numCats<-length(plotBreaks)-1
 #The colour bar is divided into sections. By default this is equal sections.
 colourBarBreaks  <-  rwmGetClassBreaks(plottedData, numCats, axisCatMethod)
 
-
+#Use the same colour schemes as mapGridAscii,mapCountryData
 coloursUsed <- rwmGetColours(colourPalette, numCats)
 
-#Simplify the plotBreaks. Move the min and max values of the colour bar.
-#Problem, the intent is to extend the range, so that it begins and ends on nice numbers.  #use floor(log10(mynumber))
+#Simplify the plotBreaks. By rounding the numbers, it becomes easier to read.
 tidyPlotBreaks <-  signif(plotBreaks,2)
-
 
 
 #The image.plot zlim argument only requires the min and max.

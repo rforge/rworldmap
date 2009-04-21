@@ -154,7 +154,17 @@ function( inFile = ""
     #! later offer option to modify this	    
     if (addLegend)
     {
-    	legend(x='bottomleft', legend=c(rev(levels(dataCategorised)),"no data"), pch = 15, col=c(coloursForMap[numColours:1],"white"), title="category",bg="white" )
+
+    	availablePackages<-.packages(all.available = TRUE)
+
+    	if("spam" %in% availablePackages && "fields" %in% availablePackages){
+
+    	addMapLegend(mapToPlot@data[[nameColumnToPlot]],catMethod=catMethod,colourPalette=colourPalette,numCats=numCats)
+
+    	}else{
+    	#Old style legend if you don't have spam or fields.
+        	legend(x='bottomleft', legend=c(rev(levels(dataCategorised)),"no data"), pch = 15, col=c(coloursForMap[numColours:1],"white"), title="category",bg="white" )
+        	}
     }
     
     #add title

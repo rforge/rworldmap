@@ -46,7 +46,7 @@ mapCountryData(inFile = ""
   \item{no}{ map extents, can be overidden by mapRegion }
   \item{mapRegion}{ 'world','africa','oceania','eurasia','uk' sets map extents, overrides we,ea etc. }
   \item{catMethod}{ method for categorisation of data "pretty", "fixedWidth", "logfixedWidth","quantiles", or a numeric vector defining breaks  }
-  \item{colourPalette}{ "heat","white2Black","palette":for current palette }
+  \item{colourPalette}{ "heat","white2Black","topo","palette":for current palette }
   \item{addLegend}{ whether to add a legend or not T/F }
   \item{textFileType}{ text file delimiter: 'csv' for comma, anything else for space or tab  }
   \item{verbose}{ whether to print succeded & failed countries to console  }
@@ -59,7 +59,8 @@ options are chosen, e.g. with catMethod:Quantiles if numCats too high so that un
 }
 
 \details{
-  ~~ If necessary, more details than the description above ~~
+There are two styles of legend available. The first is produced \code{legend},
+the second by \code{addMapLegend}. The second style is used when the fields and spam packages are installed.
 }
 
 \references{ ~put references to the literature/web site here ~ }

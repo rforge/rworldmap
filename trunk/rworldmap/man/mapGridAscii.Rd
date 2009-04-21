@@ -32,12 +32,13 @@ inFile = "", numCats = 5, logIndex = TRUE, we = -180,
   \item{addCountryOutlines}{ T/F whether to add country outlines to the map }
   \item{plotData}{ T/F whether to plot the data on the map }
   \item{catMethod}{ method for categorisation of data "pretty", "fixedWidth", "logfixedWidth","quantiles", or a numeric vector defining breaks  } 
-  \item{colourPalette}{ "heat","white2Black","palette":for current palette }
+  \item{colourPalette}{ "heat","white2Black","topo","palette":for current palette }
   \item{nameColumnToPlot}{Only for multi-attribute spatialGridDataframes}
   \item{countryBorderCol}{Colour for country borders}
 }
 \details{
-  ~~ If necessary, more details than the description above ~~
+There are two styles of legend available. The first is produced \code{legend},
+the second by \code{addMapLegend}. The second style is used when the fields and spam packages are installed.
 }
 \value{
   ~Describe the value returned

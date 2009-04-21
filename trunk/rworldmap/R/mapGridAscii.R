@@ -134,14 +134,37 @@ function( inFile = ""
     #add legend to map, can change this to a better legend using the fields package
     #! I'll probably want to create a dedicated legend function
     #to offer a bunch more options, including whether to use the index val or the actual values
-    if ( addLegend )
+
         #legend(x='bottomleft', legend=c(0:numCats), pch = 22, col=c(0:numCats),pt.bg=c(0:numCats), title="index",bg="white" )
         
         #this one does by map categories
         #legend(x='bottomleft', legend=c(0:numCats), pch = 22, col=c(0,coloursForMap),pt.bg=c(0,coloursForMap), title="index",bg="white" )
 
         #this has actual values : but needs editing to get it right
-        legend(x='bottomleft', legend=c(rev(levels(sGDF$indexToPlotAsFactor)),"no data"), pch = 15, col=c(coloursForMap[numColours:1],"white"), title="category",bg="white" )
+        
+	if (addLegend)
+    {
+
+      	availablePackages<-.packages(all.available = TRUE)
+
+      	if("spam" %in% availablePackages && "fields" %in% availablePackages){
+
+      	          addMapLegend(sGDF[[attrName]],catMethod=catMethod,colourPalette=colourPalette,numCats=numCats)
+
+      	}else{
+      	      #Old style legend if you don't have spam or fields.
+          	legend(x='bottomleft', legend=c(rev(levels(sGDF$indexToPlotAsFactor)),"no data"), pch = 15, col=c(coloursForMap[numColours:1],"white"), title="category",bg="white" )
+        }
+    }
+
+
+
+
+
+
+
+
+
 
 
     #could add title

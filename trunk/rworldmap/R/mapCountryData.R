@@ -46,7 +46,7 @@ function( inFile = ""
        data(dFexampleCountryData)
        dF <- dFexampleCountryData # copying from the example data
        #also setting a defsult nameColumnToPlot if it isn't set
-       if ( nameColumnToPlot == "" ) nameColumnToPlot <- names(dFexampleCountryData)[5] #column 5 in EPI data is Popn2005                
+       if ( nameColumnToPlot == "" ) nameColumnToPlot <- names(dFexampleCountryData)[16] #column 16 in EPI data is BIODIVERSITY                
     } else if ( is.character(inFile)) 
     {
        if ( !file.exists(inFile) )
@@ -145,10 +145,13 @@ function( inFile = ""
     dataCatNums <- as.numeric(dataCategorised)
     
     #plotting the map, setting map extents if mapRegion not set to world
-    if (mapRegion == "world")
+    if (mapRegion == "world")    if (mapRegion == "world")
     {
-        plot(mapToPlot,col=coloursForMap[dataCatNums],border=countryBorderCol)
-    } else {plot(mapToPlot,col=coloursForMap[dataCatNums],border=countryBorderCol,xlim=x,ylim=y)} 
+        plot(mapToPlot,col=coloursForMap[dataCatNums],border=countryBorderCol,xaxs="i",yaxs="i") #xaxs="i" ensures maps fill plot area
+    } else 
+    {   
+        plot(mapToPlot,col=coloursForMap[dataCatNums],border=countryBorderCol,xlim=x,ylim=y,xaxs="i",yaxs="i")
+    } 
         
     #adding a simple legend
     #! later offer option to modify this	    

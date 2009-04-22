@@ -121,7 +121,7 @@ function( inFile = ""
 
     #only plot ascii data if plotData=T (allows legend to be plotted on its own by setting plotData=F)
     if (plotData)
-        image(sGDF,attr='indexToPlot',col=coloursForMap,xlim=c(we,ea),ylim=c(so,no))
+        image(sGDF,attr='indexToPlot',col=coloursForMap,xlim=c(we,ea),ylim=c(so,no), xaxs='i', yaxs='i' ) #xaxs=i ensures maps fill plot area
 
     #adding country outlines
     if ( addCountryOutlines )
@@ -132,15 +132,11 @@ function( inFile = ""
        }
     
     #add legend to map, can change this to a better legend using the fields package
-    #! I'll probably want to create a dedicated legend function
     #to offer a bunch more options, including whether to use the index val or the actual values
+    #legend(x='bottomleft', legend=c(0:numCats), pch = 22, col=c(0:numCats),pt.bg=c(0:numCats), title="index",bg="white" )        
+    #this one does by map categories
+    #legend(x='bottomleft', legend=c(0:numCats), pch = 22, col=c(0,coloursForMap),pt.bg=c(0,coloursForMap), title="index",bg="white" )
 
-        #legend(x='bottomleft', legend=c(0:numCats), pch = 22, col=c(0:numCats),pt.bg=c(0:numCats), title="index",bg="white" )
-        
-        #this one does by map categories
-        #legend(x='bottomleft', legend=c(0:numCats), pch = 22, col=c(0,coloursForMap),pt.bg=c(0,coloursForMap), title="index",bg="white" )
-
-        #this has actual values : but needs editing to get it right
         
 	if (addLegend)
     {

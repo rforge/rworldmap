@@ -145,7 +145,7 @@ function( inFile = ""
     dataCatNums <- as.numeric(dataCategorised)
     
     #plotting the map, setting map extents if mapRegion not set to world
-    if (mapRegion == "world")    if (mapRegion == "world")
+    if (mapRegion == "world")
     {
         plot(mapToPlot,col=coloursForMap[dataCatNums],border=countryBorderCol,xaxs="i",yaxs="i") #xaxs="i" ensures maps fill plot area
     } else 

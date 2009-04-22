@@ -82,7 +82,7 @@ if ( catMethod=="logFixedWidth")
 			cutVector <- minVal + ( ((0:numCats)/numCats) * (maxVal-minVal) )	
  			
  			#antilog
-      cutVector <- exp(cutVector)
+      cutVector <- exp(cutVector) -  exp(log(addTo0ForLog))
 
       #earlier version
       #change to a log index with num categories defined by numCats

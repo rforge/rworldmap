@@ -20,7 +20,12 @@ function(colourPalette, numColours)
 
 	if(colourPalette=="palette")
 	{	
-		coloursToUse<-palette()
+	#If the palette has a different number of colours to the number of breaks, interpolation is used.
+	#This makes custom palettes easier to use. You can change numCats in a mapping call with out changing the palette.
+	#It also makes it easier to use custom palettes with pretty or quantiles, where the number of categories is always numCats.
+    if(length(palette())==numColours){coloursToUse<-palette()}
+    else{coloursToUse<-colorRampPalette(palette())(numColours)
+    }
 	} else
 	
 	if(colourPalette=="heat")

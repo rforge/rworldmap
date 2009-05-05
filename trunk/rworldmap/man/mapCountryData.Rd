@@ -67,7 +67,7 @@ the second by \code{addMapLegend}. The second style is used when the fields and 
 \author{ andy south }
 \note{ ~~further notes~~ 
 
- ~Make other sections like Warning with \section{Warning }{....} ~
+Add notes here
 }
 \seealso{ ~~objects to See Also as \code{\link{help}}, ~~~ }
 \examples{
@@ -75,7 +75,7 @@ the second by \code{addMapLegend}. The second style is used when the fields and 
 ##-- ==>  Define data, use random,
 ##--	or do  help(data=index)  for the standard data sets.
 mapCountryData()
-
+data("dFexampleCountryData",envir=environment())
 mapCountryData( dFexampleCountryData
               , nameColumnToPlot="BIODIVERSITY"
               , joinCode = "ISO3"

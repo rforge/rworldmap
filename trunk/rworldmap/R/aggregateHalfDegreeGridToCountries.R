@@ -51,7 +51,7 @@ function( inFile=""
     #sGDFcountries <- readAsciiGrid(fname=inFileGridCountries) #readAsciiGrid is a maptools method
 
     #getting data from within package
-    data(gridCountriesNumeric)
+    data("gridCountriesNumeric",envir=environment())
     #temporary solution copying it
     sGDFcountries <- gridCountriesNumeric
 

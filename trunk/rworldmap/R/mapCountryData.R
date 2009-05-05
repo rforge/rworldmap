@@ -43,7 +43,7 @@ function( inFile = ""
     else if ( inFile == "" )
     {
        message(paste("using example data because no file specified in",functionName,"\n"))
-       data(dFexampleCountryData)
+       data("dFexampleCountryData",envir=environment())
        dF <- dFexampleCountryData # copying from the example data
        #also setting a defsult nameColumnToPlot if it isn't set
        if ( nameColumnToPlot == "" ) nameColumnToPlot <- names(dFexampleCountryData)[16] #column 16 in EPI data is BIODIVERSITY                

@@ -4,7 +4,7 @@ function()
     #displays examples - i should probably put somewhere else
     
     #get the data
-    data("dFexampleCountryData")   
+    data("dFexampleCountryData",envir=environment())
    
     #should check operating system for windows()
     #or just remove

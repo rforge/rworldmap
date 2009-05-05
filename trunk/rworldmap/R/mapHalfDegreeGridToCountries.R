@@ -29,7 +29,7 @@ function( inFile=""
     else if ( inFile == "" )
     {
        message("using example data because no file specified in mapHalfDegreeGridToCountries()\n")
-       data(gridExampleData)
+       data("gridExampleData",envir=environment())
        sGDF <- gridExampleData # copying from the example data            
     } else if ( is.character(inFile)) 
     {           

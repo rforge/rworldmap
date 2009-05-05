@@ -50,8 +50,7 @@ the second by \code{addMapLegend}. The second style is used when the fields and 
 \references{ }
 \author{ andy south }
 \note{ ~~further notes~~ 
-
- ~Make other sections like Warning with \section{Warning }{....} ~
+Add notes here
 }
 \seealso{ ~~objects to See Also as \code{\link{help}}, ~~~ }
 \examples{

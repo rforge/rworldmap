@@ -14,13 +14,13 @@ function( dF
     #will need to decide on default options
     #! need to add error trap
     if (projection == "none" & mapResolution == 'low') 
-        { data(wrld_simpl_lessIslands)
+        { data("wrld_simpl_lessIslands",envir=environment())
           mapWithData <- wrld_simpl_lessIslands } else
     if (projection == "none") 
-        { data(wrld_simpl)
+        { data("wrld_simpl",envir=environment())
           mapWithData <- wrld_simpl } else              
     if (projection == "EqualArea" || projection=="equalArea" ) 
-        { data(wrld_simpl_Mollweide)
+        { data("wrld_simpl_Mollweide",envir=environment())
           mapWithData <- wrld_simpl_Mollweide } 
 
     #test whether user joinCode is one of permitted
@@ -66,7 +66,7 @@ function( dF
     #!could offer an option for the user to set the name of a country column in the function call
     #nameCountryColumn <- "Country"
     failedCountries <- dF[[nameCountryColumn]][is.na(matchPosnsInLookup)]
-    failedCountries <- cbind(failedCodes,failedCountries)
+    failedCountries <- cbind(failedCodes,"failedCountries"=as.character(failedCountries))
     
     #printing info to console    
     cat(numFailedCodes,"codes from your data failed to match with a country code in the map\n")

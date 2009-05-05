@@ -27,7 +27,7 @@ rwmGetColours(colourPalette, numColours)
 \author{ matthew staines }
 \note{ ~~further notes~~ 
 
- ~Make other sections like Warning with \section{Warning }{....} ~
+Add notes here
 }
 \seealso{ ~~objects to See Also as \code{\link{help}}, ~~~ }
 \examples{

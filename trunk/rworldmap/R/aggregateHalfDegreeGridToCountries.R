@@ -51,9 +51,9 @@ function( inFile=""
     #sGDFcountries <- readAsciiGrid(fname=inFileGridCountries) #readAsciiGrid is a maptools method
 
     #getting data from within package
-    data("gridCountriesNumeric",envir=environment())
+    data("gridCountriesNumeric",envir=environment(),package="rworldmap")
     #temporary solution copying it
-    sGDFcountries <- gridCountriesNumeric
+    sGDFcountries <- get("gridCountriesNumeric")
 
     #inFileNumericCountryCodeLookup <- "M:\\Quest\\worldmaps\\iso3166_2_3_numeric.csv"   
             

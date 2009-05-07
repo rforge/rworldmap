@@ -4,7 +4,8 @@ function()
     #displays examples - i should probably put somewhere else
     
     #get the data
-    data("dFexampleCountryData",envir=environment())
+    data("dFexampleCountryData",envir=environment(),package="rworldmap")
+    dFexampleCountryData<-get("dFexampleCountryData")
    
     #should check operating system for windows()
     #or just remove

@@ -54,8 +54,8 @@ function( inFile = ""
     } else if ( inFile == "" )
     {
        message("using example data because no file specified in mapGridAscii()\n")
-       data("gridExampleData",envir=environment())
-       sGDF <- gridExampleData # copying from the example data
+       data("gridExampleData",envir=environment(),package="rworldmap")
+       sGDF <- get("gridExampleData") # copying from the example data
        attrName <- names(sGDF)[1] #to be able to get at data using original filename 
                   
     } else if ( is.character(inFile)) 
@@ -127,7 +127,8 @@ function( inFile = ""
     if ( addCountryOutlines )
        {
         #map('world',add=TRUE,col="grey")
-        data("wrld_simpl",envir=environment())
+        data("wrld_simpl",envir=environment(),package="rworldmap")
+        wrld_simpl<-get("wrld_simpl")
         plot(wrld_simpl,add=TRUE,border=countryBorderCol)
        }
     

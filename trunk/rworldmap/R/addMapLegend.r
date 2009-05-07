@@ -33,7 +33,11 @@ require(fields)
 
 
 #Ensures that addMapLegend() matches the defaults of mapCountryData().
-if(identical(plottedData,"")){data("dFexampleCountryData",envir=environment());plottedData<-dFexampleCountryData$BIODIVERSITY}
+if(identical(plottedData,"")){
+ data("dFexampleCountryData",envir=environment(),package="rworldmap")
+ dFexampleCountryData<-get("dFexampleCountryData")
+ plottedData<-dFexampleCountryData$BIODIVERSITY
+ }
 
 
 #Get the breaks and colours used in the plot. These breaks are used for labelling.

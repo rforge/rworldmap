@@ -11,6 +11,7 @@ A more detailed map defining division of cells between neighbouring countries wi
 \usage{data(gridCountriesNumeric)}
 \format{
   The format is:
+\preformatted{
 Formal class 'SpatialGridDataFrame' [package "sp"] with 6 slots
   ..@ data       :'data.frame':	259200 obs. of  1 variable:
   .. ..$ country.asc: num [1:259200] NA NA NA NA NA NA NA NA NA NA ...
@@ -29,6 +30,7 @@ Formal class 'SpatialGridDataFrame' [package "sp"] with 6 slots
   .. .. ..$ : chr [1:2] "min" "max"
   ..@ proj4string:Formal class 'CRS' [package "sp"] with 1 slots
   .. .. ..@ projargs: chr " +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0"
+}
 }
 \details{
   ~~ If necessary, more details than the __description__ above ~~

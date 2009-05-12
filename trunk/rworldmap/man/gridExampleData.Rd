@@ -11,7 +11,8 @@ data(gridExampleData)
 }
 \format{
   The format is:
-Formal class 'SpatialGridDataFrame' [package "sp"] with 6 slots
+\preformatted{
+  Formal class 'SpatialGridDataFrame' [package "sp"] with 6 slots
   ..@ data       :'data.frame':	259200 obs. of  1 variable:
   .. ..$ pa2000.asc: num [1:259200] NA NA NA NA NA NA NA NA NA NA ...
   ..@ grid       :Formal class 'GridTopology' [package "sp"] with 3 slots
@@ -29,6 +30,7 @@ Formal class 'SpatialGridDataFrame' [package "sp"] with 6 slots
   .. .. ..$ : chr [1:2] "min" "max"
   ..@ proj4string:Formal class 'CRS' [package "sp"] with 1 slots
   .. .. ..@ projargs: chr " +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0"
+}
 }
 \details{
 From International Institute for Applied System Analysis (IIASA) GGI Scenario Database, 2007 Available at: 

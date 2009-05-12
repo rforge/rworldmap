@@ -8,7 +8,8 @@ A 'SpatialPolygonsDataFrame' [package "sp"] object containing a simplified world
 \usage{data(wrld_simpl)}
 \format{
   The format is:
-Formal class 'SpatialPolygonsDataFrame' [package "sp"] with 5 slots
+\preformatted{
+  Formal class 'SpatialPolygonsDataFrame' [package "sp"] with 5 slots
   ..@ data       :'data.frame':	246 obs. of  11 variables:
   .. ..$ FIPS     : Factor w/ 244 levels "","AC","AE","AF",..: 2 5 6 7 8 10 11 12 13 17 ...
   .. ..$ ISO2     : Factor w/ 246 levels "AD","AE","AF",..: 4 61 17 6 7 9 12 11 14 24 ...
@@ -31,6 +32,7 @@ Formal class 'SpatialPolygonsDataFrame' [package "sp"] with 5 slots
   .. .. ..$ : chr [1:2] "min" "max"
   ..@ proj4string:Formal class 'CRS' [package "sp"] with 1 slots
   .. .. ..@ projargs: chr " +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0"
+}
 }
 
 \source{

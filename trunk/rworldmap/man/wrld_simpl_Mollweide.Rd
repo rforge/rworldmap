@@ -8,7 +8,8 @@ A 'SpatialPolygonsDataFrame' [package "sp"] object containing a simplified world
 \usage{data(wrld_simpl_Mollweide)}
 \format{
   The format is:
-Formal class 'SpatialPolygonsDataFrame' [package "sp"] with 5 slots
+\preformatted{
+  Formal class 'SpatialPolygonsDataFrame' [package "sp"] with 5 slots
   ..@ data       :'data.frame':	246 obs. of  11 variables:
   .. ..$ FIPS     : Factor w/ 244 levels "","AC","AE","AF",..: 2 5 6 7 8 10 11 12 13 17 ...
   .. ..$ ISO2     : Factor w/ 246 levels "AD","AE","AF",..: 4 61 17 6 7 9 12 11 14 24 ...
@@ -34,7 +35,7 @@ Formal class 'SpatialPolygonsDataFrame' [package "sp"] with 5 slots
   ..@ proj4string:Formal class 'CRS' [package "sp"] with 1 slots
   .. .. ..@ projargs: chr " +proj=moll +ellps=WGS84"
 }
-
+}
 \source{
 shapefile obtained from : http://thematicmapping.org/downloads/world_borders.php
 Text from the site :

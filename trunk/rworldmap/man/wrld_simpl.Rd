@@ -8,6 +8,7 @@ A 'SpatialPolygonsDataFrame' [package "sp"] object containing a simplified world
 \usage{data(wrld_simpl)}
 \format{
   The format is:
+\preformatted{
 Formal class 'SpatialPolygonsDataFrame' [package "sp"] with 5 slots
   ..@ data       :'data.frame':	246 obs. of  11 variables:
   .. ..$ FIPS     : Factor w/ 244 levels "","AC","AE","AF",..: 2 5 6 7 8 10 11 12 13 17 ...
@@ -32,7 +33,7 @@ Formal class 'SpatialPolygonsDataFrame' [package "sp"] with 5 slots
   ..@ proj4string:Formal class 'CRS' [package "sp"] with 1 slots
   .. .. ..@ projargs: chr " +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0"
 }
-
+}
 \source{
 shapefile obtained from : http://thematicmapping.org/downloads/world_borders.php
 Text from the site :

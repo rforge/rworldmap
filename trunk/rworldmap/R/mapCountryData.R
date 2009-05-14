@@ -118,8 +118,7 @@ mapCountryData <- function(
   ## adding a simple legend
   ##! later offer option to modify this	    
   if (addLegend){
-    availablePackages<-.packages(all.available = TRUE)
-    if("spam" %in% availablePackages && "fields" %in% availablePackages){
+    if(require("spam") && require("fields")){
       addMapLegend(mapToPlot@data[[nameColumnToPlot]],catMethod=catMethod,colourPalette=colourPalette,numCats=numCats)
     }else{
       ## Old style legend if you don't have spam or fields.

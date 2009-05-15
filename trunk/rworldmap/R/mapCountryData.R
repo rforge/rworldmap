@@ -22,7 +22,7 @@ mapCountryData <- function(
                            mapTitle = 'columnName' #this sets it to the name of the column, any other string can be passed too
                            ){
   ## function to map country level data from a dataFrame or file (or use the example file)
-  functionName <- 'mapCountryData'
+  functionName <- as.character(sys.call()[[1]])
   
   ## failed to load data without this(&with no warning)
   require(sp)

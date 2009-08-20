@@ -21,6 +21,10 @@ mapCountryData <- function(
                            countryBorderCol = 'grey',
                            mapTitle = 'columnName' #this sets it to the name of the column, any other string can be passed too
                            ){
+  #for debugging, use n to enter the step through debugger, Q to exit
+  #browser()
+                           
+                           
   ## function to map country level data from a dataFrame or file (or use the example file)
   functionName <- as.character(sys.call()[[1]])
   
@@ -28,7 +32,7 @@ mapCountryData <- function(
   require(sp)
   
   ## checking the data    
-  ## will work on a file or a SpatialGridDataFrame or use the example data if none specified
+  ## will work on a file or a DataFrame or use the example data if none specified
   ## i could put this file checking bit into its own function
   
   if ( class(inFile)=="data.frame" ){

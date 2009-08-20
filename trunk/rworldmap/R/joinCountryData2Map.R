@@ -6,7 +6,7 @@ function( dF
                           , suggestForFailedCodes = FALSE 
                           , projection="EqualArea"  #options "none", "EqualArea"
                           , mapResolution="low" #options low, medium, only for projection='none' initially
-                          , verbose = TRUE #if set to FALSE it doesn't print progress messages to console                         
+                          , verbose = FALSE #if set to FALSE it doesn't print progress messages to console                         
                           )
    {
     #so that it can get at map data
@@ -119,9 +119,9 @@ function( dF
     #test colouring map by region & subregion seems to show order has been retained
     #plot(mapWithData,col=mapWithData@data$REGION)
     #plot(mapWithData,col=mapWithData@data$SUBREGION)
-
-
-    return(mapWithData)
+    
+    #return(mapWithData)
+    invisible(mapWithData)
    
    } #end of join2countryCodesAndCentroids
 

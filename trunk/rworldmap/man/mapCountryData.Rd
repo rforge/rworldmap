@@ -2,42 +2,38 @@
 \alias{mapCountryData}
 \title{Map country-level data.}
 \description{
-  Draw a map of country-level data from either a text file or a data frame
-  by associating rows of the data with countries by using standard country codes.
+  Draw a map of country-level data, allowing countries to be coloured, from an object created in joinCountryData2Map().
 }
 \usage{
-mapCountryData(inFile = "", nameColumnToPlot = "", joinCode = "ISO3",
-               nameJoinColumn = "ISO3V10", nameCountryColumn = "Country",
-               suggestForFailedCodes = FALSE, projection="none",
-               mapResolution="low", numCats = 7,
-               we=-160, ea=160, so=-80, no=90,
+mapCountryData(mapToPlot = "", nameColumnToPlot = "", numCats = 7,
+               xlim=c(-160,160), ylim=c(-80,90),
                mapRegion = "world",
-               catMethod="pretty", colourPalette= "heat", addLegend=TRUE,
-               textFileType = 'csv', verbose = FALSE,
-               countryBorderCol = 'grey', mapTitle = 'columnName')   
+               catMethod="quantiles", colourPalette= "heat", addLegend=TRUE,
+               borderCol = 'grey', mapTitle = 'columnName',
+               oceanCol=NA, aspect=1, missingCountryCol=NA
+               )   
 }
 \arguments{
-  \item{inFile}{ either a text file or a R data frame containing data referenced by country codes, if none specified an internal example data is used }
+  \item{mapToPlot}{ a spatial polygons dataframe from joinCountryData2Map() containing country polygons and data, if none specified an internal example data is used }
   \item{nameColumnToPlot}{ name of column containing the data you want to plot }
-  \item{joinCode}{ how countries are referenced - options are "ISO2","ISO3","FIPS","NAME", "UN" = numeric codes }
-  \item{nameJoinColumn}{ name of column containing country reference code }
-  \item{nameCountryColumn}{ optional name of column containing country names (used in reporting of success/failure) }
-  \item{suggestForFailedCodes}{ T/F - whether you want system to suggest for failed codes NOT YET WORKING }
-  \item{projection}{ map projection : 'none' or 'EqualArea' }
-  \item{mapResolution}{options low, medium, only for projection='none' initially  }
   \item{numCats}{ number of categories to put the data in, may be overidden if catMethod ='pretty' }
-  \item{we}{ map extents, can be overidden by mapRegion }
-  \item{ea}{ map extents, can be overidden by mapRegion }
-  \item{so}{ map extents, can be overidden by mapRegion }
-  \item{no}{ map extents, can be overidden by mapRegion }
-  \item{mapRegion}{ 'world','africa','oceania','eurasia','uk' sets map extents, overrides we,ea etc. }
-  \item{catMethod}{ method for categorisation of data "pretty", "fixedWidth", "logfixedWidth","quantiles", or a numeric vector defining breaks }
-  \item{colourPalette}{ "heat","white2Black","topo","palette":for current palette }
+  \item{xlim}{ map extents c(west,east), can be overidden by mapRegion }
+  \item{ylim}{ map extents c(south,north), can be overidden by mapRegion }
+  \item{mapRegion}{ a country name from getMap()\$NAME or 'world','africa','oceania','eurasia','uk' sets map extents, overrides xlim,ylim }
+  \item{catMethod}{ method for categorisation of data "pretty", "fixedWidth", "logfixedWidth","quantiles","categorical", or a numeric vector defining breaks }
+  \item{colourPalette}{ a string describing the colour palette to use, choice of :
+    \enumerate{
+               \item{}{="palette" for the current palette} 
+               \item{}{a vector of valid colours, e.g. =c('red','white','blue') or output from RColourBrewer} 
+               \item{}{= one of "heat","white2Black","black2White","topo","rainbow","terrain" }
+               }}
   \item{addLegend}{ whether to add a legend or not }
-  \item{textFileType}{ text file delimiter: 'csv' for comma, anything else for space or tab  }
-  \item{verbose}{ whether to print succeded & failed countries to console  }
-  \item{countryBorderCol}{ the colour for country borders  }
+  \item{borderCol}{ the colour for country borders  }
   \item{mapTitle}{ title to add to the map, any string or 'columnName' to set it to the name of the data column  }
+  \item{oceanCol}{a colour for the ocean}
+  \item{aspect}{aspect for the map, defaults to 1, if set to 'variable' uses same method as plot.Spatial in sp }
+  \item{missingCountryCol}{a colour for missing countries}
+  
 }
 
 \section{Warning}{will generate unhelpful errors in data categorisation if inappropriate 
@@ -45,24 +41,60 @@ options are chosen, e.g. with catMethod:Quantiles if numCats too high so that un
 }
 
 \details{
-There are two styles of legend available. The first is produced \code{legend},
-the second by \code{addMapLegend}. The second style is used when the fields and spam packages are installed.
+There are two styles of legend available. 
+If catMethod='categorical' or the packages fields and spam are not installed a simple legend with coloured boxes is created.
+Otherwise a colour bar legend is created. Finer control can be achieved by \code{\link{addMapLegendBoxes}} 
+or \code{\link{addMapLegend}} repectively. 
+}
+
+\value{
+invisibly returns a list containing the data and main options used for the map, 
+the list can be passed to \code{\link{addMapLegend}} or \code{\link{addMapLegendBoxes}}
+along with additional options to allow greater flexibility in legend creation.
 }
 
 \author{ andy south }
 
+\seealso{ classInt, RColorBrewer }
+
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
 mapCountryData()
-data("dFexampleCountryData",envir=environment())
-mapCountryData( dFexampleCountryData
-              , nameColumnToPlot="BIODIVERSITY"
+data("dFexampleCountryData",envir=environment(),package="rworldmap")
+sPDF <- joinCountryData2Map(dFexampleCountryData
               , joinCode = "ISO3"
               , nameJoinColumn = "ISO3V10"
               , projection = "none" 
               )
+mapCountryData( sPDF
+              , nameColumnToPlot="BIODIVERSITY" 
+              )
+              
+#user defined map colour scheme for categorical data              
+mapParams <- mapCountryData(nameColumnToPlot='REGION'
+              , catMethod='categorical'
+              , addLegend='FALSE'
+              , colourPalette=c('white','green','red','yellow','blue','black') 
+              )
+#changing legendText
+mapParams$legendText <- c('antarctic','africa','oceania','americas','s.asia','eurasia')              
+do.call( addMapLegendBoxes, c(mapParams,x='bottom',title="Region",horiz=TRUE))
+
+##showing how rworldmap can be used with the classInt and RColorBrewer packages
+library(classInt)
+library(RColorBrewer)
+#getting example data and joining to a map
+data("dFexampleCountryData",envir=environment(),package="rworldmap")
+sPDF <- joinCountryData2Map(dFexampleCountryData,joinCode = "ISO3",nameJoinColumn = "ISO3V10")
+#getting class intervals using a 'jenks' classification in classInt package
+classInt <- classIntervals( sPDF$EPI, n=5, style="jenks")
+catMethod = classInt$brks
+#getting a colour scheme from the RColorBrewer package
+colourPalette <- brewer.pal(5,'RdPu')
+#calling mapCountryData with the parameters from classInt and RColorBrewer
+mapParams <- mapCountryData(sPDF,nameColumnToPlot="EPI", addLegend=FALSE, catMethod = catMethod, colourPalette=colourPalette )
+do.call(addMapLegend, c(mapParams,legendLabels="all",legendWidth=0.5,legendIntervals="data"))
+
+              
 
 }
 

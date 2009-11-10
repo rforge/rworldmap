@@ -1,0 +1,85 @@
+\name{mapGriddedData-methods}
+\docType{methods}
+%\alias{mapGriddedData-methods}
+%\alias{mapGriddedData,ANY-method}
+\alias{mapGriddedData}
+\alias{mapGriddedData,character-method}
+\alias{mapGriddedData,SpatialGridDataFrame-method}
+\title{ Produce maps of global gridded data at half degree resolution }
+\description{Produce maps of global gridded data at half degree resolution}
+
+
+\section{Methods}{
+\describe{
+%\item{dataset = "ANY"}{ ~~describe this method here }
+\item{dataset = "character"}{ the character string should indicate a gridAscii file which will be opened and mapped }
+\item{dataset = "SpatialGridDataFrame"}{ maps a SpatialGridDataFrame }
+}}
+
+\usage{
+%\S4method{mapGriddedData}{SpatialGridDataFrame}(dataset,...)
+\S4method{mapGriddedData}{SpatialGridDataFrame}(dataset,nameColumnToPlot,numCats,catMethod,colourPalette,xlim,ylim,mapRegion,addLegend,addBorders,borderCol,oceanCol,landCol,plotData,aspect)
+%\S4method{mapGriddedData}{SpatialGridDataFrame}(dataset,...)
+\S4method{mapGriddedData}{character}(dataset,nameColumnToPlot,numCats,catMethod,colourPalette,xlim,ylim,mapRegion,addLegend,addBorders,borderCol,oceanCol,landCol,plotData,aspect)
+}
+
+\arguments{
+  \item{dataset}{gridAscii file name or spatialGridDataFrame}
+  \item{nameColumnToPlot}{ name of column containing the data to plot }
+  \item{numCats}{ number of categories to put the data in, may be overidden if catMethod ='pretty' }
+  \item{catMethod}{ method for categorisation of data "pretty", "fixedWidth", "logfixedWidth","quantiles","categorical", or a numeric vector defining breaks } 
+  \item{colourPalette}{ a string describing the colour palette to use, choice of :
+    \enumerate{
+               \item{}{="palette" for the current palette} 
+               \item{}{a vector of valid colours, e.g. =c('red','white','blue') or output from RColourBrewer} 
+               \item{}{= one of "heat","white2Black","black2White","topo","rainbow","terrain" }
+               }}
+  \item{xlim}{ map extents c(west,east), can be overidden by mapRegion }
+  \item{ylim}{ map extents c(south,north), can be overidden by mapRegion } 
+  \item{mapRegion}{ a country name from getMap()\$NAME or 'world','africa','oceania','eurasia','uk' sets map extents, overrides xlim,ylim }
+  \item{addLegend}{ whether to add a legend or not }
+  \item{addBorders}{ options for country borders, 'low','coarse' = low or coarse resolution, 'coasts' = coasts only, 'none' or NA for none   }
+  \item{borderCol}{ the colour for country borders  } 
+  \item{oceanCol}{a colour for the ocean if the grid values are NA}
+  \item{landCol}{a colour to fill countries if the grid values are NA over land}
+  \item{plotData}{ whether to plotData, if FALSE a legend can be added on its own  }
+  \item{aspect}{aspect for the map, defaults to 1, if set to 'variable' uses same method as plot.Spatial in sp }
+  %\item{\dots}{ extra args }
+}
+
+ 
+\details{
+Plots a map of global half degree gridded data, allowing classification, colours and regions to be set
+}
+
+\value{
+invisibly returns a list containing the data and main options used for the map, 
+the list can be passed to \code{\link{addMapLegend}} along with additional options
+to allow greater flexibility in legend creation.
+}
+
+\author{ andy south and matthew staines}
+
+\seealso{ classInt, RColorBrewer }
+
+\examples{
+## mapping continuous data
+data(gridExampleData,envir=environment(),package="rworldmap")
+gridExampleData <- get("gridExampleData")
+mapGriddedData(gridExampleData)
+
+## reclassing continuous data to categorical & mapping
+data(gridExampleData,envir=environment(),package="rworldmap")
+#find quartile breaks
+cutVector <- quantile(gridExampleData@data[,1],na.rm=TRUE)
+#classify the data to a factor
+gridExampleData@data$categories <- cut(gridExampleData@data[,1], cutVector, include.lowest=TRUE)
+#rename the categories
+levels(gridExampleData@data$categories) <- c('low', 'med', 'high', 'vhigh')
+#mapping
+mapGriddedData(gridExampleData, nameColumnToPlot= 'categories', catMethod='categorical')
+
+
+}
+\keyword{ hplot }
+

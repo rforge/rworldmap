@@ -1,0 +1,56 @@
+\name{wrld_coarse}
+\Rdversion{1.1}
+\alias{wrld_coarse}
+\docType{data}
+\title{ a very coarse world map, only suitable for small global maps }
+\description{
+A 'SpatialPolygonsDataFrame' [package "sp"] object containing a very simplified world map. Polygons are attributed with country codes.
+}
+\usage{data(wrld_coarse)}
+\format{
+  The format is:
+Formal class 'SpatialPolygonsDataFrame' [package "sp"] with 5 slots
+  ..@ data       :'data.frame':	174 obs. of  12 variables:
+  .. ..$ SP_ID    : Factor w/ 174 levels "AFG","AGO","ALB",..: 1 2 3 4 5 6 7 8 9 10 ...
+  .. ..$ FIPS     : Factor w/ 173 levels "AE","AF","AG",..: 2 8 5 7 1 9 6 12 59 10 ...
+  .. ..$ ISO2     : Factor w/ 174 levels "AD","AE","AF",..: 3 6 4 1 2 8 5 7 153 10 ...
+  .. ..$ ISO3     : Factor w/ 174 levels "AFG","AGO","ALB",..: 1 2 3 4 5 6 7 8 9 10 ...
+  .. ..$ UN       : int [1:174] 4 24 8 20 784 32 51 10 260 36 ...
+  .. ..$ NAME     : Factor w/ 174 levels "Afghanistan",..: 1 5 2 4 165 7 8 6 58 9 ...
+  .. ..$ AREA     : int [1:174] 65209 124670 2740 0 8360 273669 2820 0 0 768230 ...
+  .. ..$ POP2005  : num [1:174] 25067407 16095214 3153731 73483 4104291 ...
+  .. ..$ REGION   : int [1:174] 142 2 150 150 142 19 142 0 0 9 ...
+  .. ..$ SUBREGION: int [1:174] 34 17 39 39 145 5 145 0 0 53 ...
+  .. ..$ LON      : num [1:174] 65.22 17.54 20.07 1.58 54.16 ...
+  .. ..$ LAT      : num [1:174] 33.7 -12.3 41.1 42.5 23.5 ...
+  .. ..- attr(*, "data_types")= chr [1:12] "C" "C" "C" "C" ...
+  ..@ polygons   :List of 174
+  .. ..$ :Formal class 'Polygons' [package "sp"] with 5 slots
+  
+  ..@ plotOrder  : int [1:174] 8 135 28 166 31 23 10 66 85 6 ...
+  ..@ bbox       : num [1:2, 1:2] -180 -90 180 83.6
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "r1" "r2"
+  .. .. ..$ : chr [1:2] "min" "max"
+  ..@ proj4string:Formal class 'CRS' [package "sp"] with 1 slots
+  .. .. ..@ projargs: chr NA
+}
+
+\source{
+original shapefile obtained from : http://thematicmapping.org/downloads/world_borders.php
+Text from the site :
+"The original shapefile (world_borders.zip, 3.2 MB) was downloaded from the Mapping Hacks website: http://www.mappinghacks.com/data/
+
+The dataset is available under a Creative Commons Attribution-Share Alike License. If you use this dataset, please provide a link to this website."
+
+imported to R and cleaned by Roger Bivand
+
+simplified using mapShaper (www.mapshaper.org) and reduce the size to 30 percent for faster printing
+
+
+}
+
+\examples{
+data(wrld_coarse)
+}
+\keyword{datasets}

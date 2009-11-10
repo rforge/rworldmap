@@ -1,102 +1,78 @@
 mapCountryData <- function(
-                           inFile = "",
+                           mapToPlot = "",
                            nameColumnToPlot = "",
-                           joinCode = "ISO3", #options "ISO2","ISO3","FIPS","NAME", "UN" = numeric codes
-                           nameJoinColumn = "ISO3V10",
-                           nameCountryColumn = "Country",
-                           suggestForFailedCodes = FALSE,
-                           projection="none", #, "EqualArea" 
-                           mapResolution="low", #options low, medium, only for projection='none' initially                        
                            numCats = 7, # *may be overridden by catMethod
-                           we=-160,
-                           ea=160,
-                           so=-80,
-                           no=90,
-                           mapRegion = "world",   #sets map extents, overrides we,ea etc.
-                           catMethod="pretty",   #any vector defining breaks, "fixedWidth","quantiles","logFixedWidth"
+                           xlim=c(-160,160),
+                           ylim=c(-80,90),
+                           mapRegion = "world",   #sets map extents, overrides xlim, ylim
+                           catMethod="quantiles",   #any vector defining breaks, "fixedWidth","quantiles","logFixedWidth"
                            colourPalette= "heat", #"heat","white2Black","topo","palette" for current palette
                            addLegend=TRUE,
-                           textFileType = 'csv', #options 'csv' or anything else will be read as space/tab delimited 'other'  
-                           verbose = FALSE, #TRUE #whether to print succeded & failed countries to console
-                           countryBorderCol = 'grey',
-                           mapTitle = 'columnName' #this sets it to the name of the column, any other string can be passed too
+                           borderCol = 'grey',
+                           mapTitle = 'columnName', #this sets it to the name of the column, any other string can be passed too
+                           oceanCol=NA,
+                           aspect=1,
+                           missingCountryCol=NA                                                    
                            ){
-  #for debugging, use n to enter the step through debugger, Q to exit
-  #browser()
                            
-                           
-  ## function to map country level data from a dataFrame or file (or use the example file)
   functionName <- as.character(sys.call()[[1]])
+                           
+  #browser()  #n to enter the step through debugger, Q to exit
   
-  ## failed to load data without this(&with no warning)
   require(sp)
   
-  ## checking the data    
-  ## will work on a file or a DataFrame or use the example data if none specified
-  ## i could put this file checking bit into its own function
-  
-  if ( class(inFile)=="data.frame" ){
-    dF <- inFile    
-  } else if ( inFile == "" ) {
-    message(paste("using example data because no file specified in",functionName,"\n"))
-    data("dFexampleCountryData",envir=environment(),package="rworldmap")
-    dF <- get("dFexampleCountryData") # copying from the example data
-    ## also setting a defsult nameColumnToPlot if it isn't set
-    if ( nameColumnToPlot == "" ) nameColumnToPlot <- names(dF)[16] #column 16 in EPI data is BIODIVERSITY
-  } else if ( is.character(inFile)) {
-    if ( !file.exists(inFile) ) {
-      warning("the file: ",inFile," seems not to exist, exiting ",functionName,"\n")
+  ## checking the data
+  ## aug09 requires a SpatialPolygonsDataFrame
+  ## or uses the example data in the maps POP2005 (i.e. doesn't need to join to dFexampleCountryData)
+ 
+ if ( class(mapToPlot)=="SpatialPolygonsDataFrame" ) {
+    ## checking if there is any data in the dataFrame
+    if ( length(mapToPlot@data[,1]) < 1 ){
+      stop("seems to be no data in your chosen file or dataframe in ",functionName) 
       return(FALSE)
-    }
-    ## reading text file either csv or other delimiter (space or tab)
-    if ( textFileType == 'csv' ){
-      dF <- read.csv( inFile, header=TRUE, as.is=TRUE,na.string='-9999' )
-    } else {
-      dF <- read.table( inFile, header=TRUE, as.is=TRUE,na.string='-9999' )
-    }
+    } 
+  } else if ( mapToPlot == "" ) {
+    message(paste("using example data because no file specified in",functionName))
+    mapToPlot <- getMap(resolution="low",projection="none")
+    #data("dFexampleCountryData",envir=environment(),package="rworldmap")
+    #dF <- get("dFexampleCountryData") # copying from the example data
+    ## also setting a defsult nameColumnToPlot if it isn't set
+    if ( nameColumnToPlot == "" ) nameColumnToPlot <- "POP2005" #
   } else {
-    warning(inFile," seems not to be a valid file name or data frame, exiting ",functionName,"\n") 
+    #warning(inFile," seems not to be a valid file name or data frame, exiting ",functionName,"\n")
+    stop(functionName," requires a SpatialPolygonsDataFrame object created by the joinCountryData2Map() function \n")
+    return(FALSE) 
   }
   
   ## check that the column name exists in the data frame
-  if ( is.na(match(nameColumnToPlot, names(dF)) )){
-    warning("your chosen nameColumnToPlot :'",nameColumnToPlot,"' seems not to exist in your data, columns = ", names(dF))
+  if ( is.na(match(nameColumnToPlot, names(mapToPlot@data)) )){
+    stop("your chosen nameColumnToPlot :'",nameColumnToPlot,"' seems not to exist in your data, columns = ",paste(names(mapToPlot@data),""))
     return(FALSE)
   } 
   
-  ## checking if there is any data in the dataFrame
-  if ( length(dF[,1]) < 1 ){
-    warning("seems to be no data in your chosen file or dataframe in ",functionName) 
-    return(FALSE)
-  }
+  ##classify data into categories   
+
+  dataCategorised <- mapToPlot@data[[nameColumnToPlot]]
   
-  ## setting map extents if a mapRegion has been specified
-  if (mapRegion != "world"){
-    dFwesn <- setMapExtents(mapRegion)
-    we=dFwesn$we;   ea=dFwesn$ea;   so=dFwesn$so;   no=dFwesn$no
-    ## could set mapResolution to medium here ? but then would be tricky to alter
-  }
-  
-  x=c(we,ea)
-  y=c(so,no)
-  
-  ## 10/9/08 trying to use estimated coord conversion rather than proper projection through spTransform   
-  ## ! this may be risky if users want to put points on map
-  ## ! but should be OK if just for coloured countries
-  if (projection=="EqualArea" || projection=="equalArea"){  
-    x=x*100000
-    y=y*100000
-  }       
-  
-  ## a) joining data to the map
-  mapToPlot <- joinCountryData2Map(dF, joinCode, nameJoinColumn, nameCountryColumn, suggestForFailedCodes, projection, mapResolution, verbose)
-  ## if join has failed, then exit this function too, message from join should be enough
-  if ( class(mapToPlot)!="SpatialPolygonsDataFrame" ) return(FALSE)
-  
-  ## b) classify data into categories   
-  
-  ## depending on the catMethod, the numCats may be overriden (e.g. for 'pretty')    
-  dataCategorised <- rwmApplyClassBreaks( mapToPlot@data[[nameColumnToPlot]], catMethod, numCats)
+  #checking whether method is categorical, length(catMethod)==1 needed to avoid warning if a vector of breaks is passed  
+  if( length(catMethod)==1 && catMethod=="categorical" ) #if categorical, just copy the data, add an as.factor() to convert any data that aren't yet as a factor   
+    { 
+      dataCategorised <- as.factor( dataCategorised )
+      cutVector <- levels(dataCategorised) #doesn't do cutting but is passed for use in legend
+    }else
+    { 
+      if(is.character(catMethod)==TRUE)
+    	{	
+    		cutVector <- rwmGetClassBreaks( dataCategorised, catMethod=catMethod, numCats=numCats, verbose=TRUE )
+    	} else if(is.numeric(catMethod)==TRUE)
+    	#if catMethod is numeric it is already a vector of breaks	
+    	{
+    		cutVector <- catMethod
+    	}
+  	#Categorising the data, using a vector of breaks.	
+  	dataCategorised <- cut( dataCategorised, cutVector, include.lowest=TRUE)    	
+	  } #end of if data are not categorical
+ 
   
   ## add extra column to map attribute data
   colNameRaw <- nameColumnToPlot
@@ -107,28 +83,39 @@ mapCountryData <- function(
   numColours <- length(levels(dataCategorised))
   
   ## get vector of the colours to be used in map (length=num categories)    
-  coloursForMap <- rwmGetColours(colourPalette,numColours)
+  colourVector <- rwmGetColours(colourPalette,numColours)
   
   ## get numeric index of which category each datapoint is in (length = num points)  
   dataCatNums <- as.numeric(dataCategorised)
   
-  ## plotting the map, setting map extents if mapRegion not set to world
-  if (mapRegion == "world"){
-    plot(mapToPlot,col=coloursForMap[dataCatNums],border=countryBorderCol,xaxs="i",yaxs="i") #xaxs="i" ensures maps fill plot area
-  } else {   
-    plot(mapToPlot,col=coloursForMap[dataCatNums],border=countryBorderCol,xlim=x,ylim=y,xaxs="i",yaxs="i")
-  } 
-  
-  ## adding a simple legend
-  ##! later offer option to modify this	    
-  if (addLegend){
-    if(require("spam") && require("fields")){
-      addMapLegend(mapToPlot@data[[nameColumnToPlot]],catMethod=catMethod,colourPalette=colourPalette,numCats=numCats)
-    }else{
-      ## Old style legend if you don't have spam or fields.
-      legend(x='bottomleft', legend=c(rev(levels(dataCategorised)),"no data"), pch = 15, col=c(coloursForMap[numColours:1],"white"), title="category",bg="white" )
-    }
+  #adding missing country colour
+  if(!is.na(missingCountryCol)){
+    #adding missing country colour as the last element
+    colourVector<- c(colourVector,missingCountryCol)
+    #setting all missing values to the last element
+    dataCatNums[is.na(dataCatNums)]<-length(colourVector)
   }
+  
+  #setting up the map plot
+  rwmNewMapPlot(mapToPlot,mapRegion=mapRegion,xlim=xlim,ylim=ylim,oceanCol=oceanCol,aspect=aspect)
+  #plotting the map
+  plot(mapToPlot,col=colourVector[dataCatNums],border=borderCol,add=TRUE)
+  
+  #the above might need : xaxs="i",yaxs="i") #xaxs="i" ensures maps fill plot area
+   
+  if (addLegend){
+      
+      if((length(catMethod)==1 && catMethod=="categorical") || !require("spam") || !require("fields")){
+      
+        # simpler legend for categorical data OR if you don't have packages spam or fields.
+        addMapLegendBoxes(colourVector=colourVector,cutVector=cutVector,plottedData=dataCategorised)          
+      
+      }else{
+        #colour bar legend based on fields package
+        addMapLegend(cutVector=cutVector,colourVector=colourVector,plottedData=mapToPlot@data[[nameColumnToPlot]],catMethod=catMethod,colourPalette=colourPalette)
+      }  
+  
+  } #end of addLegend
   
   ## add title
   if ( mapTitle == 'columnName' ){
@@ -136,5 +123,28 @@ mapCountryData <- function(
   } else {
     title( mapTitle )
   }
-}
+   
+  ##29/10/09 returning parameter list that can be used by do.call(addMapLegend,*)  
+  #sys.call()[[2]] gets the name of the first argument
+        
+  #invisible(list(plottedData=eval( parse(text=paste(sys.call()[[2]],"[['",nameColumnToPlot,"']]",sep='')))
+  invisible(list(colourVector=colourVector
+                ,cutVector=cutVector
+                ,plottedData=mapToPlot[[nameColumnToPlot]]
+                ,catMethod=catMethod
+                ,colourPalette=colourPalette
+                )
+           ) 
+  
+  #failed attempt at creating something that could be directly used in addMapLegend()         
+  #invisible(list(plottedData=paste("'",sys.call()[[2]],"'",sep='')
+  #              ,nameColumnToPlot=paste("'",nameColumnToPlot,"'",sep='')
+  #              ,catMethod=paste("'",catMethod,"'",sep='')
+  #              ,colourPalette=paste("'",colourPalette,"'",sep='')
+  #              ,numCats=numCats
+  #              )
+  #         )            
+           
+            
+} #end of mapCountryData()
 

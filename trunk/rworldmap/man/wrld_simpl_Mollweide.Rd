@@ -45,11 +45,9 @@ The dataset is available under a Creative Commons Attribution-Share Alike Licens
 
 imported to R, cleaned and projected by Roger Bivand
 }
-\references{
-  ~~ possibly secondary sources and usages ~~
-}
+
 \examples{
 data(wrld_simpl_Mollweide)
-## maybe str(wrld_simpl_Mollweide) ; plot(wrld_simpl_Mollweide) ...
+
 }
 \keyword{datasets}

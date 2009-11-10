@@ -12,41 +12,41 @@ Enables mapping of country level and gridded user datasets by facilitating joini
 \tabular{ll}{
 Package: \tab rworldmap\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
-Date: \tab 2008-08-05\cr
-License: \tab What license is it under?\cr
+Version: \tab 1.03\cr
+Date: \tab 2009-10-30\cr
+License: \tab GPL (>= 2)\cr
 }
-~~ An overview of how to use the package ~~
+Country Level Data can be joined to a map using  \code{\link{joinCountryData2Map}}, then mapped using \code{\link{mapCountryData}}.
+Gridded data can be mapped using \code{\link{mapGriddedData}}.
+
+Type vignette('rworldmap') to access a short document showing a few examples of 
+the main rworldmap functions to get you started.
+
 }
 \author{
-andy south
+Andy South and Barry Rowlingson
 
-Maintainer: Who to complain to <andy.south@cefas.co.uk>
+Maintainer: <andy.south@cefas.co.uk>
 }
 \references{
-~~ Literature or other references for background information ~~
+http://code.google.com/p/rworld
 }
 
 \keyword{ package }
-\seealso{
-~~ Optional links to other man pages, e.g. ~~
-~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
-}
+
+
 \examples{
 
 #mapping country level data, with no file specified it uses internal example data
-mapHalfDegreeGridToCountries() 
+mapCountryData()
 #specifying region
-mapCountryData(mapRegion="asia",projection="none")
+mapCountryData(mapRegion="asia")
 #mapping gridded data, with no file specified it uses internal example data
-mapGridAscii()
-#adding histogram
-mapGridAscii(addHist=TRUE)  
+mapGriddedData()
 #specifying region 
-mapGridAscii(mapRegion="africa")  
+mapGriddedData(mapRegion="africa")  
 #aggregating gridded data to country level, with no file specified it uses internal example data
 mapHalfDegreeGridToCountries()              
-#different agggregate option
-mapHalfDegreeGridToCountries( aggregateOption="mean" )
+
 
 }

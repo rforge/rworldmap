@@ -1,7 +1,7 @@
 \name{gridExampleData}
 \alias{gridExampleData}
 \docType{data}
-\title{ Example half degree grid data : population estimates for 2000 from IIASA (sp, SpatialGridDataFrame)}
+\title{ Example half degree grid data : population estimates for 2000 from IIASA }
 \description{
 Example half degree grid data : people per cell estimates for 2000 from IIASA (International Institute for Applied System Analysis) (sp, SpatialGridDataFrame). 
 }
@@ -38,7 +38,7 @@ http://www.iiasa.ac.at/Research/GGI/DB/
 The data are made available for individual, academic research purposes only and on a "as is" basis, subject to revisions without further notice. 
 Commercial applications are not permitted.
 
-The data is used as the default dataset in other functions, e.g. mapGridAscii(), when no
+The data is used as the default dataset in other functions, e.g. mapGriddedData(), when no
 data file is given.
 }
 \source{
@@ -49,6 +49,5 @@ Grubler, A., O'Neill, B., Riahi, K., Chirkov, V., Goujon, A., Kolp, P., Prommer,
 }
 \examples{
 data(gridExampleData)
-## maybe str(gridExampleData) ; plot(gridExampleData) ...
 }
 \keyword{datasets}

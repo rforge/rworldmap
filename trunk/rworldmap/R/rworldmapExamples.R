@@ -13,56 +13,43 @@ function()
    
     #this prompts user for keypress between plots 
     par(ask = TRUE)
-   
+      
+
     #1
-    mapCountryData( dFexampleCountryData
-                  , nameColumnToPlot="EPI"
-                  , joinCode = "ISO3" #options "ISO2","ISO3","FIPS","COUNTRY"
-                  , nameJoinColumn = "ISO3V10"
-                  )
-    mtext('mapCountryData( nameColumnToPlot="EPI", joinCode = "ISO3"
-, nameJoinColumn = "ISO3V10")',line=-1)              
-                  #, nameCountryColumn = "Country"
-                  #, suggestForFailedCodes = FALSE 
-                  #, projection="EqualArea"  #options "none", "EqualArea"                          
-                  #, numCats = 7
-                  #, we=-160
-                  #, ea=160
-                  #, so=-80
-                  #, no=90 
-                  #, catMethod="pretty"
-                  #, colourPalette= "heat" 
-                  #, addLegend=TRUE  
-                  #)   
-    
-    #windows()
+    #joining the example data to a map
+    sPDF <- joinCountryData2Map(dFexampleCountryData
+              , joinCode = "ISO3"
+              , nameJoinColumn = "ISO3V10"
+              )
+    mapCountryData( sPDF
+                  , nameColumnToPlot="EPI" 
+                  )                 
+
+
     #2
-    mapCountryData( dFexampleCountryData
+    #joining the example data to a map
+    sPDF <- joinCountryData2Map(dFexampleCountryData
+              , joinCode = "ISO3"
+              , nameJoinColumn = "ISO3V10"
+              )
+    mapCountryData( sPDF
                   , nameColumnToPlot="ENVHEALTH"
-                  , joinCode = "ISO3" #options "ISO2","ISO3","FIPS","COUNTRY"
-                  , nameJoinColumn = "ISO3V10"
                   , catMethod="quantiles"
                   , numCats = 10 
                   )
-    mtext('mapCountryData( nameColumnToPlot="ENVHEALTH", joinCode = "ISO3"
-, nameJoinColumn = "ISO3V10", catMethod="quantiles", numCats = 10)',line=-1)                  
+    #mtext('mapCountryData( nameColumnToPlot="ENVHEALTH", joinCode = "ISO3"
+    #, nameJoinColumn = "ISO3V10", catMethod="quantiles", numCats = 10)',line=-1)                  
                   
     #windows()
     #3
-    mapCountryData( dFexampleCountryData
+    sPDF <- joinCountryData2Map(dFexampleCountryData
+          , joinCode = "ISO3"
+          , nameJoinColumn = "ISO3V10"
+          )
+    mapCountryData( sPDF
                   , nameColumnToPlot="BIODIVERSITY"
-                  , joinCode = "ISO3" #options "ISO2","ISO3","FIPS","COUNTRY"
-                  , nameJoinColumn = "ISO3V10"
-                  , projection = "none" 
-                  )
-    mtext('mapCountryData( nameColumnToPlot="BIODIVERSITY", joinCode = "ISO3"
-, nameJoinColumn = "ISO3V10", projection = "none")',line=-1)              
-    
-    #windows() 
-    #4
-    mapCountryData(mapRegion="asia",projection="none")  
-    mtext('mapCountryData( mapRegion="asia",projection="none")',outer=TRUE,line=-1)              
-
+                  )            
+                 
                   
     #windows()
     #aggregating gridded data to country level
@@ -80,19 +67,19 @@ function()
     #windows()
     #no parameters : default dataset
     #7
-    mapGridAscii()
-    mtext('mapGridAscii()')
+    mapGriddedData()
+    mtext('mapGriddedData()')
         
     #windows()
     #adding histogram
     #8
-    mapGridAscii(catMethod="logFixedWidth",addHist=TRUE)    
-    mtext('mapGridAscii(catMethod="logFixedWidth",addHist=TRUE)',outer=TRUE,line=-1)
+    #mapGridAscii(catMethod="logFixedWidth",addHist=TRUE)    
+    #mtext('mapGridAscii(catMethod="logFixedWidth",addHist=TRUE)',outer=TRUE,line=-1)
         
     #windows() 
     #9
-    mapGridAscii(mapRegion="africa") #,projection="none")
-    mtext('mapGridAscii(mapRegion="africa")',outer=TRUE,line=-1)
+    mapGriddedData(mapRegion="africa") #,projection="none")
+    mtext('mapGriddedData(mapRegion="africa")',outer=TRUE,line=-1)
             
     #switching off prompting user for keypress between plots 
     par(ask = FALSE)     

@@ -1,7 +1,7 @@
 \name{wrld_simpl_lessIslands}
 \alias{wrld_simpl_lessIslands}
 \docType{data}
-\title{ World map simple with snall islands removed to make smaller }
+\title{ World map simple with small islands removed to make smaller }
 \description{
 A 'SpatialPolygonsDataFrame' [package "sp"] object containing a simplified world map. Polygons are attributed with country codes.
 }
@@ -44,14 +44,11 @@ The dataset is available under a Creative Commons Attribution-Share Alike Licens
 
 imported to R and cleaned by Roger Bivand
 small islands removed by Andy South
+}
 
 
-}
-\references{
-  ~~ possibly secondary sources and usages ~~
-}
 \examples{
 data(wrld_simpl_lessIslands)
-## maybe str(wrld_simpl) ; plot(wrld_simpl) ...
 }
+
 \keyword{datasets}

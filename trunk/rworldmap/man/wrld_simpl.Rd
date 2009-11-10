@@ -43,11 +43,8 @@ The dataset is available under a Creative Commons Attribution-Share Alike Licens
 
 imported to R and cleaned by Roger Bivand
 }
-\references{
-  ~~ possibly secondary sources and usages ~~
-}
+
 \examples{
 data(wrld_simpl)
-## maybe str(wrld_simpl) ; plot(wrld_simpl) ...
 }
 \keyword{datasets}

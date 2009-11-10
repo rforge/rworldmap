@@ -1,46 +1,34 @@
 \name{rwmGetClassBreaks}
 \alias{rwmGetClassBreaks}
-%- Also NEED an '\alias' for EACH other topic documented here.
-\title{ Internal function to set the breaks in data classification }
+
+\title{ Internal function to set the numeric values for the breaks between data categories }
+
 \description{
-Internal function to set the breaks in data classification
+Sets the values that determine how a vector of continuous data is classified into categories.
+Called by mapCountryData() and mapGriddedData()
 }
+
 \usage{
-rwmGetClassBreaks(dataColumn, numCats, catMethod)
+rwmGetClassBreaks(dataColumn, catMethod, numCats, verbose=TRUE, midpoint=0)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
-  \item{dataColumn}{ the data vector to be classified }
-  \item{numCats}{ number of categories to put the data in, may be overidden if catMethod ='pretty' }
-  \item{catMethod}{ method for categorisation of data "pretty", "fixedWidth", "logfixedWidth","quantiles", or a numeric vector defining breaks   }
+  \item{dataColumn}{ the data vector to be classified, must be numeric }
+  \item{catMethod}{ the method to use to classify the data into categories, choice of "pretty", "fixedWidth", "diverging", "logfixedWidth","quantiles","categorical" or a numeric vector defining breaks   }
+  \item{numCats}{ number of categories to put the data in, may be overidden if not possible under some classification methods }
+  \item{verbose}{ whether to print information messages to console TRUE/FALSE }
+  \item{midpoint}{ the midpoint to use if catMethod='diverging', default=0 }
 }
-\details{
-  ~~ If necessary, more details than the description above ~~
-}
+
+
 \value{
-  ~Describe the value returned
-  If it is a LIST, use
-  \item{comp1 }{Description of 'comp1'}
-  \item{comp2 }{Description of 'comp2'}
-  ...
+A vector specifying the numeric breaks between data categories.
 }
-\references{ ~put references to the literature/web site here ~ }
-\author{ matthew staines }
-\note{ ~~further notes~~ 
 
-Add notes here
-}
-\seealso{ ~~objects to See Also as \code{\link{help}}, ~~~ }
-\examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+\author{ andy south and matthew staines }
 
-## The function is currently defined as
-#function(dataColumn, dataCategorised, numCats, catMethod)		
-#{ } #end of rwmGetClassBreaks
-}
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
+\seealso{ The classInt package }
+
+
 \keyword{ dplot }
 

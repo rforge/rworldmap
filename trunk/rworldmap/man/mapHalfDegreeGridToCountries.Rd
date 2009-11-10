@@ -1,6 +1,6 @@
 \name{mapHalfDegreeGridToCountries}
 \alias{mapHalfDegreeGridToCountries}
-%- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{Maps user half degree gridded data at country level by first aggregating.}
 \description{
 Maps user half degree gridded data at country level by first aggregating.
@@ -11,20 +11,19 @@ inFile=""
 , aggregateOption="sum"  #"mean","max","min"
 , nameCountryColumn = ""
 , suggestForFailedCodes = FALSE 
-, projection="EqualArea"  #"none", "EqualArea" 
+, projection="none"  #"none", "EqualArea" 
 , mapResolution="low" #                                                 
 , numCats = 7 # *may be ignored by catMethod
-, we=-160
-, ea=160
-, so=-80
-, no=90 
+, xlim=c(-160,160)
+, ylim=c(-80,90)
 , mapRegion = "world"   #sets map extents, overrides we,ea etc.
-, catMethod="pretty"   #any vector defining breaks, "fixedWidth","quantiles"
+, catMethod="quantiles"   #any vector defining breaks, "fixedWidth","quantiles"
 , colourPalette= "heat" #"heat","white2Black","palette" for current palette
 , addLegend=TRUE 
 )
 }
-%- maybe also 'usage' for other objects documented here.
+
+
 \arguments{
   \item{inFile}{ either a gridascii filename or an sp SpatialGridDataFrame object specifying a global half degree grid dataset, if none specified an internal example data is used  }
   \item{aggregateOption}{ how to aggregate the data ('sum','mean','min','max') }
@@ -33,44 +32,38 @@ inFile=""
   \item{projection}{ 'none' or 'EqualArea' }
   \item{mapResolution}{options low, medium, only for projection='none' initially}
   \item{numCats}{ number of categories, may be overided e.g. if catMethod ='pretty' }
-  \item{we}{ map extents, can be overidden by mapRegion }
-  \item{ea}{ map extents, can be overidden by mapRegion }
-  \item{so}{ map extents, can be overidden by mapRegion }
-  \item{no}{ map extents, can be overidden by mapRegion }
+  \item{xlim}{ map extents c(west,east), can be overidden by mapRegion }
+  \item{ylim}{ map extents c(south,north), can be overidden by mapRegion }
   \item{mapRegion}{ 'world','africa','oceania','eurasia','uk' sets map extents, overrides we,ea etc. }
   \item{catMethod}{ method for categorisation of data "pretty", any vector defining breaks, "fixedWidth","quantiles"  }
   \item{colourPalette}{ "heat","white2Black","palette":for current palette }
   \item{addLegend}{ whether to add a legend or not T/F }
 }
 \details{
-  ~~ If necessary, more details than the description above ~~
+Aggregates half degree gridded data to countries using the option specified in 'aggregateOption'
+then maps at a country level.
 }
+
 \value{
-  ~Describe the value returned
-  If it is a LIST, use
-  \item{comp1 }{Description of 'comp1'}
-  \item{comp2 }{Description of 'comp2'}
-  ...
+invisibly returns a list containing the data and main options used for the map, 
+the list can be passed to \code{\link{addMapLegend}} along with additional options
+to allow greater flexibility in legend creation.
 }
-\references{ ~put references to the literature/web site here ~ }
+
 \author{ andy south }
-\note{ ~~further notes~~ 
-Add notes here
-}
-\seealso{ ~~objects to See Also as \code{\link{help}}, ~~~ }
+
+\seealso{ \code{\link{aggregateHalfDegreeGridToCountries}} }
+
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-    
-mapHalfDegreeGridToCountries( )              
 
-#different agggregate option
-mapHalfDegreeGridToCountries( aggregateOption="mean" )
+data(gridExampleData,envir=environment(),package="rworldmap")
+gridExampleData <- get("gridExampleData")
+mapHalfDegreeGridToCountries(gridExampleData)             
 
+#different aggregate option
+mapHalfDegreeGridToCountries( gridExampleData, aggregateOption="mean" )
 
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
+
 \keyword{ aplot }
 

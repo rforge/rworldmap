@@ -1,13 +1,9 @@
 `addMapLegend`<-
-function(
-                    plottedData=""                                #numeric vector... not usual inFile approach...
-                    ,numCats=7                          #as per plotting
-                    ,catMethod="pretty"                 #as per plotting
-                    ,colourPalette="heat"               #as per plotting
-                    ,legendLabels="limits"              #Controls style of legend labels.
-                                                        #all try to display all of them
-                                                        #none = just the colour bar
-                                                        #limits = just min and max
+function(            
+                     colourVector=""
+                    ,cutVector=""
+                    
+                    ,legendLabels="limits"              #style of bar labels 'all','none','limits'
                     ,labelFontSize=1                    #cex.axis by another name
                     ,legendWidth=1.2                    #Width in characters of the legend
                     ,legendShrink=0.9                   #Shrinks the legend, lengthwise
@@ -16,66 +12,67 @@ function(
                     ,legendArgs=NULL                   #allows a title above legend
                     ,tcl=-.5                            #as per par(tcl=) tick length par default = -.5
                     ,mgp=c(3,1,0)                       #as per par(mgp=) margin position par default= c(3,1,0)
-                    ,signifFigures=2                    #controls how numbers get rounded
+                    ,sigFigs=2                    #controls how numbers get rounded
                     ,digits=3                           #controls how numbers get formatted into neater numbers.
-                    ,axisCatMethod="fixedWidth"         #controls how colour bar is divided up
+                    ,legendIntervals='page'       #page" or "data"."page"=intervals equal on page, "data"= equal in data units
+                    
+                    ,plottedData=""               #not used yet but maybe in future
+                    ,catMethod="pretty"           #not used yet but maybe in future
+                    ,colourPalette="heat"         #not used yet but maybe in future
+                    #,missingCountryCol="white"    #not used yet but maybe in future                    
+                                        
                     ){
 require(fields)
 
+#BEWARE image.plot from fields package at end modifies the par settings
+#seemingly not possible to stop this, e.g. can't query whether mfrow or mfcol
+#oldPar <- par(no.readonly = TRUE)
 
+#i could allow a version of this for categorical data
+#where it just creates equal page breaks & puts the cat names in the middle
 
-#Confusingly, there are two sets of break points in this function.
-#The bar is divided equally, and the axis labels positioned equally stored in colourBarBreaks.
+#this checks that length of colour vector is one less than length of cutVector
+#if it isn't could be because a missingCountryCol has been added by mapCountryData
+#for now remove the last colour, later may want to try to deal with missingCountryCol
+if ( length(colourVector)  == length(cutVector) ) colourVector <- colourVector[-length(colourVector)]
 
-#The labels are tidied versions of the break points used in plotting.
-#Tidying up is done by rounding to a few significant figures, and prettyNum.
-
-
-
-#Ensures that addMapLegend() matches the defaults of mapCountryData().
-if(identical(plottedData,"")){
- data("dFexampleCountryData",envir=environment(),package="rworldmap")
- dFexampleCountryData<-get("dFexampleCountryData")
- plottedData<-dFexampleCountryData$BIODIVERSITY
- }
-
-
-#Get the breaks and colours used in the plot. These breaks are used for labelling.
-if(is.numeric(catMethod)){plotBreaks<-catMethod}else{
-plotBreaks<- rwmGetClassBreaks(plottedData, numCats, catMethod)
-}
-
-#Incase rwnGetClassBreaks returns a different number of breaks to the number asked for.
-numCats<-length(plotBreaks)-1
-
-#The colour bar is divided into sections. By default this is equal sections.
-colourBarBreaks  <-  rwmGetClassBreaks(plottedData, numCats, axisCatMethod)
-
-#Use the same colour schemes as mapGridAscii,mapCountryData
-coloursUsed <- rwmGetColours(colourPalette, numCats)
 
 #Simplify the plotBreaks. By rounding the numbers, it becomes easier to read.
-tidyPlotBreaks <-  signif(plotBreaks,2)
+colourBarBreaks = as.numeric(cutVector)
+tidyPlotBreaks <- signif(colourBarBreaks,sigFigs) #
 
+#The image.plot zlim argument only requires the min and max
+zlim <- range(colourBarBreaks,na.rm=TRUE)
 
-#The image.plot zlim argument only requires the min and max.
-zlim<-range(colourBarBreaks,na.rm=TRUE)
+#27/10/09 andy, adding in equal scale intervals options
+if ( legendIntervals == 'page' )
+   {
+    colourBarBreaks <- colourBarBreaks[1] + (colourBarBreaks[length(colourBarBreaks)]-colourBarBreaks[1])* seq(from=0,to=1,length.out=length(colourBarBreaks))
+   }
 
-
-#Describe the axis. at means positioning
-#labels means text displayed.
+#axis.args at = positioning, labels = text displayed.
 if(legendLabels=="limits"){
-limitsIndex=c(1,length(colourBarBreaks))
-axis.args=list(at=colourBarBreaks[limitsIndex],cex.axis=labelFontSize,mgp=mgp,tcl=tcl,labels=prettyNum(tidyPlotBreaks[limitsIndex],digits=digits,format="G"))
+  limitsIndex=c(1,length(colourBarBreaks))
+  axis.args=list(at=colourBarBreaks[limitsIndex],cex.axis=labelFontSize,mgp=mgp,tcl=tcl,labels=prettyNum(tidyPlotBreaks[limitsIndex],digits=digits,format="G"))
+
+} else if(legendLabels=="none"){
+  #to get no labels need to change ac to whether horizontal
+  if ( horizontal ) axis.args=list(xaxt="n")
+  else axis.args=list(yaxt="n")
+  
+} else if(legendLabels=="all"){
+  axis.args=list(at=colourBarBreaks,cex.axis=labelFontSize,mgp=mgp,tcl=tcl,labels=prettyNum(tidyPlotBreaks,digits=digits,format="G"))
 }
-if(legendLabels=="none"){
-axis.args=list(xaxt="n")
-}
-if(legendLabels=="all"){
-axis.args=list(at=colourBarBreaks,cex.axis=labelFontSize,mgp=mgp,tcl=tcl,labels=prettyNum(tidyPlotBreaks,digits=digits,format="G"))
-}
+
 #The actual legend plotting command
-image.plot(zlim=zlim,legend.only=TRUE,horizontal=horizontal,legend.args=legendArgs,legend.mar=legendMar,col=coloursUsed,breaks=colourBarBreaks,axis.args=axis.args,legend.width=legendWidth,legend.shrink=legendShrink)
+#**BEWARE this can cause mfcol to be set back to mfrow and seems to be no way to fix
+image.plot(zlim=zlim,legend.only=TRUE,horizontal=horizontal,legend.args=legendArgs,legend.mar=legendMar,col=colourVector,breaks=colourBarBreaks,axis.args=axis.args,legend.width=legendWidth,legend.shrink=legendShrink)
+
+#image.plot(zlim=zlim,legend.only=TRUE,graphics.reset=TRUE,horizontal=horizontal,legend.args=legendArgs,legend.mar=legendMar,col=coloursUsed,breaks=colourBarBreaks,axis.args=axis.args,legend.width=legendWidth,legend.shrink=legendShrink)
+
+#par(oldPar)
+#print('test')
+
 }
 
 

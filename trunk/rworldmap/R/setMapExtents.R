@@ -5,6 +5,17 @@ function(mapRegion='world')
     #by returning a data frame containing wesn
     #maybe also define ocean regions
     
+    
+    #adding ability to set mapRegion from any countries
+    map <- getMap()
+    if ( mapRegion %in% map@data$NAME )
+       {
+        bb <- bbox(map[ map@data$NAME == mapRegion, ])
+        dFmapExtents <- data.frame( we=bb[1], ea=bb[3], so=bb[2], no=bb[4] )
+        return(dFmapExtents)       
+       }
+    
+    
     listMapRegions=c('eurasia','africa','latin america','uk','oceania','asia')
     if ( mapRegion == 'world' )
        {}else
@@ -19,8 +30,11 @@ function(mapRegion='world')
     if ( mapRegion == 'oceania' | mapRegion == 'Oceania' )#5
        {we=50;   ea=180;    so=-50;   no=0} else 
     if ( mapRegion == 'asia' | mapRegion == 'Asia' )#6
-       {we=60;   ea=140;    so=-15;   no=55} else 
-    cat("The mapRegion you specified(",mapRegion,") is not known, must be one of : ",listMapRegions,"plotting whole world")         
+       {we=60;   ea=140;    so=-15;   no=55} else
+       { 
+        warning("The mapRegion you specified(",mapRegion,") needs to be a country name from getMap()$NAME or one of : (",paste(listMapRegions,""),").Plotting whole world") 
+        we=-160;ea=160;so=-80;no=90
+       }        
 
     dFmapExtents <- data.frame(we=we, ea=ea, so=so, no=no )
     

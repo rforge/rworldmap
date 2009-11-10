@@ -1,47 +1,41 @@
 \name{rwmGetColours}
 \alias{rwmGetColours}
-%- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{ Internal function to choose map colours for classified data }
+
 \description{
-Internal function to choose map colours for classified data
+Internal function to choose map colours for classified data.
 }
 \usage{
 rwmGetColours(colourPalette, numColours)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
-  \item{colourPalette}{ ~~Describe \code{Colours} here~~ }
-  \item{numColours}{ ~~Describe \code{NumCols} here~~ }
+  \item{colourPalette}{ a string describing the colour palette to use, choice of :
+    \itemize{
+               \item{}{="palette" for the current palette} 
+               \item{}{a vector of valid colours, e.g. =c('red','white','blue') or output from RColourBrewer} 
+               \item{}{= one of "heat","white2Black","black2White","topo","rainbow","terrain" }
+               }}
+  \item{numColours}{ the number of colour categories desired }
 }
+
 \details{
-  ~~ If necessary, more details than the description above ~~
+Returns a vector of colours based upon the palette specified and number of colours specified. 
+If colourPalette specifies a number of colours and this is different from numColours, numColours takes precedence and colours are interpolated to make the number fit.
 }
 \value{
-  ~Describe the value returned
-  If it is a LIST, use
-  \item{comp1 }{Description of 'comp1'}
-  \item{comp2 }{Description of 'comp2'}
-  ...
+A vector specifiying a number of colours. 
 }
-\references{ ~put references to the literature/web site here ~ }
-\author{ matthew staines }
-\note{ ~~further notes~~ 
 
-Add notes here
-}
-\seealso{ ~~objects to See Also as \code{\link{help}}, ~~~ }
+\author{ andy south and matthew staines }
+
+\seealso{ RColorBrewer }
+
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-#can have the source in here
-#function(Colours, NumCols)
-#{
-# } #end of rwmGetColours
+rwmGetColours(colourPalette='topo', numColours=10)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
+
+
 \keyword{ dplot }
 

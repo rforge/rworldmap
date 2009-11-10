@@ -1,15 +1,20 @@
 `rwmGetClassBreaks` <-
-function(dataColumn, numCats, catMethod)
+function(dataColumn, catMethod, numCats, verbose=TRUE, midpoint=0)
 {
 
-catMethodList <- c("fixedWidth","quantiles","pretty","logFixedWidth")
+#! I should offer option to set min & max (& centre for diverging)
+
+#browser()
+
+functionName <- as.character(sys.call()[[1]])
+
+catMethodList <- c("fixedWidth","diverging","quantiles","pretty","logFixedWidth","categorical")
 
 if( ! catMethod %in% catMethodList)
   {
-   warning("classification method should be set to one of :",catMethodList,"\nsetting to fixedWidth as default")
+   warning("classification method should be set to one of :",catMethodList,"\nsetting to fixedWidth as default\n")
    catMethod="fixedWidth"
   }
-
 
 if(catMethod=="fixedWidth")
 		{
@@ -18,7 +23,51 @@ if(catMethod=="fixedWidth")
 			maxVal <- max(dataColumn,na.rm=TRUE) 
 			
 			cutVector <- minVal + ( ((0:numCats)/numCats) * (maxVal-minVal) )				
-		}
+		} else
+		
+if(catMethod=="diverging")
+		{
+			#Categorising the data, fixed width intervals
+			minVal <- min(dataColumn,na.rm=TRUE)
+			maxVal <- max(dataColumn,na.rm=TRUE) 
+			
+			#?set the break interval across the whole range
+			#?or have options for diff scales above & below
+			
+			#will probably eventually need to have extra arguments
+			above <- abs(maxVal-midpoint)
+			below <- abs(midpoint-minVal)
+			
+			#num categories above or below
+			#if numCats is odd this will include .5
+      sideCats <- numCats/2
+			
+			interval <- max(c(above,below)) / sideCats
+			
+			if ( numCats%%2 == 0 ) #even
+			   {
+			    fromAbove <- midpoint + interval
+			    fromBelow <- midpoint - interval
+			   } else #i.e. odd
+			   {
+			    fromAbove <- midpoint + interval/2
+			    fromBelow <- midpoint	- interval/2		    
+			   }
+			
+			cutsAbove <- seq(from=fromAbove, to=midpoint+(sideCats*interval), by=interval)
+			cutsBelow <- seq(from=fromBelow, to=midpoint-(sideCats*interval), by=-interval)
+			
+			if ( numCats%%2 == 0 ) #even
+			   {
+			    #adding in the midpoint
+			    cutVector <- c(rev(cutsBelow),midpoint,cutsAbove)				   
+			   } else #i.e. odd
+			   {
+			    cutVector <- c(rev(cutsBelow),cutsAbove)	    
+			   }			
+						
+		} else	
+    	
 if(catMethod=="quantiles")
 		{
 			#Categorising the data, using Quantiles.
@@ -44,11 +93,12 @@ if(catMethod=="quantiles")
                     testNumCats<-testNumCats-1         #Carry on looping, trying one fewer quantile.
                     }
               }
-    if(testNumCats!=numCats)warning("You asked for ",numCats," quantiles, but only ",testNumCats, " were used.")  #Warning if the number of quantiles was reduced.
+    if(testNumCats!=numCats && verbose )message(paste("You asked for",numCats,"quantiles, only",testNumCats,"could be created in quantiles classification"))  #Warning if the number of quantiles was reduced.
 
     cutVector <-  quantile(dataColumn, probs=seq(0,1, 1/testNumCats), na.rm=TRUE)
 
-    }
+    } else
+    
 if(catMethod=="pretty")
 		{
 			#Compute a sequence of about n+1 equally spaced ‘round’ values
@@ -62,27 +112,45 @@ if(catMethod=="pretty")
 			#The following code warns when pretty has used a different number of breaks to that which was asked for.
 
       actualNumberOfBreaks<-length(cutVector)-1
-      if(actualNumberOfBreaks!=numCats) warning("You asked for ",numCats," categories, but ",actualNumberOfBreaks, " were used due to pretty() classification")
+      if(actualNumberOfBreaks!=numCats && verbose ) message(paste("You asked for",numCats,"categories,",actualNumberOfBreaks, "were used due to pretty() classification"))
 
-		}
+		} else
 
-#16/3/09 andy this is an initial test, adds 0.01 to void problems with zeroes
+# if min = 0 adds 0.01 to avoid problems with zeroes
 if ( catMethod=="logFixedWidth") 
     {
-      warning('an initial test, adds 0.01 prior to logging to avoid problems with zeroes')
-    
-      addTo0ForLog <- 0.01
+         
       # to do for Logs will want to Log the data calc the CutVector then antiLog
       # to get a cutVector that can be directly applied to the data
-      dataColumnLogged <- log(addTo0ForLog+dataColumn)
- 			
+      
+      if (min( dataColumn, na.rm=TRUE ) < 0 ) 
+         {stop("negative values in your data cannot be classified using catMethod=logFixedWidth")
+          return(FALSE) 
+         } else if (min( dataColumn, na.rm=TRUE ) == 0 )
+         {
+          if (verbose) message("zero values are replaced with NA as they can't be logged in catMethod=logFixedWidth")
+
+          dataColumn[which(dataColumn==0)] <- NA
+          #dataColumnLogged <- log(addTo0ForLog+dataColumn)         
+          dataColumnLogged <- log(dataColumn) 
+         } else
+         {
+          dataColumnLogged <- log(dataColumn) 
+         }
+              		
       minVal <- min(dataColumnLogged,na.rm=TRUE)
 			maxVal <- max(dataColumnLogged,na.rm=TRUE) 
-			
+			maxValNotLogged <- max(dataColumn,na.rm=TRUE)
+      			
+			#there was a rounding problem with this, that meant that highest value could get excluded
 			cutVector <- minVal + ( ((0:numCats)/numCats) * (maxVal-minVal) )	
- 			
+       			
  			#antilog
-      cutVector <- exp(cutVector) -  exp(log(addTo0ForLog))
+      #cutVector <- exp(cutVector) -  exp(log(addTo0ForLog))
+      cutVector <- exp(cutVector)
+
+      #to correct potential rounding problem, make sure upper val is equal to max value
+      cutVector[length(cutVector)] <- maxValNotLogged
 
       #earlier version
       #change to a log index with num categories defined by numCats
@@ -91,8 +159,14 @@ if ( catMethod=="logFixedWidth")
       #sGDF$indexToPlot <- round( numCats * ((log(addTo0ForLog+sGDF[[attrName]]) - minAtt) / rangeAtt ))
       
     }
-		
-return(cutVector)
-		
+
+if(length(catMethod)==1 && catMethod=="categorical")
+		{
+			stop(functionName," shouldn't be called when catMethod == 'categorical'")
+      return(0)			
+		} else 
+    {		
+     return(cutVector)
+		}
 } #end of rwmGetClassBreaks
 

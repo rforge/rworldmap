@@ -1,12 +1,9 @@
 \name{gridCountriesNumeric}
 \alias{gridCountriesNumeric}
 \docType{data}
-\title{ Half degree grid specifying the country at each cell }
+\title{ A gloabl half degree grid specifying the country at each cell }
 \description{
-Half degree grid specifying the country (numeric code) at each cell.
-Uses a simple grid map defining a single country identity for each half degree cell. 
-A more detailed map defining division of cells between neighbouring countries will be added in future. 
-(sp, SpatialGridDataFrame), used by the function aggregateHalfDegreeGridToCountries()
+A grid covering the globe at half degree resolution, specifying the country (UN numeric code) at each cell.
 }
 \usage{data(gridCountriesNumeric)}
 \format{
@@ -33,16 +30,16 @@ Formal class 'SpatialGridDataFrame' [package "sp"] with 6 slots
 }
 }
 \details{
-  ~~ If necessary, more details than the __description__ above ~~
+Uses a simple grid map defining a single country identity for each half degree cell.  
+(sp, SpatialGridDataFrame), used by the function aggregateHalfDegreeGridToCountries()
 }
 \source{
-  IIASA
+IIASA
 }
 \references{
-  ~~ possibly secondary sources and usages ~~
+http://www.iiasa.ac.at/Research/GGI/DB/
 }
 \examples{
 data(gridCountriesNumeric)
-## maybe str(gridCountriesNumeric) ; plot(gridCountriesNumeric) ...
 }
 \keyword{datasets}

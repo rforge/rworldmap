@@ -3,15 +3,17 @@ function( inFile=""
                           , aggregateOption="sum"  #"mean","max","min"
                           , nameCountryColumn = ""
                           , suggestForFailedCodes = FALSE 
-                          , projection="EqualArea"  #"none", "EqualArea" 
+                          , projection="none"  #"none", "EqualArea" 
                           , mapResolution="low" #options low, medium, only for projection='none' initially                                                 
                           , numCats = 7 # *may be ignored by catMethod
-                          , we=-160
-                          , ea=160
-                          , so=-80
-                          , no=90 
+                           #we=-160,
+                           #ea=160,
+                           #so=-80,
+                           #no=90,
+                          , xlim=c(-160,160)
+                          , ylim=c(-80,90)
                           , mapRegion = "world"   #sets map extents, overrides we,ea etc.
-                          , catMethod="pretty"   #any vector defining breaks, "fixedWidth","quantiles"
+                          , catMethod="quantiles"   #any vector defining breaks, "fixedWidth","quantiles"
                           , colourPalette= "heat" #"heat","white2Black","palette" for current palette
                           , addLegend=TRUE 
                          )
@@ -53,26 +55,31 @@ function( inFile=""
      #aggregate the data to countries (pass the sGDF because already read in above)
      dF <- aggregateHalfDegreeGridToCountries(inFile=sGDF, aggregateOption=aggregateOption)
      
-     #call map plotting function
-     mapCountryData( dF
-                          #, nameColumnToPlot = aggregateOption
-                          , nameColumnToPlot = names(dF)[2]
+     mapToPlot <- joinCountryData2Map(dF, 
                           , joinCode = "UN" #options "ISO2","ISO3","FIPS","NAME", "UN" = numeric codes
                           , nameJoinColumn = "UN"
                           , nameCountryColumn = "" #there is no country column from gridascii data
                           , suggestForFailedCodes = suggestForFailedCodes 
                           , projection=projection  #"none", "EqualArea" 
                           , mapResolution=mapResolution #options low, medium, only for projection='none' initially                                                
+                          )     
+
+    ## if join has failed, then exit this function too, message from join should be enough
+    #if ( class(mapToPlot)!="SpatialPolygonsDataFrame" ) return(FALSE)
+     
+     #call map plotting function
+     mapParams <- mapCountryData( mapToPlot
+                          , nameColumnToPlot = names(dF)[2]                                             
                           , numCats = numCats # *may be ignored by catMethod
-                          , we=we
-                          , ea=ea
-                          , so=so
-                          , no=no 
-                          , mapRegion = mapRegion
+                          , xlim=xlim
+                          , ylim=ylim
                           , catMethod=catMethod   #any vector defining breaks, "fixedWidth","quantiles"
                           , colourPalette = colourPalette
                           , addLegend=addLegend   
                           )      
+
+    #returning mapParams so they can be used by addMapLegend()
+    invisible(mapParams)
                          
                          
     } #end of mapHalfDegreeGridToCountries()

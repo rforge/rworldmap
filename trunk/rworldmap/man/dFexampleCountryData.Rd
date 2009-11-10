@@ -113,6 +113,7 @@ Esty, Daniel C., M.A. Levy, C.H. Kim, A. de Sherbinin, T. Srebotnjak, and V. Mar
 2008 Environmental Performance Index. New Haven: Yale Center for Environmental Law and Policy.
 }
 \examples{
-data(dFexampleCountryData)
+data(dFexampleCountryData,envir=environment(),package="rworldmap")
+str(dFexampleCountryData)
 }
 \keyword{datasets}

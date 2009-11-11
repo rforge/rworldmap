@@ -27,12 +27,12 @@
   \item{dataset}{gridAscii file name or spatialGridDataFrame}
   \item{nameColumnToPlot}{ name of column containing the data to plot }
   \item{numCats}{ number of categories to put the data in, may be overidden if catMethod ='pretty' }
-  \item{catMethod}{ method for categorisation of data "pretty", "fixedWidth", "diverging", "logfixedWidth","quantiles","categorical", or a numeric vector defining breaks } 
+  \item{catMethod}{ method for categorisation of data "pretty", "fixedWidth", "logfixedWidth","quantiles","categorical", or a numeric vector defining breaks } 
   \item{colourPalette}{ a string describing the colour palette to use, choice of :
     \enumerate{
                \item{}{="palette" for the current palette} 
                \item{}{a vector of valid colours, e.g. =c('red','white','blue') or output from RColourBrewer} 
-               \item{}{= one of "heat","diverging","white2Black","black2White","topo","rainbow","terrain" }
+               \item{}{= one of "heat","white2Black","black2White","topo","rainbow","terrain" }
                }}
   \item{xlim}{ map extents c(west,east), can be overidden by mapRegion }
   \item{ylim}{ map extents c(south,north), can be overidden by mapRegion } 

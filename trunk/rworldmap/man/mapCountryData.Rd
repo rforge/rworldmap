@@ -20,12 +20,12 @@ mapCountryData(mapToPlot = "", nameColumnToPlot = "", numCats = 7,
   \item{xlim}{ map extents c(west,east), can be overidden by mapRegion }
   \item{ylim}{ map extents c(south,north), can be overidden by mapRegion }
   \item{mapRegion}{ a country name from getMap()\$NAME or 'world','africa','oceania','eurasia','uk' sets map extents, overrides xlim,ylim }
-  \item{catMethod}{ method for categorisation of data "pretty", "fixedWidth", "logfixedWidth","quantiles","categorical", or a numeric vector defining breaks }
+  \item{catMethod}{ method for categorisation of data "pretty", "fixedWidth", "diverging", "logfixedWidth","quantiles","categorical", or a numeric vector defining breaks }
   \item{colourPalette}{ a string describing the colour palette to use, choice of :
     \enumerate{
                \item{}{="palette" for the current palette} 
                \item{}{a vector of valid colours, e.g. =c('red','white','blue') or output from RColourBrewer} 
-               \item{}{= one of "heat","white2Black","black2White","topo","rainbow","terrain" }
+               \item{}{= one of "heat","diverging","white2Black","black2White","topo","rainbow","terrain","negpos8","negpos9" }
                }}
   \item{addLegend}{ whether to add a legend or not }
   \item{borderCol}{ the colour for country borders  }
@@ -41,6 +41,9 @@ options are chosen, e.g. with catMethod:Quantiles if numCats too high so that un
 }
 
 \details{
+Certain catMethod and colourPalette options go well together. e.g. "diverging" and "diverging", 
+"categorical" and "rainbow" 
+
 There are two styles of legend available. 
 If catMethod='categorical' or the packages fields and spam are not installed a simple legend with coloured boxes is created.
 Otherwise a colour bar legend is created. Finer control can be achieved by \code{\link{addMapLegendBoxes}} 

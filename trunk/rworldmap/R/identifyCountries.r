@@ -44,7 +44,9 @@ selectedCountryIndices <- identify(x=dF[[nameX]], y=dF[[nameY]], labels=labels,.
 
 #allowing plotting of the boundaries of the selected countries
 #this is really just an initial test of something I may develop further later
-if (plotSelected) plot(sPDF[selectedCountryIndices,],border='blue',add=TRUE)
+#!this will only work if the internal or a passed map is used
+#!!use dF2
+if (plotSelected) plot(getMap()[selectedCountryIndices,],border='blue',add=TRUE)
 
 #return the indices, may be useful later
 invisible(selectedCountryIndices)

@@ -73,7 +73,6 @@ if(colourPalette=="palette")
          warning(length(palette())," colours specified and ", numColours," required, using interpolation to calculate colours")
          coloursToUse<-colorRampPalette(palette())(numColours)
         }
-	
   } else
 	
 if(colourPalette=="heat") { coloursToUse <- rev(heat.colors(numColours))	

@@ -16,7 +16,7 @@ mapCountryData(mapToPlot = "", nameColumnToPlot = "", numCats = 7,
 \arguments{
   \item{mapToPlot}{ a spatial polygons dataframe from joinCountryData2Map() containing country polygons and data, if none specified an internal example data is used }
   \item{nameColumnToPlot}{ name of column containing the data you want to plot }
-  \item{numCats}{ number of categories to put the data in, may be overidden if catMethod ='pretty' }
+  \item{numCats}{ number of categories to put the data in, may be modified if this number is incompatible with the catMethod chosen}
   \item{xlim}{ map extents c(west,east), can be overidden by mapRegion }
   \item{ylim}{ map extents c(south,north), can be overidden by mapRegion }
   \item{mapRegion}{ a country name from getMap()\$NAME or 'world','africa','oceania','eurasia','uk' sets map extents, overrides xlim,ylim }

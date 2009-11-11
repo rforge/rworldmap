@@ -1,4 +1,5 @@
 \name{addMapLegendBoxes}
+\Rdversion{1.1}
 \alias{addMapLegendBoxes}
 \title{Add a legend of coloured boxes to a map}
 \description{
@@ -8,24 +9,24 @@ categories.
 }
 \usage{
 addMapLegendBoxes(
-                    cutVector=""    # the categories or breaks used in the map
-                    ,colourVector = "" #colours used in the map
-                    ,x='bottomleft'  #positioning of legend e.g. 'bottomleft', 'topright'
+                    cutVector=""
+                    ,colourVector = ""
+                    ,x='bottomleft'
                     ,horiz=FALSE
                     ,title="category"
-                    ,cex=1 #cex controls font size
-                    ,pt.cex=2 #pt.cex controls size of colour boxes
-                    ,col="gray" #boundary of boxes
-                    ,bg="white" #legend background
-                    ,legendText="" #if this is left as empty then the cut vector is used
+                    ,cex=1 
+                    ,pt.cex=2 
+                    ,col="gray" 
+                    ,bg="white" 
+                    ,legendText="" 
                     
-                    ,plottedData=""               #not used yet but maybe in future
-                    ,catMethod="pretty"           #not used yet but maybe in future
-                    ,colourPalette="heat"         #not used yet but maybe in future
-                    ,sigFigs=2                    #not used yet but maybe in future
-                    ,missingCountryCol="white"    #not used yet but maybe in future
+                    ,plottedData=""               
+                    ,catMethod="pretty"           
+                    ,colourPalette="heat"         
+                    ,sigFigs=2                    
+                    ,missingCountryCol="white"    
 
-                    ,... #to allow other params to be set in legend
+                    ,... 
                     )
 }
 
@@ -36,11 +37,13 @@ addMapLegendBoxes(
   \item{x}{positioning of legend e.g. 'bottomleft', 'topright'}
   \item{horiz}{ if TRUE horizontal legend}  
   \item{title}{ title for Legend }
-  \item{cex}{}
-  \item{pt.cex}{}
-  \item{col}{}
-  \item{bg}{}
-  \item{legendText}{}  
+  \item{cex}{controls the font size, default is 1}
+  \item{pt.cex}{controls size of colour boxes relative to cex, default is 2}
+  \item{col}{colour for boundary of colour boxes, default is "gray"}
+  \item{bg}{colour for legend background, default is "white", NA makes the legend 
+  background transparent}
+  \item{legendText}{the text to put against each legend box, if left blank 
+  cutVector is used, needs to be a vector the same length as length cutVector}  
     
   \item{plottedData}{not used yet but maybe in future}
   \item{catMethod}{not used yet but maybe in future}

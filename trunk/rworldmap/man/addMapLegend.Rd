@@ -1,4 +1,5 @@
 \name{addMapLegend}
+\Rdversion{1.1}
 \alias{addMapLegend}
 \title{Add a legend to a map}
 \description{

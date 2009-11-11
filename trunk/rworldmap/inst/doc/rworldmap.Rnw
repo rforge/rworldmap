@@ -1,6 +1,6 @@
-% -*- mode: noweb; noweb-default-code-mode: R-mode; -*-
+% -*- mode: noweb; noweb-default-code-mode: R-mode; -*- 
 \documentclass[a4paper]{article}
-\title{rworldmap vignette test}
+\title{rworldmap vignette}
 \author{Andy South\footnote{Centre for Environment, Fisheries and Aquaculture 
 Science (Cefas), Lowestoft, NR33 OHT, UK. {\tt andy.south@cefas.co.uk}}}
 
@@ -65,7 +65,7 @@ sPDF <- joinCountryData2Map(dFexampleCountryData
 #map the data with no legend
 mapParams <- mapCountryData( sPDF
               , nameColumnToPlot="BIODIVERSITY"
-              , addLegend='FALSE'
+              , addLegend=FALSE
               , oceanCol="lightblue"
               , missingCountryCol="grey"              
               )
@@ -114,9 +114,9 @@ one column containing country identifiers, and other columns containing your dat
 The mapping process then involves 3 steps (or 2 if your data are already in an 
 R dataframe).
 \begin{enumerate} 
-\item {read data into R}
-\item {join data to a map} ( using \tt{joinCountryData2Map()} )
-\item {display the map} ( using \tt{mapCountryData()} )
+\item read data into R
+\item join data to a map ( using {\tt joinCountryData2Map()} ) 
+\item display the map ( using {\tt mapCountryData()} ) 
 \end{enumerate} 
 
 There is an example dataset within the package that can be accessed using the 
@@ -130,11 +130,11 @@ dFexampleCountryData[5:10,1:5]
 
 \subsection{Reading data into R}
 To read in your own data from a space or comma delimited text file you will 
-need to use : \tt{read.csv(filename.csv)} or \tt{read.txt(filename.txt)}, type 
-\tt{?read.table} from the R console to get help on this.
+need to use : {\tt read.csv(filename.csv)} or {\tt read.txt(filename.txt)}, type 
+{\tt ?read.table} from the R console to get help on this.
 
 \subsection{Joining data to a country map}
-To join the data to a map use \tt{joinCountryData2Map}, and you will need to specify 
+To join the data to a map use {\tt joinCountryData2Map}, and you will need to specify 
 the name of column containing your country identifiers (nameJoinColumn) and the 
 type of code used (joinCode) e.g. "ISO3" for ISO 3 letter codes or "UN" for 
 numeric country codes. If you only have country names rather than codes use 
@@ -151,11 +151,11 @@ sPDF <- joinCountryData2Map( dFexampleCountryData
 You can see that a summary of how many countries are successfully  joined is 
 output to the console. You can specify verbose=TRUE to get a full list of 
 countries. The object returned (named sPDF in this case) is of type 
-\tt{SpatialPolygonsDataFrame} from the package \tt{sp}. This object is required 
+{\tt SpatialPolygonsDataFrame} from the package {\tt sp}. This object is required 
 for the next step, displaying the map.
 
 \subsection{Displaying a countries map}
-\tt{mapCountryData} requires as a minimum a \tt{SpatialPolygonsDataFrame}
+{\tt mapCountryData} requires as a minimum a {\tt SpatialPolygonsDataFrame}
 object and a specification of the name of the column containing the data to plot.
 The first line starting par ... below and in subsequent plots simply ensures 
 the plot fills the available space on the page.
@@ -183,11 +183,11 @@ to ensure they match
 %\pagebreak 
 \section{Mapping your own half degree gridded data}
 
-The \tt{mapGriddedData} function can accept either 
+The {\tt mapGriddedData} function can accept either 
 \begin{enumerate} 
-\item {an object of type \tt{SpatialGridDataFrame}, as defined in the 
-package \tt{sp}}
-\item {the name of an ESRI gridAscii file as a character string}
+\item an object of type {\tt SpatialGridDataFrame}, as defined in the 
+package {\tt sp}
+\item the name of an ESRI gridAscii file as a character string
 \end{enumerate}
 
 rworldmap contains an example SpatialGridDataFrame that can be accessed and 
@@ -210,7 +210,7 @@ mapGriddedData(gridExampleData)
 
 mapHalfDegreeGridToCountries() takes a gridded input file, and aggregates, to a 
 country level and plots the map, it accepts most of the same arguments as 
-\tt{mapCountryData()}. In the example below the trick from above of modifying 
+{\tt mapCountryData()}. In the example below the trick from above of modifying 
 the legend using addMapLegend() is repeated. 
 
 %\begin{figure}[htbp] 
@@ -228,7 +228,7 @@ do.call( addMapLegend, c(mapParams, legendWidth=0.5, legendMar = 2))
 \section{Aggregating country level data to global regions}
 
 Country level data can be aggregated to global regions specified by 
-\tt{regionType} in \tt{country2Region} which outputs as text, and \tt{mapByRegion} 
+{\tt regionType} in {\tt country2Region} which outputs as text, and {\tt mapByRegion} 
 which produces a map plot. The regional classifications available include SRES,
 GEO3, Stern and GBD.
 
@@ -239,7 +239,7 @@ sternEnvHealth <- country2Region(inFile=dFexampleCountryData
                 ,joinCode="ISO3"
                 ,nameJoinColumn="ISO3V10"
                 ,regionType="Stern"
-                ,FUN='mean'
+                ,FUN="mean"
                 )
 
 print(sternEnvHealth)
@@ -254,7 +254,7 @@ mapByRegion(dFexampleCountryData
                         ,joinCode="ISO3"
                         ,nameJoinColumn="ISO3V10"
                         ,regionType="Stern"
-                        ,FUN='mean'
+                        ,FUN="mean"
                         )
 @                        
 %    \caption{ output of mapByRegion() }
@@ -266,16 +266,28 @@ mapByRegion(dFexampleCountryData
 The following arguments can be specified to alter the appearance of your plots.
 
 \begin{itemize} 
-\item {\tt{catMethod}} method for categorisation of data "pretty", "fixedWidth",
- "logfixedWidth","quantiles","categorical", or a numeric vector defining breaks
-\item {\tt{numCats}} number of categories to put the data in, may be overidden 
+\item {\tt catMethod} method for categorisation of data "pretty", "fixedWidth",
+"diverging","logfixedWidth","quantiles","categorical", or a numeric vector 
+defining breaks.
+
+\item {\tt numCats} number of categories to classify the data into, may be modified 
 if that exact number is not possible for the chosen catMethod.  
-\item {\tt{colourPalette}} "heat","white2Black","topo",or "palette":for the 
-current palette which can be set from R
-\item {\tt{addLegend}} set to TRUE for a simple legend, if set to FALSE the 
+
+\item{\tt colourPalette} a string describing the colour palette to use, choice of :
+  \begin{enumerate}
+             \item "palette" for the current palette 
+             \item a vector of valid colours, e.g. c("red","white","blue") 
+             or output from RColourBrewer 
+             \item one of "heat", "diverging", "white2Black", "black2White", 
+             "topo", "rainbow", "terrain", "negpos8", "negpos9" 
+  \end{enumerate}
+
+\item {\tt addLegend} set to TRUE for a default legend, if set to FALSE the 
 function addMapLegend() or addMapLegendBoxes() can be used to create a more flexible legend.
-\item {\tt{mapRegion}} a region to zoom in on, can be set to a country name from 
-getMap()\$NAME or one of 'eurasia','africa','latin america','uk','oceania','asia' 
+
+\item {\tt mapRegion} a region to zoom in on, can be set to a country name from 
+getMap()\$NAME or one of "eurasia","africa","latin america","uk","oceania","asia" 
+
 \end{itemize} 
 
 
@@ -315,14 +327,14 @@ missingCountryCol='white')
 
 This demonstrates how continuous data can be put into categories outside of the 
 rworldmap functions and how a user defined colour palette can be used.
-Because the catMethod='categorical' was used a legend with separate boxes rather 
+Because the catMethod="categorical" was used a legend with separate boxes rather 
 than a colour bar is added.
 
 %\linebreak
 %\pagebreak
 \clearpage 
-You can zoom in on a map by specifying mapRegion='Eurasia' (or by specifiying
-xlim and ylim) and the country outlines can be changed by borderCol='black'. 
+You can zoom in on a map by specifying mapRegion="Eurasia" (or by specifiying
+xlim and ylim) and the country outlines can be changed by borderCol="black". 
 
 %\begin{figure}[bthp]
   \begin{center}
@@ -331,14 +343,14 @@ xlim and ylim) and the country outlines can be changed by borderCol='black'.
 <<plotSetup>>
          
 mapCountryData(sPDF, nameColumnToPlot='BIOcategories', catMethod='categorical', 
-mapTitle='Biodiveristy categories',colourPalette='palette', oceanCol='lightblue',
+mapTitle='Biodiversity categories',colourPalette='palette', oceanCol='lightblue',
 missingCountryCol='white', mapRegion='Eurasia', borderCol='black')
 
 ## At end of plotting, reset palette to previous settings:
 palette(op)  
 
 @
-%    \caption{Map zoomed in by adding mapRegion='Eurasia'}
+%    \caption{Map zoomed in by adding mapRegion="Eurasia"}
   \end{center}
 %\end{figure}
 

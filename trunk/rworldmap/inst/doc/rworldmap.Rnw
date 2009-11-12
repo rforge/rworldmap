@@ -56,24 +56,24 @@ par(mai=c(0,0,0.2,0),xaxs="i",yaxs="i")
 <<fig=TRUE,echo=FALSE,results=hide>>=
 <<plotSetup>>
 data("dFexampleCountryData",envir=environment())
-sPDF <- joinCountryData2Map(dFexampleCountryData
-              , joinCode = "ISO3"
-              , nameJoinColumn = "ISO3V10"
-              , projection = "none"
-              , mapResolution = "coarse"
+sPDF <- joinCountryData2Map(dFexampleCountryData,
+              joinCode = "ISO3",
+              nameJoinColumn = "ISO3V10",
+              projection = "none",
+              mapResolution = "coarse"
               )
 #map the data with no legend
-mapParams <- mapCountryData( sPDF
-              , nameColumnToPlot="BIODIVERSITY"
-              , addLegend=FALSE
-              , oceanCol="lightblue"
-              , missingCountryCol="grey"              
+mapParams <- mapCountryData( sPDF,
+              nameColumnToPlot="BIODIVERSITY",
+              addLegend=FALSE,
+              oceanCol="lightblue",
+              missingCountryCol="grey"
               )
 #add a modified legend
-do.call( addMapLegend, c(mapParams
-            , legendLabels="all"
-            , legendWidth=0.5
-            , legendMar = 2
+do.call( addMapLegend, c(mapParams,
+            legendLabels="all",
+            legendWidth=0.5,
+            legendMar = 2
             ))
 
 @
@@ -143,9 +143,9 @@ in what a single country may be named.
 
 <<joinCountryData2Map1,echo=TRUE>>=
 data(dFexampleCountryData)
-sPDF <- joinCountryData2Map( dFexampleCountryData 
-                           , joinCode = "ISO3"    
-                           , nameJoinColumn = "ISO3V10")
+sPDF <- joinCountryData2Map( dFexampleCountryData,
+                           joinCode = "ISO3",
+                           nameJoinColumn = "ISO3V10")
 @
 \vspace{0.5 cm}
 You can see that a summary of how many countries are successfully  joined is 
@@ -234,12 +234,12 @@ GEO3, Stern and GBD.
 
 <<country2Region1,echo=TRUE>>= 
 #Using country2Region to calculate mean Environmental Health index in Stern regions.
-sternEnvHealth <- country2Region(inFile=dFexampleCountryData
-                ,nameDataColumn="ENVHEALTH"
-                ,joinCode="ISO3"
-                ,nameJoinColumn="ISO3V10"
-                ,regionType="Stern"
-                ,FUN="mean"
+sternEnvHealth <- country2Region(inFile=dFexampleCountryData,
+                nameDataColumn="ENVHEALTH",
+                joinCode="ISO3",
+                nameJoinColumn="ISO3V10",
+                regionType="Stern",
+                FUN="mean"
                 )
 
 print(sternEnvHealth)
@@ -249,12 +249,12 @@ print(sternEnvHealth)
   \begin{center}
 <<mapByRegion1,fig=TRUE,echo=TRUE,results=hide>>= 
 <<plotSetup>>  
-mapByRegion(dFexampleCountryData
-                        ,nameDataColumn="CLIMATE"
-                        ,joinCode="ISO3"
-                        ,nameJoinColumn="ISO3V10"
-                        ,regionType="Stern"
-                        ,FUN="mean"
+mapByRegion(dFexampleCountryData,
+                        nameDataColumn="CLIMATE",
+                        joinCode="ISO3",
+                        nameJoinColumn="ISO3V10",
+                        regionType="Stern",
+                        FUN="mean"
                         )
 @                        
 %    \caption{ output of mapByRegion() }
@@ -302,10 +302,10 @@ getMap()\$NAME or one of "eurasia","africa","latin america","uk","oceania","asia
 <<plotSetup>>
 
 #joining the data to a map
-sPDF <- joinCountryData2Map(dFexampleCountryData
-              , joinCode = "ISO3"
-              , nameJoinColumn = "ISO3V10"
-              , projection = "none"
+sPDF <- joinCountryData2Map(dFexampleCountryData,
+              joinCode = "ISO3",
+              nameJoinColumn = "ISO3V10",
+              projection = "none",
               )            
 #creating a user defined colour palette
 op <- palette(c('green','yellow','orange','red')) 

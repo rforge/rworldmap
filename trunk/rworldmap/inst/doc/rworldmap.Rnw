@@ -317,7 +317,7 @@ sPDF@data$BIOcategories <- cut(sPDF@data$BIODIVERSITY, cutVector, include.lowest
 levels(sPDF@data$BIOcategories) <- c('low', 'med', 'high', 'vhigh')
 #mapping
 mapCountryData(sPDF, nameColumnToPlot='BIOcategories', catMethod='categorical', 
-mapTitle='Biodiveristy categories',colourPalette='palette', oceanCol='lightblue',
+mapTitle='Biodiversity categories',colourPalette='palette', oceanCol='lightblue',
 missingCountryCol='white')
 @
 

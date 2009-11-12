@@ -2,7 +2,7 @@
 \documentclass[a4paper]{article}
 \title{rworldmap vignette}
 \author{Andy South\footnote{Centre for Environment, Fisheries and Aquaculture 
-Science (Cefas), Lowestoft, NR33 OHT, UK. {\tt andy.south@cefas.co.uk}}}
+Science (Cefas), Lowestoft, NR33 OHT, UK. {\tt andy.south at cefas.co.uk}}}
 
 %\VignetteIndexEntry{rworldmap vignette : examples to get started}
 
@@ -53,7 +53,7 @@ par(mai=c(0,0,0.2,0),xaxs="i",yaxs="i")
 \begin{figure}[bthp]
   \begin{center}
   
-<<fig=TRUE,echo=FALSE,results=hide>>=
+<<eg1,fig=TRUE,echo=FALSE,results=hide>>=
 <<plotSetup>>
 data("dFexampleCountryData",envir=environment())
 sPDF <- joinCountryData2Map(dFexampleCountryData,
@@ -70,11 +70,17 @@ mapParams <- mapCountryData( sPDF,
               missingCountryCol="grey"
               )
 #add a modified legend
-do.call( addMapLegend, c(mapParams,
-            legendLabels="all",
-            legendWidth=0.5,
-            legendMar = 2
-            ))
+#do.call( addMapLegend, c(mapParams,
+#            legendLabels="all",
+#            legendWidth=0.5,
+#            legendMar = 2
+#            ))
+addMapLegend(colourVector = mapParams[["colourVector"]],
+             cutVector = mapParams[["cutVector"]], 
+             legendLabels="all",
+             legendWidth=0.5,
+             legendMar = 2
+             )
 
 @
 
@@ -92,11 +98,18 @@ do.call( addMapLegend, c(mapParams,
 \begin{figure}[bthp]
   \begin{center}
   
-<<fig=TRUE,echo=FALSE,results=hide>>=
+<<eg2,fig=TRUE,echo=FALSE,results=hide>>=
 <<plotSetup>>
 data("gridExampleData",envir=environment())
 mapParams <- mapGriddedData(oceanCol="lightblue",borderCol=NA,landCol="white",addLegend=FALSE, colourPalette="topo")
-do.call( addMapLegend, c(mapParams,legendLabels="all",legendWidth=0.5, legendMar = 2))
+#do.call( addMapLegend, c(mapParams,legendLabels="all",legendWidth=0.5, legendMar = 2))
+addMapLegend(colourVector = mapParams[["colourVector"]],
+             cutVector = mapParams[["cutVector"]],   
+             legendLabels="all",
+             legendWidth=0.5,
+             legendMar = 2
+             )
+
 title("Population per half degree grid cell")
 @
 
@@ -177,8 +190,9 @@ calling the addMapLegend function as in the code below.
 mapParams <- mapCountryData( sPDF, nameColumnToPlot="BIODIVERSITY", addLegend=FALSE )
 do.call( addMapLegend, c(mapParams, legendWidth=0.5, legendMar = 2))
 @ 
-Using do.call allows the output from mapCountryData to be used in addMapLegend 
-to ensure they match
+Using {\tt do.call} allows the output from mapCountryData to be used in addMapLegend 
+to ensure the legend matches the map while also allowing easy modification of extra 
+parameters such as {\tt legendWidth}.
 
 %\pagebreak 
 \section{Mapping your own half degree gridded data}
@@ -310,11 +324,11 @@ sPDF <- joinCountryData2Map(dFexampleCountryData,
 #creating a user defined colour palette
 op <- palette(c('green','yellow','orange','red')) 
 #find quartile breaks
-cutVector <- quantile(sPDF@data$BIODIVERSITY,na.rm=TRUE)
+cutVector <- quantile(sPDF@data[["BIODIVERSITY"]],na.rm=TRUE)
 #classify the data to a factor
-sPDF@data$BIOcategories <- cut(sPDF@data$BIODIVERSITY, cutVector, include.lowest=TRUE)
+sPDF@data[["BIOcategories"]] <- cut(sPDF@data[["BIODIVERSITY"]], cutVector, include.lowest=TRUE)
 #rename the categories
-levels(sPDF@data$BIOcategories) <- c('low', 'med', 'high', 'vhigh')
+levels(sPDF@data[["BIOcategories"]]) <- c('low', 'med', 'high', 'vhigh')
 #mapping
 mapCountryData(sPDF, nameColumnToPlot='BIOcategories', catMethod='categorical', 
 mapTitle='Biodiversity categories',colourPalette='palette', oceanCol='lightblue',
@@ -412,8 +426,8 @@ data("dFexampleCountryData",envir=environment(),package="rworldmap")
 sPDF <- joinCountryData2Map(dFexampleCountryData,joinCode = "ISO3",nameJoinColumn = "ISO3V10",mapResolution='coarse')
 
 #getting class intervals using a 'jenks' classification in classInt package
-classInt <- classIntervals( sPDF$EPI, n=5, style="jenks")
-catMethod = classInt$brks
+classInt <- classIntervals( sPDF[["EPI"]], n=5, style="jenks")
+catMethod = classInt[["brks"]]
 
 #getting a colour scheme from the RColorBrewer package
 colourPalette <- brewer.pal(5,'RdPu')

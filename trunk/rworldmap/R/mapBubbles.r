@@ -11,7 +11,7 @@ mapBubbles <- function( dF=""
                           ,symbolSize = 1 #multiplier relative to the default
                           ,maxZVal=NA
                           
-                          ,main=nameZsize
+                          ,main=nameZSize
                                                    
                          , numCats = 5  
                          , catMethod="categorical"   

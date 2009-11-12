@@ -18,7 +18,7 @@ mapBubbles(dF = ""
           , symbolSize = 1
           , maxZVal = NA          
           
-          , main = nameZsize
+          , main = nameZSize
           
           , numCats = 5
           , catMethod = "categorical"

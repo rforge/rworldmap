@@ -57,6 +57,7 @@ identify()
 
 #identifyCountries(nameColumnToPlot = "POP2005", plotSelected = TRUE)
 
+
 }
 
 \keyword{ dplot }

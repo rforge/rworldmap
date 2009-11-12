@@ -6,7 +6,7 @@ Science (Cefas), Lowestoft, NR33 OHT, UK. {\tt andy.south@cefas.co.uk}}}
 
 %\VignetteIndexEntry{rworldmap vignette : examples to get started}
 
-\SweaveOpts{echo=TRUE,print=FALSE, width=7, height=3.7, eps=FALSE}  %\default width & height for figures
+\SweaveOpts{echo=TRUE,print=FALSE, width=7, height=3.7, eps=FALSE}  %\default width and height for figures
 \usepackage{Sweave}
 \usepackage{a4wide}
 %\usepackage{a4}
@@ -353,6 +353,39 @@ palette(op)
 %    \caption{Map zoomed in by adding mapRegion="Eurasia"}
   \end{center}
 %\end{figure}
+
+
+\pagebreak 
+\section{Bubble plots}
+
+The {\tt mapBubbles} function allows flexible creation of bubble plots on global 
+maps. You can specifiy data columns that will determine the sizing and colouring
+of the bubbles (using {\tt nameZsize} and {\tt nameZColour} ). The function also 
+accepts other spatialDataFrame objects or data frames as long as they contain columns 
+specifiying the x and y coordinates. The interactive function {\tt identifyCountries} 
+allows the user to click on bubbles and the country name and optionally an attribute variable 
+will be printed on the map.  
+
+
+%\begin{figure}[bthp]
+  \begin{center}
+
+<<bubblePlot,fig=TRUE,echo=TRUE,results=hide>>=
+<<plotSetup>>
+
+mapBubbles(dF=getMap(), nameZSize="POP2005", nameZColour="REGION",colourPalette='rainbow', oceanCol='lightblue', landCol='wheat') 
+
+
+@
+%    \caption{using mapBubbles}
+  \end{center}
+%\end{figure}
+
+
+
+
+
+
 
 \pagebreak 
 \section{Combining rworldmap with other packages classInt and RColorBrewer}

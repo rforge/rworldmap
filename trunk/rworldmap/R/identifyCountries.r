@@ -15,10 +15,10 @@ if (class(dF)=="SpatialPolygonsDataFrame")
    {
     centroidCoords <- coordinates(getMap())
     #within this function just need the dF bit of the sPDF
-    dF <- dF@data
+    dF2 <- dF@data
     #adding extra attribute columns to contain centroids (even though such columns may already be there)
-    dF[['nameX']] <- centroidCoords[,1]
-    dF[['nameY']] <- centroidCoords[,2]    
+    dF2[['nameX']] <- centroidCoords[,1]
+    dF2[['nameY']] <- centroidCoords[,2]    
     nameX <- 'nameX'
     nameY <- 'nameY'    
    } else
@@ -26,27 +26,36 @@ if (class(dF)=="SpatialPolygonsDataFrame")
 if (class(dF)=="data.frame")
    {
     #this assumes that nameX, nameY & nameCountryColumn columns have been passed correctly
-
+    dF2 <- dF
    } else
    {
     #if no object is passed use the internal map
-    dF <- getMap()@data
+    dF2 <- getMap()@data
     nameX <- 'LON'
     nameY <- 'LAT'    
    }
 
-labels <- dF[[nameCountryColumn]]
+labels <- dF2[[nameCountryColumn]]
 
 #if an attribute column name is passed paste it's value onto end of country label
-if ( nameColumnToPlot != "" ) labels <- paste(labels,dF[[nameColumnToPlot]]) 
+if ( nameColumnToPlot != "" ) labels <- paste(labels,dF2[[nameColumnToPlot]]) 
 
-selectedCountryIndices <- identify(x=dF[[nameX]], y=dF[[nameY]], labels=labels,...)
+selectedCountryIndices <- identify(x=dF2[[nameX]], y=dF2[[nameY]], labels=labels,...)
 
 #allowing plotting of the boundaries of the selected countries
 #this is really just an initial test of something I may develop further later
 #!this will only work if the internal or a passed map is used
-#!!use dF2
-if (plotSelected) plot(getMap()[selectedCountryIndices,],border='blue',add=TRUE)
+if (plotSelected) 
+   {
+    if (class(dF)=="SpatialPolygonsDataFrame")
+       {
+        plot(dF[selectedCountryIndices,],border='blue',add=TRUE)
+       } else
+        #!warning if a dF in a different order to getMap() is passed this will plot wrong countries
+        plot(getMap()[selectedCountryIndices,],border='blue',add=TRUE)    
+   }
+
+
 
 #return the indices, may be useful later
 invisible(selectedCountryIndices)

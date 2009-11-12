@@ -92,18 +92,36 @@ if (!add)
     { 
       dataCategorised <- as.factor( dataCategorised )
       cutVector <- levels(dataCategorised) #doesn't do cutting but is passed for use in legend
+      if ( length(cutVector) > 15 ) warning("with catMethod='categorical' you have > 15 categories, you may want to try a different catMethod, e.g. quantile")
     }else
     { 
       if(is.character(catMethod)==TRUE)
     	{	
     		cutVector <- rwmGetClassBreaks( dataCategorised, catMethod=catMethod, numCats=numCats, verbose=TRUE )
-    	} else if(is.numeric(catMethod)==TRUE)
+    	  
+      } else if(is.numeric(catMethod)==TRUE)
     	#if catMethod is numeric it is already a vector of breaks	
     	{
     		cutVector <- catMethod
     	}
   	#Categorising the data, using a vector of breaks.	
-  	dataCategorised <- cut( dataCategorised, cutVector, include.lowest=TRUE)    	
+  	dataCategorised <- cut( dataCategorised, cutVector, include.lowest=TRUE)
+    
+ 	  #! want to set cutVector to 1-2,2-3,3-4 etc. for legend
+	  #there is probably a much more efficient way of doing this
+	  #foo <- function(x) c(paste(x[],"-",x[+1],sep=""))
+    #sapply(cutVector,foo)	  
+    #!!!neither of these quite works   
+    #tmp <- ""
+	  #for(i in 1:length(cutVector)-1) tmp <- c(tmp,paste(cutVector[i],"-",cutVector[i+1]),sep="")
+	  #cutVector <- tmp
+
+ 	  #to set cutVector to 1-2,2-3,3-4 etc. for legend 
+    #this is an ugly way of doing but it does work    
+    func <- function(x,y) c(paste(x,"-",y[1+which(y==x)],sep=""))
+    tmp <- sapply(cutVector,cutVector,FUN=func)
+    cutVector <- tmp[1:length(tmp)-1] #removing last element from vector
+        	
 	  } #end of if data are not categorical
  
   
@@ -169,7 +187,7 @@ points( dF[,nameX], dF[,nameY],pch=pch,cex=cex,col=col,bg=bg,... )#,
 #or perhaps just 
 
 #adding Legend for symbol sizes
-            if ( addLegend && sum(as.numeric(abs(dF[,nameZSize]),na.rm=TRUE)) != 0 )
+            if ( addLegend && sum(as.numeric(abs(dF[,nameZSize])),na.rm=TRUE) != 0 )
                {
                 if ( length(legendVals) > 1 ) #i.e. if legendVals are spceified by the user
                    {

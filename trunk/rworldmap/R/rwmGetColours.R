@@ -22,6 +22,7 @@ if( length(colourPalette) > 1 ) #only if the colourPalette passed is a vector of
         {
          warning(length(colourPalette)," colours specified and ", numColours," required, using interpolation to calculate colours")
          coloursToUse<-colorRampPalette(colourPalette)(numColours)
+         #coloursToUse<-colorRampPalette(colourPalette,space = "Lab")(numColours) #tried this to preserve transparency, didn't work
         }					
 	} else
 if(colourPalette=="negpos9")

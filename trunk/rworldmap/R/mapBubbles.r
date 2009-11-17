@@ -235,5 +235,14 @@ if ( addColourLegend && nameZColour!="" )
     addMapLegendBoxes(colourVector=colourVector,cutVector=cutVector,x=colourLegendPos, title=colourLegendTitle)
    }
 
+#! I should get this to return data that can be used by addMapLegend
+#! perhas just for the colour legend, would be difficult to get it to return for the size legend too
+invisible(list(colourVector=colourVector
+              ,cutVector=cutVector
+              #,plottedData=mapToPlot[[nameColumnToPlot]]
+              #,catMethod=catMethod
+              #,colourPalette=colourPalette
+              )
+         )  
       
 } #end of mapBubbles() function

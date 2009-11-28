@@ -108,11 +108,11 @@ mapCountryData <- function(
       if((length(catMethod)==1 && catMethod=="categorical") || !require("spam") || !require("fields")){
       
         # simpler legend for categorical data OR if you don't have packages spam or fields.
-        addMapLegendBoxes(colourVector=colourVector,cutVector=cutVector) #,plottedData=dataCategorised)          
+        addMapLegendBoxes(colourVector=colourVector,cutVector=cutVector,catMethod=catMethod) #,plottedData=dataCategorised)          
       
       }else{
         #colour bar legend based on fields package
-        addMapLegend(cutVector=cutVector,colourVector=colourVector) # ,plottedData=mapToPlot@data[[nameColumnToPlot]],catMethod=catMethod,colourPalette=colourPalette)
+        addMapLegend(cutVector=cutVector,colourVector=colourVector,catMethod=catMethod) # ,plottedData=mapToPlot@data[[nameColumnToPlot]],catMethod=catMethod,colourPalette=colourPalette)
       }  
   
   } #end of addLegend

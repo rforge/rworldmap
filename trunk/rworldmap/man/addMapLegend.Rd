@@ -24,7 +24,7 @@ addMapLegend(
                     ,legendArgs=NULL                   #allows a title above legend
                     ,tcl=-.5                            #as per par(tcl=) tick length par default = -.5
                     ,mgp=c(3,1,0)                       #as per par(mgp=) margin position par default= c(3,1,0)
-                    ,sigFigs=2                    #controls how numbers get rounded
+                    ,sigFigs=4                    #controls how numbers get rounded
                     ,digits=3                           #controls how numbers get formatted into neater numbers.
                     ,legendIntervals='page'       #page" or "data"."page"=intervals equal on page, "data"= equal in data units
                     

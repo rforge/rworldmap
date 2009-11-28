@@ -26,6 +26,15 @@
 #legend(x='bottomleft', legend=c(levels(dataCategorised),"no data"), pch = 22, pt.cex=2, col=borderCol,pt.bg=c(coloursForMap[1:numColours],missingCountryCol), title="category",bg="white" )
 
 #!? deal with what happens if non categorical data get through
+if ( catMethod!="categorical" )
+   {
+ 	  #to set cutVector to 1-2,2-3,3-4 etc. for legend 
+    #this is an ugly way of doing but it does work    
+    func <- function(x,y) c(paste(x,"-",y[1+which(y==x)],sep=""))
+    tmp <- sapply(cutVector,cutVector,FUN=func)
+    cutVector <- tmp[1:length(tmp)-1] #removing last element from vector
+   }
+
 
 if (length(legendText)==1 && legendText=="") legendText=cutVector
 

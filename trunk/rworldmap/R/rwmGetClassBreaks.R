@@ -12,7 +12,7 @@ catMethodList <- c("fixedWidth","diverging","quantiles","pretty","logFixedWidth"
 
 if( ! catMethod %in% catMethodList)
   {
-   warning("classification method should be set to one of :",catMethodList,"\nsetting to fixedWidth as default\n")
+   warning("classification method should be set to one of :",paste(catMethodList,""),"\nsetting to fixedWidth as default\n")
    catMethod="fixedWidth"
   }
 

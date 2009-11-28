@@ -1,19 +1,5 @@
-#default generic function...
-`mapGriddedData` <-function(dataset,...)
-{data(gridExampleData,envir=environment(),package="rworldmap");
- mapGriddedData(get("gridExampleData"),...)}
-
-#`mapGriddedData` <-function(dataset,nameColumnToPlot,...)
-#{data(gridExampleData,envir=environment(),package="rworldmap");
-#mapGriddedData(get("gridExampleData"),"pa2000.asc",...)}
-
-#generic method based on the default option above 
-setGeneric("mapGriddedData")
-
-#specific method sGDF and name for fieldToPlot
-#setMethod("mapGriddedData",c("SpatialGridDataFrame","character"),
-setMethod("mapGriddedData",c("SpatialGridDataFrame"),
-function(                dataset = ""
+mapGriddedData <- function(
+                           dataset = ""
                          , nameColumnToPlot = "" # only for multi-attribute spatialGridDataframes
                          , numCats = 5  #numCategories in map, later add options for classifying
                          , catMethod="quantiles"   #any vector defining breaks or "fixedWidth","quantiles","logFixedWidth"
@@ -36,7 +22,19 @@ function(                dataset = ""
 
     require(maptools)
     require(sp)
-    sGDF<-dataset
+    
+    if (class(dataset)=='character')
+       {
+        if (dataset=="")
+           {
+            data(gridExampleData,envir=environment(),package="rworldmap")
+            sGDF <- get("gridExampleData")
+           } else
+            sGDF <- readAsciiGrid(dataset)
+       }
+    else   
+        sGDF <- dataset
+
 
      #if the sGDF contains multiple attribute columns, decide which to plot
      if ( length(sGDF@data) == 1 ) attrName <- names(sGDF)[1] #to be able to get at data using original filename
@@ -111,7 +109,7 @@ function(                dataset = ""
     if (addBorders=='coasts'){
        #uses maps library
        library(maps) 
-       map( map(interior=FALSE,add=T, col=borderCol ) )
+       map( map(interior=FALSE,add=TRUE, col=borderCol ) )
        } else 
     if ( ! addBorders %in% borderOptions){
        warning("unrecognised addBorders = ",addBorders, "none plotted, choose one of",paste(borderOptions,""))
@@ -146,8 +144,9 @@ function(                dataset = ""
     #              )
     #         ) 
              
-  invisible(list(plottedData=eval( parse(text=paste(sys.call()[[2]],"[['",attrName,"']]",sep='')))
+  #invisible(list(plottedData=eval( parse(text=paste(sys.call()[[2]],"[['",attrName,"']]",sep='')))
   #invisible(list(plottedData=mapToPlot[[nameColumnToPlot]]
+  invisible(list(plottedData=sGDF[[attrName]]
                 ,catMethod=catMethod
                 ,colourVector=colourVector
                 ,cutVector=cutVector
@@ -155,20 +154,16 @@ function(                dataset = ""
                 )
            )              
 
-
-    }
-    
-  ) #end of setMethod(mapGriddedData(sGDF,character))
+    } #end of mapGriddedData()
 
 
 #specific method for an ascii grid filename
-setMethod("mapGriddedData",c("character"),
-#function(dataset,nameColumnToPlot='missing',...){
-function(dataset,...){
-sGDF<-readAsciiGrid(dataset)
+#setMethod("mapGriddedData",c("character"),
+#function(dataset,...){
+#sGDF<-readAsciiGrid(dataset)
 #!passing nameColumnToPlot isn't necessary as there's just one column in a gridascii file
-mapGriddedData(sGDF,nameColumnToPlot=names(sGDF@data),...)
-}) #end of setMethod(mapGriddedData(character))
+#mapGriddedData(sGDF,nameColumnToPlot=names(sGDF@data),...)
+#}) #end of setMethod(mapGriddedData(character))
 
 
 #OLD specific method for an ascii grid filename and name of the field to plot

@@ -1,26 +1,10 @@
-\name{mapGriddedData-methods}
-\docType{methods}
-%\alias{mapGriddedData-methods}
-%\alias{mapGriddedData,ANY-method}
+\name{mapGriddedData}
 \alias{mapGriddedData}
-\alias{mapGriddedData,character-method}
-\alias{mapGriddedData,SpatialGridDataFrame-method}
 \title{ Produce maps of global gridded data at half degree resolution }
 \description{Produce maps of global gridded data at half degree resolution}
 
-
-\section{Methods}{
-\describe{
-%\item{dataset = "ANY"}{ ~~describe this method here }
-\item{dataset = "character"}{ the character string should indicate a gridAscii file which will be opened and mapped }
-\item{dataset = "SpatialGridDataFrame"}{ maps a SpatialGridDataFrame }
-}}
-
 \usage{
-%\S4method{mapGriddedData}{SpatialGridDataFrame}(dataset,...)
-\S4method{mapGriddedData}{SpatialGridDataFrame}(dataset,nameColumnToPlot,numCats,catMethod,colourPalette,xlim,ylim,mapRegion,addLegend,addBorders,borderCol,oceanCol,landCol,plotData,aspect)
-%\S4method{mapGriddedData}{SpatialGridDataFrame}(dataset,...)
-\S4method{mapGriddedData}{character}(dataset,nameColumnToPlot,numCats,catMethod,colourPalette,xlim,ylim,mapRegion,addLegend,addBorders,borderCol,oceanCol,landCol,plotData,aspect)
+mapGriddedData(dataset,nameColumnToPlot,numCats,catMethod,colourPalette,xlim,ylim,mapRegion,addLegend,addBorders,borderCol,oceanCol,landCol,plotData,aspect)
 }
 
 \arguments{

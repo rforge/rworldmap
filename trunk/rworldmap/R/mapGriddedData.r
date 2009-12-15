@@ -86,7 +86,7 @@ mapGriddedData <- function(
 
     #setting up the map plot 
     #fills in the ocean but will get overpainted by the grid data if it doesn't have NAs in the ocean
-    rwmNewMapPlot(mapToPlot=sGDF,oceanCol=oceanCol,mapRegion=mapRegion,aspect=aspect)
+    rwmNewMapPlot(mapToPlot=sGDF,oceanCol=oceanCol,mapRegion=mapRegion,aspect=aspect,xlim=xlim,ylim=ylim)
 
 
     #to fill in any countries with NA values in the grid

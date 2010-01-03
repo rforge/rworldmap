@@ -15,23 +15,23 @@ addMapLegend(
                      colourVector=""
                     ,cutVector=""
                     
-                    ,legendLabels="limits"              #style of bar labels 'all','none','limits'
-                    ,labelFontSize=1                    #cex.axis by another name
-                    ,legendWidth=1.2                    #Width in characters of the legend
-                    ,legendShrink=0.9                   #Shrinks the legend, lengthwise
-                    ,legendMar=3                       #shifts the legend upwards when horiz, measured in characters.
-                    ,horizontal=TRUE                    #orientation
-                    ,legendArgs=NULL                   #allows a title above legend
-                    ,tcl=-.5                            #as per par(tcl=) tick length par default = -.5
-                    ,mgp=c(3,1,0)                       #as per par(mgp=) margin position par default= c(3,1,0)
-                    ,sigFigs=4                    #controls how numbers get rounded
-                    ,digits=3                           #controls how numbers get formatted into neater numbers.
-                    ,legendIntervals='page'       #page" or "data"."page"=intervals equal on page, "data"= equal in data units
+                    ,legendLabels="limits"              
+                    ,labelFontSize=1                    
+                    ,legendWidth=1.2                   
+                    ,legendShrink=0.9                 
+                    ,legendMar=3                       
+                    ,horizontal=TRUE                    
+                    ,legendArgs=NULL                   
+                    ,tcl=-.5                            
+                    ,mgp=c(3,1,0)                       
+                    ,sigFigs=4                   
+                    ,digits=3                           
+                    ,legendIntervals='page'     
                     
-                    ,plottedData=""               #not used yet but maybe in future
-                    ,catMethod="pretty"           #not used yet but maybe in future
-                    ,colourPalette="heat"         #not used yet but maybe in future
-                    #,missingCountryCol="white"    #not used yet but maybe in future       
+                    ,plottedData=""               
+                    ,catMethod="pretty"           
+                    ,colourPalette="heat"         
+                    #,missingCountryCol="white"         
                    )
 }
 \arguments{

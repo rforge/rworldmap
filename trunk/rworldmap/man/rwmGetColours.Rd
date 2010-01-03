@@ -11,11 +11,11 @@ rwmGetColours(colourPalette, numColours)
 }
 
 \arguments{
-  \item{colourPalette}{ a string describing the colour palette to use, choice of :
-    \itemize{
-               \item{}{="palette" for the current palette} 
-               \item{}{a vector of valid colours, e.g. =c('red','white','blue') or output from RColourBrewer} 
-               \item{}{= one of "heat","white2Black","black2White","topo","rainbow","terrain" }
+  \item{colourPalette}{ string describing the colour palette to use, choice of:
+    \enumerate{
+               \item{}"palette" for the current palette 
+               \item{}a vector of valid colours, e.g. =c('red','white','blue') or output from RColourBrewer 
+               \item{}one of "heat","diverging","white2Black","black2White","topo","rainbow","terrain","negpos8","negpos9"
                }}
   \item{numColours}{ the number of colour categories desired }
 }

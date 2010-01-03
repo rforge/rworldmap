@@ -7,7 +7,6 @@ A 'SpatialPolygonsDataFrame' [package "sp"] object containing a simplified world
 }
 \usage{data(wrld_simpl)}
 \format{
-  The format is:
 \preformatted{
 Formal class 'SpatialPolygonsDataFrame' [package "sp"] with 5 slots
   ..@ data       :'data.frame':	246 obs. of  11 variables:

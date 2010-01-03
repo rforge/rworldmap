@@ -5,7 +5,7 @@
 \description{
 A 'SpatialPolygonsDataFrame' [package "sp"] object containing a simplified world map. Polygons are attributed with country codes.
 }
-\usage{data(wrld_simpl)}
+\usage{data(wrld_simpl_lessIslands)}
 \format{
   The format is:
 \preformatted{
@@ -43,7 +43,37 @@ Text from the site :
 The dataset is available under a Creative Commons Attribution-Share Alike License. If you use this dataset, please provide a link to this website."
 
 imported to R and cleaned by Roger Bivand
-small islands removed by Andy South
+small islands removed by Andy South to reduce size of map and increase speed of printing
+using the following code :
+#based on a posting to r-sig-geo by Hans-Jörg Bibiko on 29.01.2009
+#see http://www.mail-archive.com/r-sig-geo@stat.math.ethz.ch/msg04341.html
+data(wrld_simpl)
+minIslandSizeForInclusionInMap <- 1 #prob in degrees
+
+#for each country in the map
+for (i in (1:length(wrld_simpl@polygons)))
+   {
+    #count the number of polygons in the country
+    polyCnt <- length(wrld_simpl@polygons[[i]]@Polygons)
+    if (polyCnt > 2)
+       {
+        #just select those polygons with area > 0.1
+        pO <- sapply(wrld_simpl@polygons[[i]]@Polygons, function(x)
+                     {slot(x,'area') > minIslandSizeForInclusionInMap} )
+                     
+        #get new plot order
+        new_pO <- pO[ wrld_simpl@polygons[[i]]@plotOrder ]
+        
+        #i think for each country this then just doesn't plot all of the polygons
+        #(despite the fact that the coords are perhaps still in there ?)
+        wrld_simpl@polygons[[i]]@plotOrder <- wrld_simpl@polygons[[i]]@plotOrder[ new_pO ]
+       }
+    }
+plot(wrld_simpl)
+wrld_simpl_lessIslands <- wrld_simpl
+
+
+
 }
 
 

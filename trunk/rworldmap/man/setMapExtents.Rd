@@ -13,7 +13,7 @@ setMapExtents(mapRegion = "world")
 
 
 \arguments{
-  \item{mapRegion}{ a country name from getMap()\$NAME or one of 'eurasia','africa','latin america','uk','oceania','asia' }
+  \item{mapRegion}{ a country name from getMap()[['NAME']] or one of 'eurasia','africa','latin america','uk','oceania','asia' }
 }
 
 \details{

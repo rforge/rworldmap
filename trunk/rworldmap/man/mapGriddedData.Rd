@@ -14,9 +14,9 @@ mapGriddedData(dataset,nameColumnToPlot,numCats,catMethod,colourPalette,xlim,yli
   \item{catMethod}{ method for categorisation of data "pretty", "fixedWidth","diverging", "logfixedWidth","quantiles","categorical", or a numeric vector defining breaks } 
   \item{colourPalette}{ a string describing the colour palette to use, choice of :
     \enumerate{
-               \item{}{="palette" for the current palette} 
-               \item{}{a vector of valid colours, e.g. =c('red','white','blue') or output from RColourBrewer} 
-               \item{}{= one of "heat","diverging","white2Black","black2White","topo","rainbow","terrain","negpos8","negpos9" }
+               \item{}"palette" for the current palette 
+               \item{}a vector of valid colours, e.g. =c('red','white','blue') or output from RColourBrewer 
+               \item{}one of "heat","diverging","white2Black","black2White","topo","rainbow","terrain","negpos8","negpos9"
                }}
   \item{xlim}{ map extents c(west,east), can be overidden by mapRegion }
   \item{ylim}{ map extents c(south,north), can be overidden by mapRegion } 

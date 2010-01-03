@@ -106,12 +106,16 @@ mapBubbles(pch=22)
 mapBubbles(dF=getMap(), nameZSize="POP2005", nameZColour="REGION")
 
 #change colour
-mapBubbles(dF=getMap(), nameZSize="POP2005", nameZColour="REGION",colourPalette='rainbow', oceanCol='lightblue', landCol='wheat') 
+mapBubbles(dF=getMap(), nameZSize="POP2005", nameZColour="REGION"
+          ,colourPalette='rainbow', oceanCol='lightblue', landCol='wheat') 
 
 
 data("dFexampleCountryData",envir=environment(),package="rworldmap")
-sPDF <- joinCountryData2Map(dFexampleCountryData,joinCode = "ISO3",nameJoinColumn = "ISO3V10")
-mapBubbles(sPDF, nameZSize="AREA",nameZColour="BIODIVERSITY",colourPalette='topo',numCats=5,catMethod="quantiles")
+sPDF <- joinCountryData2Map(dFexampleCountryData,joinCode = "ISO3"
+                           ,nameJoinColumn = "ISO3V10")
+                           
+mapBubbles(sPDF, nameZSize="AREA",nameZColour="BIODIVERSITY"
+          ,colourPalette='topo',numCats=5,catMethod="quantiles")
 
 }
 

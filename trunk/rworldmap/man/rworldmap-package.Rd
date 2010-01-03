@@ -47,7 +47,8 @@ mapCountryData(mapRegion="asia")
 mapGriddedData()
 #specifying region 
 mapGriddedData(mapRegion="africa")  
-#aggregating gridded data to country level, with no file specified it uses internal example data
+#aggregating gridded data to country level 
+#with no file specified it uses internal example data
 mapHalfDegreeGridToCountries()              
 
 

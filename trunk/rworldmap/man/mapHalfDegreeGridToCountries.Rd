@@ -8,17 +8,17 @@ Maps user half degree gridded data at country level by first aggregating.
 \usage{
 mapHalfDegreeGridToCountries(
       inFile=""
-    , aggregateOption="sum"  #"mean","max","min"
+    , aggregateOption="sum"  
     , nameCountryColumn = ""
     , suggestForFailedCodes = FALSE 
-    , projection="none"  #"none", "EqualArea" 
-    , mapResolution="low" #                                                 
-    , numCats = 7 # *may be ignored by catMethod
+    , projection="none"  
+    , mapResolution="low"                                                 
+    , numCats = 7 
     , xlim=c(-160,160)
     , ylim=c(-80,90)
-    , mapRegion = "world"   #sets map extents, overrides we,ea etc.
-    , catMethod="quantiles"   #any vector defining breaks, "fixedWidth","quantiles"
-    , colourPalette= "heat" #"heat","white2Black","palette" for current palette
+    , mapRegion = "world"   
+    , catMethod="quantiles"   
+    , colourPalette= "heat" 
     , addLegend=TRUE 
     )
 }

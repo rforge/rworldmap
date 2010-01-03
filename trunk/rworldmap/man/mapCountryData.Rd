@@ -87,15 +87,20 @@ library(classInt)
 library(RColorBrewer)
 #getting example data and joining to a map
 data("dFexampleCountryData",envir=environment(),package="rworldmap")
-sPDF <- joinCountryData2Map(dFexampleCountryData,joinCode = "ISO3",nameJoinColumn = "ISO3V10")
+sPDF <- joinCountryData2Map(dFexampleCountryData,joinCode = "ISO3"
+                           ,nameJoinColumn = "ISO3V10")
 #getting class intervals using a 'jenks' classification in classInt package
 classInt <- classIntervals( sPDF$EPI, n=5, style="jenks")
 catMethod = classInt$brks
 #getting a colour scheme from the RColorBrewer package
 colourPalette <- brewer.pal(5,'RdPu')
 #calling mapCountryData with the parameters from classInt and RColorBrewer
-mapParams <- mapCountryData(sPDF,nameColumnToPlot="EPI", addLegend=FALSE, catMethod = catMethod, colourPalette=colourPalette )
-do.call(addMapLegend, c(mapParams,legendLabels="all",legendWidth=0.5,legendIntervals="data"))
+mapParams <- mapCountryData( sPDF, nameColumnToPlot="EPI", addLegend=FALSE
+                           , catMethod = catMethod, colourPalette=colourPalette )
+do.call(addMapLegend, c(mapParams
+                       ,legendLabels="all"
+                       ,legendWidth=0.5
+                       ,legendIntervals="data"))
 
               
 

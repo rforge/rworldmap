@@ -93,7 +93,10 @@ mapParams$legendText <- c('antarctic','africa','oceania','americas','s.asia','eu
 do.call( addMapLegendBoxes, c(mapParams,x='bottom',title="Region",horiz=TRUE))
 
 #or this way
-#do.call( addMapLegendBoxes, c(mapParams,list(legendText=c('antarctic','africa','oceania','americas','s.asia','eurasia'),x='bottom',title="Region",horiz=TRUE)))
+#do.call( addMapLegendBoxes
+#        , c(mapParams
+#           ,list(legendText=c('antarctic','africa','oceania','americas','s.asia','eurasia')
+#                ,x='bottom',title="Region",horiz=TRUE)))
 
 
 }

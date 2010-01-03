@@ -4,7 +4,21 @@
 \description{Produce maps of global gridded data at half degree resolution}
 
 \usage{
-mapGriddedData(dataset,nameColumnToPlot,numCats,catMethod,colourPalette,xlim,ylim,mapRegion,addLegend,addBorders,borderCol,oceanCol,landCol,plotData,aspect)
+mapGriddedData(dataset
+              ,nameColumnToPlot
+              ,numCats
+              ,catMethod
+              ,colourPalette
+              ,xlim
+              ,ylim
+              ,mapRegion
+              ,addLegend
+              ,addBorders
+              ,borderCol
+              ,oceanCol
+              ,landCol
+              ,plotData
+              ,aspect)
 }
 
 \arguments{
@@ -60,11 +74,13 @@ data(gridExampleData,envir=environment(),package="rworldmap")
 #find quartile breaks
 cutVector <- quantile(gridExampleData@data[,1],na.rm=TRUE)
 #classify the data to a factor
-gridExampleData@data$categories <- cut(gridExampleData@data[,1], cutVector, include.lowest=TRUE)
+gridExampleData@data$categories <- cut( gridExampleData@data[,1]
+                                      , cutVector, include.lowest=TRUE)
 #rename the categories
 levels(gridExampleData@data$categories) <- c('low', 'med', 'high', 'vhigh')
 #mapping
-mapGriddedData(gridExampleData, nameColumnToPlot= 'categories', catMethod='categorical')
+mapGriddedData( gridExampleData, nameColumnToPlot= 'categories'
+              , catMethod='categorical')
 
 
 }

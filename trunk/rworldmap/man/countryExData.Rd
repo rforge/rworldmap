@@ -1,5 +1,5 @@
-\name{dFexampleCountryData}
-\alias{dFexampleCountryData}
+\name{countryExData}
+\alias{countryExData}
 \docType{data}
 \title{ Example dataset for country level data (2008 Environmental Performance Index) }
 \description{
@@ -8,7 +8,7 @@ This is the 2008 Environmental Performance Index (EPI) downloaded from http://ep
 Used here with permission, further details on the data can be found there. 
 The data are referenced by ISO 3 letter country codes and country names. 
 }
-\usage{data(dFexampleCountryData)}
+\usage{data(countryExData)}
 \format{
   A data frame with 149 observations on the following 80 variables.
   \describe{
@@ -113,7 +113,7 @@ Esty, Daniel C., M.A. Levy, C.H. Kim, A. de Sherbinin, T. Srebotnjak, and V. Mar
 2008 Environmental Performance Index. New Haven: Yale Center for Environmental Law and Policy.
 }
 \examples{
-data(dFexampleCountryData,envir=environment(),package="rworldmap")
-str(dFexampleCountryData)
+data(countryExData,envir=environment(),package="rworldmap")
+str(countryExData)
 }
 \keyword{datasets}

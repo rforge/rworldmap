@@ -110,8 +110,8 @@ mapBubbles(dF=getMap(), nameZSize="POP2005", nameZColour="REGION"
           ,colourPalette='rainbow', oceanCol='lightblue', landCol='wheat') 
 
 
-data("dFexampleCountryData",envir=environment(),package="rworldmap")
-sPDF <- joinCountryData2Map(dFexampleCountryData,joinCode = "ISO3"
+data("countryExData",envir=environment(),package="rworldmap")
+sPDF <- joinCountryData2Map(countryExData,joinCode = "ISO3"
                            ,nameJoinColumn = "ISO3V10")
                            
 mapBubbles(sPDF, nameZSize="AREA",nameZColour="BIODIVERSITY"

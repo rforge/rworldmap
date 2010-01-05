@@ -85,8 +85,8 @@ Can have the unintentional effect of modifying graphical parameters, e.g. mfcol 
 #Set up the plot so the world map uses the full width.
 mapDevice() 
 #join eaxmple data to a map  
-data("dFexampleCountryData",envir=environment())
-sPDF <- joinCountryData2Map(dFexampleCountryData
+data("countryExData",envir=environment())
+sPDF <- joinCountryData2Map(countryExData
               , joinCode = "ISO3"
               , nameJoinColumn = "ISO3V10"
               , projection = "none" 

@@ -37,9 +37,9 @@ to allow greater flexibility in legend creation.
 }
 \seealso{An alternative tool to \code{\link{country2Region}}. The plotting is done by \code{\link{mapCountryData}}}
 \examples{
-data(dFexampleCountryData)
+data(countryExData)
 
-mapByRegion(inFile=dFexampleCountryData
+mapByRegion(inFile=countryExData
 		        ,nameDataColumn="CLIMATE"
 		        ,joinCode="ISO3"
 		        ,nameJoinColumn="ISO3V10"

@@ -33,13 +33,13 @@ If FUN returns more than one value, country2Region will return a list, with one 
 }
 \seealso{For producing maps of regional data from aggregated country level data, see \code{\link{mapByRegion}}}
 \examples{
-data(dFexampleCountryData)
+data(countryExData)
 
 #to report which countries make up regions
 country2Region(regionType="Stern")
 
 #Using country2Region to calculate mean Environmental Health index in Stern regions.
-sternEnvHealth <- country2Region(inFile=dFexampleCountryData
+sternEnvHealth <- country2Region(inFile=countryExData
 		,nameDataColumn="ENVHEALTH"
 		,joinCode="ISO3"
 		,nameJoinColumn="ISO3V10"
@@ -54,7 +54,7 @@ print(sternEnvHealth)
 dotchart(sort(sternEnvHealth[,1]))
 
 #use FUN='identity' to see which countries in your data belong to which region.
-country2Region(inFile=dFexampleCountryData
+country2Region(inFile=countryExData
 		,nameDataColumn="Country"
 		,joinCode="ISO3"
 		,nameJoinColumn="ISO3V10"
@@ -63,7 +63,7 @@ country2Region(inFile=dFexampleCountryData
 		)
 
 #Change FUN to length, to count the number of countries in each region.
-country2Region(inFile=dFexampleCountryData
+country2Region(inFile=countryExData
 		,nameDataColumn="Country"
 		,joinCode="ISO3"
 		,nameJoinColumn="ISO3V10"

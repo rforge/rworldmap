@@ -70,8 +70,8 @@ data command, and the command below shows how to display a subset of the rows an
 columns.
 
 <<showExampleCountryData,echo=TRUE>>=
-data(dFexampleCountryData)
-dFexampleCountryData[5:10,1:5]
+data(countryExData)
+countryExData[5:10,1:5]
 @
 
 \subsection{Reading data into R}
@@ -88,8 +88,8 @@ joinCode="NAME", you can expect more mismatches because there is greater variati
 in what a single country may be named.
 
 <<joinCountryData2Map1,echo=TRUE>>=
-data(dFexampleCountryData)
-sPDF <- joinCountryData2Map( dFexampleCountryData,
+data(countryExData)
+sPDF <- joinCountryData2Map( countryExData,
                            joinCode = "ISO3",
                            nameJoinColumn = "ISO3V10")
 @
@@ -181,7 +181,7 @@ GEO3, Stern and GBD.
 
 <<country2Region1,echo=TRUE>>= 
 #Using country2Region to calculate mean Environmental Health index in Stern regions.
-sternEnvHealth <- country2Region(inFile=dFexampleCountryData,
+sternEnvHealth <- country2Region(inFile=countryExData,
                 nameDataColumn="ENVHEALTH",
                 joinCode="ISO3",
                 nameJoinColumn="ISO3V10",
@@ -196,7 +196,7 @@ print(sternEnvHealth)
   \begin{center}
 <<mapByRegion1,fig=TRUE,echo=TRUE,results=hide>>= 
 <<plotSetup>>  
-mapByRegion(dFexampleCountryData,
+mapByRegion(countryExData,
                         nameDataColumn="CLIMATE",
                         joinCode="ISO3",
                         nameJoinColumn="ISO3V10",
@@ -250,7 +250,7 @@ getMap()\$NAME or one of "eurasia","africa","latin america","uk","oceania","asia
 <<plotSetup>>
 
 #joining the data to a map
-sPDF <- joinCountryData2Map(dFexampleCountryData,
+sPDF <- joinCountryData2Map(countryExData,
               joinCode = "ISO3",
               nameJoinColumn = "ISO3V10",
               projection = "none",
@@ -355,8 +355,8 @@ library(classInt)
 library(RColorBrewer)
 
 #getting example data and joining to a map
-data("dFexampleCountryData",envir=environment(),package="rworldmap")
-sPDF <- joinCountryData2Map(dFexampleCountryData,joinCode = "ISO3",nameJoinColumn = "ISO3V10",mapResolution='coarse')
+data("countryExData",envir=environment(),package="rworldmap")
+sPDF <- joinCountryData2Map(countryExData,joinCode = "ISO3",nameJoinColumn = "ISO3V10",mapResolution='coarse')
 
 #getting class intervals using a 'jenks' classification in classInt package
 classInt <- classIntervals( sPDF[["EPI"]], n=5, style="jenks")

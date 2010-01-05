@@ -42,9 +42,9 @@ An R 'SpatialPolygonsDataFrame' [package "sp"] object with the data joined to it
 
 \seealso{ \code{\link{mapCountryData}} }
 \examples{
-data("dFexampleCountryData",envir=environment(),package="rworldmap")
+data("countryExData",envir=environment(),package="rworldmap")
 
-sPDF <- joinCountryData2Map(dFexampleCountryData
+sPDF <- joinCountryData2Map(countryExData
               , joinCode = "ISO3"
               , nameJoinColumn = "ISO3V10"
               , projection = "none" 

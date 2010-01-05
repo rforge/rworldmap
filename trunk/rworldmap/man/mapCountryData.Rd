@@ -62,8 +62,8 @@ along with additional options to allow greater flexibility in legend creation.
 
 \examples{
 mapCountryData()
-data("dFexampleCountryData",envir=environment(),package="rworldmap")
-sPDF <- joinCountryData2Map(dFexampleCountryData
+data("countryExData",envir=environment(),package="rworldmap")
+sPDF <- joinCountryData2Map(countryExData
               , joinCode = "ISO3"
               , nameJoinColumn = "ISO3V10"
               , projection = "none" 
@@ -86,8 +86,8 @@ do.call( addMapLegendBoxes, c(mapParams,x='bottom',title="Region",horiz=TRUE))
 library(classInt)
 library(RColorBrewer)
 #getting example data and joining to a map
-data("dFexampleCountryData",envir=environment(),package="rworldmap")
-sPDF <- joinCountryData2Map(dFexampleCountryData,joinCode = "ISO3"
+data("countryExData",envir=environment(),package="rworldmap")
+sPDF <- joinCountryData2Map(countryExData,joinCode = "ISO3"
                            ,nameJoinColumn = "ISO3V10")
 #getting class intervals using a 'jenks' classification in classInt package
 classInt <- classIntervals( sPDF$EPI, n=5, style="jenks")

@@ -4,8 +4,8 @@ function()
     #displays examples - i should probably put somewhere else
     
     #get the data
-    data("dFexampleCountryData",envir=environment(),package="rworldmap")
-    dFexampleCountryData<-get("dFexampleCountryData")
+    data("countryExData",envir=environment(),package="rworldmap")
+    countryExData<-get("countryExData")
    
     #should check operating system for windows()
     #or just remove
@@ -17,7 +17,7 @@ function()
 
     #1
     #joining the example data to a map
-    sPDF <- joinCountryData2Map(dFexampleCountryData
+    sPDF <- joinCountryData2Map(countryExData
               , joinCode = "ISO3"
               , nameJoinColumn = "ISO3V10"
               )
@@ -28,7 +28,7 @@ function()
 
     #2
     #joining the example data to a map
-    sPDF <- joinCountryData2Map(dFexampleCountryData
+    sPDF <- joinCountryData2Map(countryExData
               , joinCode = "ISO3"
               , nameJoinColumn = "ISO3V10"
               )
@@ -42,7 +42,7 @@ function()
                   
     #windows()
     #3
-    sPDF <- joinCountryData2Map(dFexampleCountryData
+    sPDF <- joinCountryData2Map(countryExData
           , joinCode = "ISO3"
           , nameJoinColumn = "ISO3V10"
           )

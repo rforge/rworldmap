@@ -26,10 +26,10 @@ aggregateHalfDegreeGridToCountries(inFile = "", aggregateOption = "sum")
 \seealso{ \code{\link{mapHalfDegreeGridToCountries}} }
 \examples{
 
-data(gridExampleData,envir=environment(),package="rworldmap")
-gridExampleData <- get("gridExampleData")
+data(gridExData,envir=environment(),package="rworldmap")
+gridExData <- get("gridExData")
 #aggregating the gridded data to countries
-dF <- aggregateHalfDegreeGridToCountries(gridExampleData)
+dF <- aggregateHalfDegreeGridToCountries(gridExData)
 #joining the aggregated data to a country map
 sPDF <- joinCountryData2Map(dF, nameJoinColumn='UN', joinCode='UN')
 #plotting the map

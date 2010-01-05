@@ -65,21 +65,21 @@ to allow greater flexibility in legend creation.
 
 \examples{
 ## mapping continuous data
-data(gridExampleData,envir=environment(),package="rworldmap")
-gridExampleData <- get("gridExampleData")
-mapGriddedData(gridExampleData)
+data(gridExData,envir=environment(),package="rworldmap")
+gridExData <- get("gridExData")
+mapGriddedData(gridExData)
 
 ## reclassing continuous data to categorical & mapping
-data(gridExampleData,envir=environment(),package="rworldmap")
+data(gridExData,envir=environment(),package="rworldmap")
 #find quartile breaks
-cutVector <- quantile(gridExampleData@data[,1],na.rm=TRUE)
+cutVector <- quantile(gridExData@data[,1],na.rm=TRUE)
 #classify the data to a factor
-gridExampleData@data$categories <- cut( gridExampleData@data[,1]
+gridExData@data$categories <- cut( gridExData@data[,1]
                                       , cutVector, include.lowest=TRUE)
 #rename the categories
-levels(gridExampleData@data$categories) <- c('low', 'med', 'high', 'vhigh')
+levels(gridExData@data$categories) <- c('low', 'med', 'high', 'vhigh')
 #mapping
-mapGriddedData( gridExampleData, nameColumnToPlot= 'categories'
+mapGriddedData( gridExData, nameColumnToPlot= 'categories'
               , catMethod='categorical')
 
 

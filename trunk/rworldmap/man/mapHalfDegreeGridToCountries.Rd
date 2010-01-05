@@ -56,12 +56,12 @@ to allow greater flexibility in legend creation.
 
 \examples{
 
-data(gridExampleData,envir=environment(),package="rworldmap")
-gridExampleData <- get("gridExampleData")
-mapHalfDegreeGridToCountries(gridExampleData)             
+data(gridExData,envir=environment(),package="rworldmap")
+gridExData <- get("gridExData")
+mapHalfDegreeGridToCountries(gridExData)             
 
 #different aggregate option
-mapHalfDegreeGridToCountries( gridExampleData, aggregateOption="mean" )
+mapHalfDegreeGridToCountries( gridExData, aggregateOption="mean" )
 
 }
 

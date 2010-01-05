@@ -144,8 +144,8 @@ printed as shown in the code below.
   \begin{center}
 <<mapGriddedData1,fig=TRUE,echo=TRUE>>=
 <<plotSetup>>
-data(gridExampleData)
-mapGriddedData(gridExampleData)
+data(gridExData)
+mapGriddedData(gridExData)
 @              
 %    \caption{ output of mapGriddedData() }
   \end{center}
@@ -165,7 +165,7 @@ the legend using addMapLegend() is repeated.
 
 <<mapHalfDegreeGridToCountries1,fig=TRUE,echo=TRUE,results=hide>>= 
 <<plotSetup>>  
-mapParams <- mapHalfDegreeGridToCountries(gridExampleData, addLegend=FALSE)
+mapParams <- mapHalfDegreeGridToCountries(gridExData, addLegend=FALSE)
 do.call( addMapLegend, c(mapParams, legendWidth=0.5, legendMar = 2))
 @
 %    \caption{ output of mapHalfDegreeGridToCountries() }

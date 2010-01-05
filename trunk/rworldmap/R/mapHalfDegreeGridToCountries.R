@@ -31,8 +31,8 @@ function( inFile=""
     else if ( inFile == "" )
     {
        message("using example data because no file specified in mapHalfDegreeGridToCountries()\n")
-       data("gridExampleData",envir=environment(),package="rworldmap")
-       sGDF <- get("gridExampleData") # copying from the example data
+       data("gridExData",envir=environment(),package="rworldmap")
+       sGDF <- get("gridExData") # copying from the example data
     } else if ( is.character(inFile)) 
     {           
        if ( !file.exists(inFile) )

@@ -1,12 +1,12 @@
-\name{gridExampleData}
-\alias{gridExampleData}
+\name{gridExData}
+\alias{gridExData}
 \docType{data}
 \title{ Example half degree grid data : population estimates for 2000 from IIASA }
 \description{
 Example half degree grid data : people per cell estimates for 2000 from IIASA (International Institute for Applied System Analysis) (sp, SpatialGridDataFrame). 
 }
 \usage{
-data(gridExampleData)
+data(gridExData)
 
 }
 \format{
@@ -48,6 +48,6 @@ http://www.iiasa.ac.at/web-apps/ggi/GgiDb/dsd?Action=htmlpage&page=about
 Grubler, A., O'Neill, B., Riahi, K., Chirkov, V., Goujon, A., Kolp, P., Prommer, I., Scherbov, S. & Slentoe, E. (2006) Regional, national and spatially explicit scenarios of demographic and economic change based on SRES. Technological Forecasting and Social Change doi:10.1016/j.techfore.2006.05.023
 }
 \examples{
-data(gridExampleData)
+data(gridExData)
 }
 \keyword{datasets}

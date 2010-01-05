@@ -27,8 +27,8 @@ mapGriddedData <- function(
        {
         if (dataset=="")
            {
-            data(gridExampleData,envir=environment(),package="rworldmap")
-            sGDF <- get("gridExampleData")
+            data(gridExData,envir=environment(),package="rworldmap")
+            sGDF <- get("gridExData")
            } else
             sGDF <- readAsciiGrid(dataset)
        }

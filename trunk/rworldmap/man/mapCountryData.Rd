@@ -19,7 +19,7 @@ mapCountryData(mapToPlot = "", nameColumnToPlot = "", numCats = 7,
   \item{numCats}{ number of categories to put the data in, may be modified if this number is incompatible with the catMethod chosen}
   \item{xlim}{ map extents c(west,east), can be overidden by mapRegion }
   \item{ylim}{ map extents c(south,north), can be overidden by mapRegion }
-  \item{mapRegion}{ a country name from getMap()\$NAME or 'world','africa','oceania','eurasia','uk' sets map extents, overrides xlim,ylim }
+  \item{mapRegion}{ a country name from getMap()[['NAME']] or 'world','africa','oceania','eurasia','uk' sets map extents, overrides xlim,ylim }
   \item{catMethod}{ method for categorisation of data "pretty", "fixedWidth", "diverging", "logfixedWidth","quantiles","categorical", or a numeric vector defining breaks }
   \item{colourPalette}{ string describing the colour palette to use, choice of:
     \enumerate{

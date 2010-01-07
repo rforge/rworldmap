@@ -122,7 +122,7 @@ mapGriddedData <- function(
       if((length(catMethod)==1 && catMethod=="categorical") || !require("spam") || !require("fields")){
         
         #legend(x='bottomleft', legend=c(rev(levels(dataCategorised)),"no data"), pch = 22, pt.cex=2, col=borderCol,pt.bg=c(coloursForMap[numColours:1],"white"), title="category",bg="white" )
-        addMapLegendBoxes(colourVector=colourVector,cutVector=cutVector,plottedData=dataCategorised)          
+        addMapLegendBoxes(colourVector=colourVector,cutVector=cutVector,plottedData=dataCategorised,catMethod=catMethod)          
          
       }else{
         #colour bar legend based on fields package

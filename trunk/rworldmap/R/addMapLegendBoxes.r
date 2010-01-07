@@ -11,8 +11,9 @@
                     ,bg="white" #legend background
                     ,legendText="" #if this is left as empty then the cut vector is used
                     
+                    ,catMethod="categorical"           #
+                    
                     ,plottedData=""               #not used yet but maybe in future
-                    ,catMethod="pretty"           #not used yet but maybe in future
                     ,colourPalette="heat"         #not used yet but maybe in future
                     ,sigFigs=2                    #not used yet but maybe in future
                     ,missingCountryCol="white"    #not used yet but maybe in future
@@ -34,7 +35,6 @@ if ( catMethod!="categorical" )
     tmp <- sapply(cutVector,cutVector,FUN=func)
     cutVector <- tmp[1:length(tmp)-1] #removing last element from vector
    }
-
 
 if (length(legendText)==1 && legendText=="") legendText=cutVector
 

@@ -20,11 +20,12 @@ addMapLegendBoxes(
                     ,bg="white" 
                     ,legendText="" 
                     
-                    ,plottedData=""               
-                    ,catMethod="pretty"           
+                    ,catMethod="categorical"
+                    
+                    ,plottedData=""                       
                     ,colourPalette="heat"         
                     ,sigFigs=2                    
-                    ,missingCountryCol="white"    
+                    ,missingCountryCol="white"   
 
                     ,... 
                     )
@@ -44,9 +45,12 @@ addMapLegendBoxes(
   background transparent}
   \item{legendText}{the text to put against each legend box, if left blank 
   cutVector is used, needs to be a vector the same length as length cutVector}  
+
+  \item{catMethod}{the categorisation method used influences what text added to 
+  legend elements, for 'categorical' just the category names are used for other 
+  options limits are used }
     
   \item{plottedData}{not used yet but maybe in future}
-  \item{catMethod}{not used yet but maybe in future}
   \item{colourPalette}{not used yet but maybe in future}
   \item{sigFigs}{not used yet but maybe in future}
   \item{missingCountryCol}{not used yet but maybe in future}  

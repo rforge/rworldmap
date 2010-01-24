@@ -20,20 +20,51 @@ mapGriddedData <- function(
     #browser()
     #print("test")
 
+    functionName <- as.character(sys.call()[[1]])
+
     require(maptools)
     require(sp)
     
+    ## filename ##
     if (class(dataset)=='character')
        {
-        if (dataset=="")
+        if (dataset=="") #if no dataset passed
            {
+            #open example one
             data(gridExData,envir=environment(),package="rworldmap")
             sGDF <- get("gridExData")
            } else
             sGDF <- readAsciiGrid(dataset)
-       }
-    else   
+       } else if (class(dataset)=='matrix' || class(dataset)=='array')
+    ## matrix or array ##   
+       {
+        if ( length(dim(dataset)) == 2 )
+           {
+            #assume that it's just 2 dimensions
+            gridVals <- data.frame(att=as.vector(dataset))
+           
+            #this assumes that the matrix covers the whole globe -180 to 180, -90 to 90
+            gt <- GridTopology( cellcentre.offset = c(-180,-90)
+                      , cellsize = c( 360/dim(dataset)[1], 180/dim(dataset)[2] )
+                      , cells.dim = dim(dataset)[1:2] )
+    
+            sGDF <- SpatialGridDataFrame(gt, data = gridVals)
+           } else
+           {
+            stop("the first argument to ",functionName," if a matrix or array should have 2 dimensions, yours has, ", length(dim(dataset))) 
+            return(FALSE)
+           } 
+            
+        
+       } else if (class(dataset)=='SpatialGridDataFrame')
+    ## SGDF ##   
+       {   
         sGDF <- dataset
+       } else
+       {
+        stop("the first argument to ",functionName," should be a file name, 2D array or matrix, or SpatialGridDataFrame, yours is, ", class(dataset)) 
+        return(FALSE)
+       } 
 
 
      #if the sGDF contains multiple attribute columns, decide which to plot
@@ -109,7 +140,9 @@ mapGriddedData <- function(
     if (addBorders=='coasts'){
        #uses maps library
        library(maps) 
-       map( map(interior=FALSE,add=TRUE, col=borderCol ) )
+       #map( map(interior=FALSE,add=TRUE, col=borderCol ) )
+       #21/1/10 to correct bug
+       map(interior=FALSE,add=TRUE, col=borderCol ) 
        } else 
     if ( ! addBorders %in% borderOptions){
        warning("unrecognised addBorders = ",addBorders, "none plotted, choose one of",paste(borderOptions,""))

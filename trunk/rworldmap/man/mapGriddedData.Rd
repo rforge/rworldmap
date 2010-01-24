@@ -22,7 +22,12 @@ mapGriddedData(dataset
 }
 
 \arguments{
-  \item{dataset}{gridAscii file name or spatialGridDataFrame}
+  \item{dataset}{gridded data either as a :
+        \enumerate{
+               \item{} SpatialGridDataFrame (R object defined in package sp 
+               \item{} file name of a GridAscii file - this is an Esri format
+               \item{} 2D R matrix or array (rows by columns) 
+               }}
   \item{nameColumnToPlot}{ name of column containing the data to plot }
   \item{numCats}{ number of categories to put the data in, may be overidden if catMethod ='pretty' }
   \item{catMethod}{ method for categorisation of data "pretty", "fixedWidth","diverging", "logfixedWidth","quantiles","categorical", or a numeric vector defining breaks } 

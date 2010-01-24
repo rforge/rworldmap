@@ -2,7 +2,7 @@
 \documentclass[a4paper]{article}
 \title{rworldmap FAQ}
 \author{Andy South\footnote{Centre for Environment, Fisheries and Aquaculture 
-Science (Cefas), Lowestoft, NR33 OHT, UK. {\tt andy.south at cefas.co.uk}}}
+Science (Cefas), Lowestoft, NR33 OHT, UK. {\tt andy.south at cefas.co.uk; southandy at gmail.com}}}
 
 %\VignetteIndexEntry{rworldmap FAQ}
 
@@ -27,32 +27,54 @@ par(mai=c(0,0,0.2,0),xaxs="i",yaxs="i")
 \begin{document}
 \maketitle
 
-
+HOW DO I ...
 \tableofcontents
 \vspace{0.5 cm}
 
 
-\section{What is rworldmap?}
-rworldmap is a package for visualising global scale data, concentrating on data 
+
+\section{find out what rworldmap is ?}
+rworldmap is an R package for visualising global scale data, concentrating on data 
 referenced by country codes or gridded at half degree resolution.
+\url{http://cran.r-project.org/web/packages/rworldmap/index.html}
 
-\section{Where can I get rworldmap from ?}
-http://code.google.com/p/rworld/downloads/list
 
-\section{How do I install R packages ?}
 
-...
+\section{install {\tt rworldmap} ?}
+To install rworldmap from R, including other required packages : \newline
+install.packages('rworldmap',dependencies=TRUE)
 
-\section{Once installed how do I load the package into R ?}
+Alternatively download from :\newline
+\url{http://cran.r-project.org/web/packages/rworldmap/index.html}
 
-Package {\tt rworldmap} is loaded by 
+
+
+\section{load the package into R after installation ?}
+Package {\tt rworldmap} must be loaded into R at the start of each session by 
+either of the following 2 lines :  
 <<echo=TRUE,print=FALSE>>= 
+require(rworldmap)
 library(rworldmap)
 @
 
 
 
-\section{How do I map my own country level data ?}
+\section{access latest version of rworldmap source code ?}
+\url{http://code.google.com/p/rworld/downloads/list}
+
+
+
+\section{access this FAQ ?}
+From within R :
+<<echo=TRUE,print=FALSE>>= 
+vignette('rworldmap')
+@
+From the web :\newline
+\url{http://cran.r-project.org/web/packages/rworldmap/rworldmapFAQ.pdf}
+
+
+
+\section{map my own country level data ?}
 
 To map your own data you will need it in columns with one row per country, 
 one column containing country identifiers, and other columns containing your data.
@@ -106,15 +128,12 @@ object and a specification of the name of the column containing the data to plot
 The first line starting par ... below and in subsequent plots simply ensures 
 the plot fills the available space on the page.
 
-%\begin{figure}[bthp]
   \begin{center}
 <<mapCountryData1,fig=TRUE,echo=TRUE>>=
 <<plotSetup>>
 mapCountryData( sPDF, nameColumnToPlot="BIODIVERSITY" )
 @              
-%    \caption{ output of mapCountryData() }
   \end{center}
-%\end{figure}
 
 In this small map the default legend is rather large. This could be fixed by 
 calling the addMapLegend function as in the code below.
@@ -127,8 +146,9 @@ Using {\tt do.call} allows the output from mapCountryData to be used in addMapLe
 to ensure the legend matches the map while also allowing easy modification of extra 
 parameters such as {\tt legendWidth}.
 
-%\pagebreak 
-\section{How do I map my own half degree gridded data ?}
+
+
+\section{map my own half degree gridded data ?}
 
 The {\tt mapGriddedData} function can accept either 
 \begin{enumerate} 
@@ -140,27 +160,24 @@ package {\tt sp}
 rworldmap contains an example SpatialGridDataFrame that can be accessed and 
 printed as shown in the code below. 
 
-%\begin{figure}[htpb] %[bthp] trying to see if h will fix its position
   \begin{center}
 <<mapGriddedData1,fig=TRUE,echo=TRUE>>=
 <<plotSetup>>
 data(gridExData)
 mapGriddedData(gridExData)
 @              
-%    \caption{ output of mapGriddedData() }
   \end{center}
-%\end{figure}
 
 
 
-\section{How do I aggregate half degree gridded data to a country level ?}
+
+\section{aggregate half degree gridded data to countries ?}
 
 mapHalfDegreeGridToCountries() takes a gridded input file, and aggregates, to a 
 country level and plots the map, it accepts most of the same arguments as 
 {\tt mapCountryData()}. In the example below the trick from above of modifying 
 the legend using addMapLegend() is repeated. 
-
-%\begin{figure}[htbp] 
+ 
   \begin{center}
 
 <<mapHalfDegreeGridToCountries1,fig=TRUE,echo=TRUE,results=hide>>= 
@@ -168,11 +185,11 @@ the legend using addMapLegend() is repeated.
 mapParams <- mapHalfDegreeGridToCountries(gridExData, addLegend=FALSE)
 do.call( addMapLegend, c(mapParams, legendWidth=0.5, legendMar = 2))
 @
-%    \caption{ output of mapHalfDegreeGridToCountries() }
   \end{center}
-%\end{figure} 
+  
+  
 
-\section{How do I aggregate country level data to global regions ?}
+\section{aggregate country level data to global regions ?}
 
 Country level data can be aggregated to global regions specified by 
 {\tt regionType} in {\tt country2Region} which outputs as text, and {\tt mapByRegion} 
@@ -192,7 +209,6 @@ sternEnvHealth <- country2Region(inFile=countryExData,
 print(sternEnvHealth)
 @
 
-%\begin{figure}[htpb] %[bthp] trying to see if h will fix its position
   \begin{center}
 <<mapByRegion1,fig=TRUE,echo=TRUE,results=hide>>= 
 <<plotSetup>>  
@@ -204,11 +220,11 @@ mapByRegion(countryExData,
                         FUN="mean"
                         )
 @                        
-%    \caption{ output of mapByRegion() }
   \end{center}
-%\end{figure}                        
 
-\section{How do I alter the appearance of my maps ?}
+                        
+
+\section{alter the appearance of my maps ?}
 
 The following arguments can be specified to alter the appearance of your plots.
 
@@ -238,10 +254,8 @@ getMap()\$NAME or one of "eurasia","africa","latin america","uk","oceania","asia
 \end{itemize} 
 
 
-\pagebreak 
 
-\section{How do I create my own colour palette ?}
-
+\section{create my own colour palette ?}
 
 \begin{figure}[bthp]
   \begin{center}
@@ -273,16 +287,15 @@ missingCountryCol='white')
   \end{center}
 \end{figure}
 
-%\linebreak
-%\pagebreak
-\clearpage 
+%\clearpage 
 
-\section{How do I zoom in on defined regions ?}
+
+
+\section{zoom in on defined regions ?}
 
 You can zoom in on a map by specifying mapRegion="Eurasia" (or by specifiying
 xlim and ylim) and the country outlines can be changed by borderCol="black". 
 
-%\begin{figure}[bthp]
   \begin{center}
   
 <<finalFigure2,fig=TRUE,echo=TRUE,results=hide>>=
@@ -296,14 +309,13 @@ missingCountryCol='white', mapRegion='Eurasia', borderCol='black')
 palette(op)  
 
 @
-%    \caption{Map zoomed in by adding mapRegion="Eurasia"}
   \end{center}
-%\end{figure}
+
+%\pagebreak 
 
 
-\pagebreak 
 
-\section{How do I create map bubble plots ?}
+\section{create map bubble plots ?}
 
 The {\tt mapBubbles} function allows flexible creation of bubble plots on global 
 maps. You can specifiy data columns that will determine the sizing and colouring
@@ -313,29 +325,18 @@ specifiying the x and y coordinates. The interactive function {\tt identifyCount
 allows the user to click on bubbles and the country name and optionally an attribute variable 
 will be printed on the map.  
 
-
-%\begin{figure}[bthp]
   \begin{center}
 
 <<bubblePlot,fig=TRUE,echo=TRUE,results=hide>>=
 <<plotSetup>>
 
 mapBubbles(dF=getMap(), nameZSize="POP2005", nameZColour="REGION",colourPalette='rainbow', oceanCol='lightblue', landCol='wheat') 
-
-
 @
-%    \caption{using mapBubbles}
   \end{center}
-%\end{figure}
 
 
 
-
-
-
-
-\pagebreak 
-\section{How can I combine rworldmap with other packages classInt and RColorBrewer ?}
+\section{combine rworldmap with other packages classInt and RColorBrewer ?}
 
 Whilst rworldmap sets many defaults internally there is also an option to use 
 other packages to have greater flexibility. In this example the package 
@@ -343,7 +344,6 @@ classInt is used to create the classification and RColorBrewer to specify the
 colours. The following page demonstrates how multiple maps can be generated in 
 the same figure and shows a selection of different RColorBrewer palettes. 
 
-%\begin{figure}[bthp]
   \begin{center}
 
 %I'd like to put keep.source=TRUE to keep comments, but then the R code doesn't wrap  
@@ -369,40 +369,74 @@ colourPalette <- brewer.pal(5,'RdPu')
 mapParams <- mapCountryData(sPDF,nameColumnToPlot="EPI", addLegend=FALSE, catMethod = catMethod, colourPalette=colourPalette )
 do.call(addMapLegend, c(mapParams,legendLabels="all",legendWidth=0.5,legendIntervals="data",legendMar = 2))
 @
-%    \caption{Combining rworldmap with packages classInt and RColorBrewer}
   \end{center}
-%\end{figure}
 
-\section{How can I create multi-panel plots ?}
 
-par( mfcol=c(5,2) ) in the code chunk below sets up 10 panels in 5 rows and 2 columns, then mapCountryData() is called from within a loop to add one map to each panel. 
 
-\begin{figure}[bthp]
-  \begin{center}
-<<multiFrame,fig=TRUE,width=7,height=9,echo=TRUE,results=hide>>=
-
-#uses sPDF from the previous chunk
-
-op <- par(fin=c(7,9),mfcol=c(5,2),mai=c(0,0,0.2,0),xaxs="i",yaxs="i")
-
-brewerList <- c("Greens","Greys","Oranges","OrRd","PuBuGn","Purples","YlGn","YlGnBu","YlOrBr","YlOrRd")
-
-for(i in 1:10)
-   {
-    #getting a colour scheme from the RColorBrewer package
-    colourPalette <- brewer.pal(7,brewerList[i])
-    
-    #calling mapCountryData with the parameters from RColorBrewer
-    mapParams <- mapCountryData(sPDF,nameColumnToPlot="CLIMATE", addLegend=FALSE, colourPalette=colourPalette, mapTitle=brewerList[i] )
-    do.call(addMapLegend, c(mapParams,horizontal=FALSE,legendLabels="none",legendWidth=0.7))
-   }
-par(op)   
+\section{ensure plots fill the panel space available?}
+Use par(mar=c(bottom,top,left,right)) to set margins.
+This returns the previous settings so you can use oldPar <- par(...) 
+then par(oldPar) to reset.
+<<margins,fig=FALSE,echo=TRUE,results=hide>>=
+oldPar <- par(mar=c(0, 0, 0, 0)) 
+par(oldPar)
 @
-    \caption{Different RColorBrewer palettes applied to the same data}
-  \end{center}
-\end{figure}
 
 
+
+\section{create multi-panel plots ?}
+
+using the layout() command as shown below, layout.show() indicates how the 
+panels are arranged
+Beware that the colour bar legends used when addLegend=TRUE can interfere with 
+this ordering (addLegend=FALSE or addMapLegendBoxes() are OK) 
+
+Creating 2 columns 5 rows with a 0.5cm gap at the top
+<<layout1,fig=TRUE,width=3,height=4,echo=TRUE,results=hide>>=
+
+#set margins to zero for the subplots
+oldPar <- par(mar=c(0, 0, 0, 0)) 
+nPanels <- layout(cbind(c(0,1,2,3,4,5),c(0,6,7,8,9,10))
+       ,heights=c(lcm(0.5),1,1,1,1,1)
+       ,respect=F)      
+       
+layout.show(nPanels)
+par(oldPar)
+@
+
+Creating 3 columns 4 rows (with a gap at the top) appropriate for showing monthly data
+<<layoutMonthly,fig=TRUE,width=3,height=2,echo=TRUE,results=hide>>=
+
+#set margins to zero for the subplots
+oldPar <- par(mar=c(0, 0, 0, 0)) 
+nPanels <- layout(rbind(c(0,0,0),c(1,2,3),c(4,5,6),c(7,8,9),c(10,11,12))
+       ,heights=c(lcm(0.5),1,1,1,1)
+       ,respect=F)    
+       
+layout.show(nPanels)
+par(oldPar)
+@
+
+
+
+
+\section{add lines of latitude and longitude to a map ?}
+For the latitude longitude projection used in most rworldmap maps the following 
+adds respectively :
+1) Equator
+2) Greenwich meridian
+3) Tropics of capricorn and cancer as dashed grey lines
+
+<<linesLatLon,fig=FALSE,echo=TRUE,results=hide>>= 
+abline(h=0) 
+abline(v=0)   
+abline(h=c(-20,20),lty=2,col='grey')  
+@
+
+
+
+
+  
 \end{document}
 
 

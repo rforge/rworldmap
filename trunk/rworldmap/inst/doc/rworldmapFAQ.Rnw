@@ -42,6 +42,7 @@ referenced by country codes or gridded at half degree resolution.
 
 \section{install {\tt rworldmap} ?}
 To install rworldmap from R, including other required packages : \newline
+%don't do this as R code here because otherwise it tries to install at compiling and can cause problems
 install.packages('rworldmap',dependencies=TRUE)
 
 Alternatively download from :\newline
@@ -65,10 +66,9 @@ library(rworldmap)
 
 
 \section{access this FAQ ?}
-From within R :
-<<echo=TRUE,print=FALSE>>= 
-vignette('rworldmap')
-@
+From within R : \newline
+%don't do this as R code here because that opens the pdf at compiling and can cause problems
+vignette('rworldmapFAQ')\newline
 From the web :\newline
 \url{http://cran.r-project.org/web/packages/rworldmap/rworldmapFAQ.pdf}
 

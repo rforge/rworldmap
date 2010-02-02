@@ -24,7 +24,7 @@ mapGriddedData(dataset
 \arguments{
   \item{dataset}{gridded data either as a :
         \enumerate{
-               \item{} SpatialGridDataFrame (R object defined in package sp 
+               \item{} SpatialGridDataFrame (R object defined in package sp) 
                \item{} file name of a GridAscii file - this is an Esri format
                \item{} 2D R matrix or array (rows by columns) 
                }}

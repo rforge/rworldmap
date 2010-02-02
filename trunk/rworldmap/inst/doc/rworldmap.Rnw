@@ -16,8 +16,26 @@ Science (Cefas), Lowestoft, NR33 OHT, UK. {\tt andy.south at cefas.co.uk; southa
 \maketitle
 
 %text that is put directly into the document
-\large{rworldmap is a package for visualising global scale data, concentrating on data 
-referenced by country codes or gridded at half degree resolution.}
+\large{rworldmap is a package for visualising global data, concentrating on data 
+referenced by country codes or gridded at half degree resolution.}\newline
+\vspace{1 cm}
+
+%including quest & cefas logos
+Funded by : 
+%\scaledbox{.5}{\includegraphics{questLogo}}
+\vspace{1 cm}
+%\includegraphics{questLogo}
+%\includegraphics{nercLogo}
+%\includegraphics{cefasLogo}
+%\vspace{1 cm}
+\includegraphics[width=4cm]{questLogo}
+\includegraphics[width=4cm]{nercLogo}
+\includegraphics[width=2cm]{cefasLogo}
+%\includegraphics[height=2cm]{questLogo}
+%\includegraphics[height=2cm]{nercLogo}
+%\includegraphics[height=2cm]{cefasLogo}
+
+\vspace{1 cm}
 
 \tableofcontents
 \vspace{0.5 cm}
@@ -202,6 +220,7 @@ The {\tt mapGriddedData} function can accept either
 \item an object of type {\tt SpatialGridDataFrame}, as defined in the 
 package {\tt sp}
 \item the name of an ESRI gridAscii file as a character string
+\item a 2D R matrix or array (rows by columns) 
 \end{enumerate}
 
 rworldmap contains an example SpatialGridDataFrame that can be accessed and 

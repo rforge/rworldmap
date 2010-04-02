@@ -86,7 +86,7 @@ mapBubbles(dF = ""
   \item{add}{whether to add the symbols to an existing map, TRUE/FALSE}
   \item{plotZeroVals}{whether to plot zero values as a cross, TRUE/FALSE}
   
-  \item{\dots}{}
+  \item{\dots}{any extra arguments to points()}
 }
 \details{
 By default separate legends are added fro symbol size and colouring on either 

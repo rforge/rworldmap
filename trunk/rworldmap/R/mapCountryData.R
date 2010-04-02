@@ -12,7 +12,8 @@ mapCountryData <- function(
                            mapTitle = 'columnName', #this sets it to the name of the column, any other string can be passed too
                            oceanCol=NA,
                            aspect=1,
-                           missingCountryCol=NA                                                    
+                           missingCountryCol=NA,
+                           add=FALSE                                                    
                            ){
                            
   functionName <- as.character(sys.call()[[1]])
@@ -97,10 +98,10 @@ mapCountryData <- function(
   }
   
   #setting up the map plot
-  rwmNewMapPlot(mapToPlot,mapRegion=mapRegion,xlim=xlim,ylim=ylim,oceanCol=oceanCol,aspect=aspect)
+  if (!add) rwmNewMapPlot(mapToPlot,mapRegion=mapRegion,xlim=xlim,ylim=ylim,oceanCol=oceanCol,aspect=aspect)
   #plotting the map
-  plot(mapToPlot,col=colourVector[dataCatNums],border=borderCol,add=TRUE)
-  
+  plot(mapToPlot,col=colourVector[dataCatNums],border=borderCol,add=TRUE,density=c(20:200))#angle=c(1:360),)
+  #plot(mapToPlot,col='white',border=borderCol,add=TRUE,density=c(20:200),bg=colourVector[dataCatNums])#angle=c(1:360),)  
   #the above might need : xaxs="i",yaxs="i") #xaxs="i" ensures maps fill plot area
    
   if (addLegend){

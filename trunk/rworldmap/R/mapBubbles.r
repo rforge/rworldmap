@@ -38,7 +38,7 @@ mapBubbles <- function( dF=""
                                                     
                           ,add=FALSE
                           ,plotZeroVals=TRUE
-                          ,... )
+                          ,... ) #any extra arguments to points
 {
 
 functionName <- as.character(sys.call()[[1]])

@@ -31,6 +31,8 @@ function(mapRegion='world')
        {we=50;   ea=180;    so=-50;   no=0} else 
     if ( mapRegion == 'asia' | mapRegion == 'Asia' )#6
        {we=60;   ea=140;    so=-15;   no=55} else
+    if ( mapRegion == 'europe' | mapRegion == 'Europe' )#1
+       {we=-10;   ea=45;   so=35;   no=70} else        
        { 
         warning("The mapRegion you specified(",mapRegion,") needs to be a country name from getMap()$NAME or one of : (",paste(listMapRegions,""),").Plotting whole world") 
         we=-160;ea=160;so=-80;no=90

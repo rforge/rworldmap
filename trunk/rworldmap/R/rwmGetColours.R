@@ -17,7 +17,8 @@ if( length(colourPalette) > 1 ) #only if the colourPalette passed is a vector of
 		#coloursToUse <- colourPalette
 		
 	  #If the palette has a different number of colours to the number of breaks, interpolation is used.
-    if(length(colourPalette)==numColours) {coloursToUse<-colourPalette}
+    #if(length(colourPalette)==numColours) {coloursToUse<-colourPalette}
+    if(length(colourPalette)==numColours) {coloursToUse<-as.character(colourPalette)}
     else 
         {
          warning(length(colourPalette)," colours specified and ", numColours," required, using interpolation to calculate colours")

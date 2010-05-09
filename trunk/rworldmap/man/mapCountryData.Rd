@@ -10,7 +10,7 @@ mapCountryData(mapToPlot = "", nameColumnToPlot = "", numCats = 7,
                mapRegion = "world",
                catMethod="quantiles", colourPalette= "heat", addLegend=TRUE,
                borderCol = 'grey', mapTitle = 'columnName',
-               oceanCol=NA, aspect=1, missingCountryCol=NA
+               oceanCol=NA, aspect=1, missingCountryCol=NA, add=FALSE
                )   
 }
 \arguments{
@@ -33,6 +33,7 @@ mapCountryData(mapToPlot = "", nameColumnToPlot = "", numCats = 7,
   \item{oceanCol}{a colour for the ocean}
   \item{aspect}{aspect for the map, defaults to 1, if set to 'variable' uses same method as plot.Spatial in sp }
   \item{missingCountryCol}{a colour for missing countries}
+  \item{add}{whether to add this map on top of an existing map, TRUE/FALSE}  
   
 }
 

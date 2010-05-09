@@ -57,7 +57,11 @@ if ( class(dF)=="character" && dF=="" )
 #allows just a sPDF to be passed and it will get the label points, so doesn't need nameX & nameY to be specified
 if (class(dF)=="SpatialPolygonsDataFrame")
    {
-    centroidCoords <- coordinates(getMap())
+    #centroidCoords <- coordinates(getMap())
+    #**********************
+    #22/4/10 changing this to get centroid coords from the spdf
+    centroidCoords <- coordinates(dF)    
+    
     #within this function just need the dF bit of the sPDF
     dF <- dF@data
     #adding extra attribute columns to contain centroids (even though such columns may already be there)

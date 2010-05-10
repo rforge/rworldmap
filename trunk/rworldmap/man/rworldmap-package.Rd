@@ -12,8 +12,8 @@ Enables mapping of country level and gridded user datasets by facilitating joini
 \tabular{ll}{
 Package: \tab rworldmap\cr
 Type: \tab Package\cr
-Version: \tab 1.05\cr
-Date: \tab 2009-12-15\cr
+Version: \tab 1.09\cr
+Date: \tab 2010-05-10\cr
 License: \tab GPL (>= 2)\cr
 }
 Country Level Data can be joined to a map using  \code{\link{joinCountryData2Map}}, then mapped using \code{\link{mapCountryData}}.
@@ -26,12 +26,16 @@ the main rworldmap functions to get you started.
 \author{
 Andy South
 
-with contributions from Barry Rowlingson, Roger Bivand, Matthew Staines and Pru Foster 
+with contributions from Joe Scutt-Phillips, Barry Rowlingson, Roger Bivand and Pru Foster 
 
 Maintainer: <andy.south [at] cefas.co.uk>
 }
 \references{
+Stable version :
+http://cran.r-project.org/web/packages/rworldmap
+Development version :
 http://code.google.com/p/rworld
+
 }
 
 \keyword{ package }

@@ -1,5 +1,6 @@
 #7/5/2010 bug fixes for if catMethod of a vector of breaks is passed
 #!BEWARE that this may have broken other options
+#24/5/2010 fixing & tidying catMethod
 mapGriddedData <- function(
                            dataset = ""
                          , nameColumnToPlot = "" # only for multi-attribute spatialGridDataframes
@@ -82,51 +83,51 @@ mapGriddedData <- function(
          message("plotting the first data column because nameColumnToPlot not specified in mapGridAscii()\n")
      }
 
-    #CLASSIFYING THE DATA 
-    #checking whether method is categorical, length(catMethod)==1 needed to avoid warning if a vector of breaks is passed 
-    #if categorical, just copy the data, add an as.factor() to convert any data that aren't yet as a factor
-    #if( length(catMethod)==1 && catMethod=="categorical" )    
-    #    sGDF$indexToPlotAsFactor <- as.factor( sGDF[[attrName]] )
-    #else 
-    #    sGDF$indexToPlotAsFactor <- rwmApplyClassBreaks( sGDF[[attrName]], catMethod=catMethod, numCats=numCats )
-
-    #browser()
+    #CLASSIFYING THE DATA
     
+    #first get the raw data    
     dataCategorised <- sGDF[[attrName]]
     
-    print(dataCategorised[1:10])
+    print(dataCategorised[1:10])  
     
-    #checking whether method is categorical, length(catMethod)==1 needed to avoid warning if a vector of breaks is passed  
-    if( length(catMethod)==1 && catMethod=="categorical" ) #if categorical, just copy the data, add an as.factor() to convert any data that aren't yet as a factor   
-      { 
+    #cat : checking whether method is categorical, 
+    #length(catMethod)==1 needed to avoid warning if a vector of breaks is passed  
+    if( length(catMethod)==1 && catMethod=="categorical" )    
+      {
+       #if categorical, just copy the data, add an as.factor() to convert any data that aren't yet as a factor 
        dataCategorised <- as.factor( dataCategorised )
        cutVector <- levels(dataCategorised) #doesn't do cutting but is passed for use in legend
   		 #6/5/10 bug fix
        numColours <- -1 + length(levels(dataCategorised))
-      }else
-      { 
-        if(is.character(catMethod)==TRUE)
-      	{	
-      		cutVector <- rwmGetClassBreaks( dataCategorised, catMethod=catMethod, numCats=numCats, verbose=TRUE )
-      		#6/5/10 bug fix
-          numColours <- -1 + length(cutVector)
-        } else if(is.numeric(catMethod)==TRUE)
-      	#if catMethod is numeric it is already a vector of breaks	
-      	{
-      		cutVector <- catMethod
-      		#6/5/10 bug fix
-      		numColours <- -1 + length(cutVector)
-      	}
+    
+    #cat : if catMethod is a single string (e.g. 'pretty')    
+      }else if(is.character(catMethod)==TRUE)
+     	{	
+  		 cutVector <- rwmGetClassBreaks( dataCategorised, catMethod=catMethod, numCats=numCats, verbose=TRUE )
+  		 #6/5/10 bug fix
+       numColours <- -1 + length(cutVector)
+       
+       dataCategorised <- cut( dataCategorised, cutVector, include.lowest=TRUE,labels=FALSE)
+      
+    #cat : if catMethod is numeric it is already a vector of breaks 
+      } else if(is.numeric(catMethod)==TRUE)
+      {
+  		 cutVector <- catMethod
+  		 #6/5/10 bug fix
+  		 numColours <- -1 + length(cutVector)
+  		 
+       dataCategorised <- cut( dataCategorised, cutVector, include.lowest=TRUE,labels=FALSE)
+    	}
     	#Categorising the data, using a vector of breaks.	
     	#dataCategorised <- cut( dataCategorised, cutVector, include.lowest=TRUE) #BUG ? 28/4/10 
       
-      dataCategorised <- cut( dataCategorised, cutVector, include.lowest=TRUE,labels=FALSE)
+      #dataCategorised <- cut( dataCategorised, cutVector, include.lowest=TRUE,labels=FALSE)
       
       #cut : labels for the levels of the resulting category.  By default,
       #    labels are constructed using ‘"(a,b]"’ interval notation.
       #    If ‘labels = FALSE’, simple integer codes are returned instead of a factor.
         	
-  	  } #end of if data are not categorical
+  	  #} #end of if data are not categorical
   
     #because the numColours may be modified slightly from numCats
     #numColours <- -1 + length(levels(dataCategorised))
@@ -138,6 +139,8 @@ mapGriddedData <- function(
     #sGDF$indexToPlot <- as.factor( dataCategorised ) #BUG correction? 28/4/10
     #sGDF$indexToPlot <- dataCategorised  #BUG correction? 28/4/10
     sGDF$indexToPlot <- as.numeric( as.character( dataCategorised )) #BUG ? 28/4/10
+ 
+ 
     
     colourVector <- rwmGetColours(colourPalette,numColours)
 

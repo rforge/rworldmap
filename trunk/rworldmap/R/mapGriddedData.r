@@ -28,7 +28,7 @@ mapGriddedData <- function(
     require(maptools)
     require(sp)
     
-    ## filename ##
+    ## filename or nothing ##
     if (class(dataset)=='character')
        {
         if (dataset=="") #if no dataset passed
@@ -38,8 +38,8 @@ mapGriddedData <- function(
             sGDF <- get("gridExData")
            } else
             sGDF <- readAsciiGrid(dataset)
-       } else if (class(dataset)=='matrix' || class(dataset)=='array')
-    ## matrix or array ##   
+    ## matrix or array ##        
+       } else if (class(dataset)=='matrix' || class(dataset)=='array')   
        {
         if ( length(dim(dataset)) == 2 )
            {
@@ -56,11 +56,9 @@ mapGriddedData <- function(
            {
             stop("the first argument to ",functionName," if a matrix or array should have 2 dimensions, yours has, ", length(dim(dataset))) 
             return(FALSE)
-           } 
-            
-        
+           }           
+    ## SGDF passed ##           
        } else if (class(dataset)=='SpatialGridDataFrame')
-    ## SGDF ##   
        {   
         sGDF <- dataset
        } else
@@ -86,6 +84,7 @@ mapGriddedData <- function(
     #CLASSIFYING THE DATA
     
     #first get the raw data    
+
     dataCategorised <- sGDF[[attrName]]
     
     print(dataCategorised[1:10])  
@@ -99,35 +98,34 @@ mapGriddedData <- function(
        cutVector <- levels(dataCategorised) #doesn't do cutting but is passed for use in legend
   		 #6/5/10 bug fix
        numColours <- -1 + length(levels(dataCategorised))
-    
-    #cat : if catMethod is a single string (e.g. 'pretty')    
-      }else if(is.character(catMethod)==TRUE)
-     	{	
-  		 cutVector <- rwmGetClassBreaks( dataCategorised, catMethod=catMethod, numCats=numCats, verbose=TRUE )
-  		 #6/5/10 bug fix
-       numColours <- -1 + length(cutVector)
-       
-       dataCategorised <- cut( dataCategorised, cutVector, include.lowest=TRUE,labels=FALSE)
-      
-    #cat : if catMethod is numeric it is already a vector of breaks 
-      } else if(is.numeric(catMethod)==TRUE)
+      }else
+      #all other catMethods except categorical 
       {
-  		 cutVector <- catMethod
-  		 #6/5/10 bug fix
-  		 numColours <- -1 + length(cutVector)
-  		 
-       dataCategorised <- cut( dataCategorised, cutVector, include.lowest=TRUE,labels=FALSE)
-    	}
+       #if catMethod is not a vector of numbers 
+       if(is.character(catMethod)==TRUE)
+      	{	
+      		cutVector <- rwmGetClassBreaks( dataCategorised, catMethod=catMethod, numCats=numCats, verbose=TRUE )
+      		#6/5/10 bug fix
+      		#28/7/10 removed to avoid bug with default params
+          #numColours <- -1 + length(levels(dataCategorised))
+          numColours <- -1 + length(cutVector)
+        } else if(is.numeric(catMethod)==TRUE)
+      	#if catMethod is numeric it is already a vector of breaks	
+      	{
+      		cutVector <- catMethod
+      		#6/5/10 bug fix
+      		numColours <- -1 + length(cutVector)
+      	}
     	#Categorising the data, using a vector of breaks.	
     	#dataCategorised <- cut( dataCategorised, cutVector, include.lowest=TRUE) #BUG ? 28/4/10 
       
-      #dataCategorised <- cut( dataCategorised, cutVector, include.lowest=TRUE,labels=FALSE)
+      dataCategorised <- cut( dataCategorised, cutVector, include.lowest=TRUE,labels=FALSE)
       
       #cut : labels for the levels of the resulting category.  By default,
       #    labels are constructed using ‘"(a,b]"’ interval notation.
       #    If ‘labels = FALSE’, simple integer codes are returned instead of a factor.
         	
-  	  #} #end of if data are not categorical
+  	  } #end of if data are not categorical
   
     #because the numColours may be modified slightly from numCats
     #numColours <- -1 + length(levels(dataCategorised))
@@ -139,8 +137,6 @@ mapGriddedData <- function(
     #sGDF$indexToPlot <- as.factor( dataCategorised ) #BUG correction? 28/4/10
     #sGDF$indexToPlot <- dataCategorised  #BUG correction? 28/4/10
     sGDF$indexToPlot <- as.numeric( as.character( dataCategorised )) #BUG ? 28/4/10
- 
- 
     
     colourVector <- rwmGetColours(colourPalette,numColours)
 

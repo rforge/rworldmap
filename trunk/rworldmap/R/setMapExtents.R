@@ -16,7 +16,7 @@ function(mapRegion='world')
        }
     
     
-    listMapRegions=c('eurasia','africa','latin america','uk','oceania','asia')
+    listMapRegions=c('eurasia','africa','latin america','north america','uk','oceania','asia')
     if ( mapRegion == 'world' )
        {}else
     if ( mapRegion == 'eurasia' | mapRegion == 'Eurasia' )#1
@@ -25,6 +25,8 @@ function(mapRegion='world')
        {we=-20;   ea=80;    so=-30;   no=30} else 
     if ( mapRegion == 'latin america' | mapRegion == 'Latin America' )#3
        {we=-110;   ea=-40;    so=-70;   no=20} else 
+    if ( mapRegion == 'north america' | mapRegion == 'North America' )#3
+       {we=-150;   ea=-70;    so=10;   no=85} else        
     if ( mapRegion == 'uk' | mapRegion == 'UK' )#4
        {we=-10;   ea=5;    so=50;   no=70} else                  
     if ( mapRegion == 'oceania' | mapRegion == 'Oceania' )#5

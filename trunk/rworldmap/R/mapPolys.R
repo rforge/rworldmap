@@ -8,6 +8,7 @@
 mapPolys <- function(
                            mapToPlot = "",
                            nameColumnToPlot = "",
+                           
                            numCats = 7, # *may be overridden by catMethod
                            xlim=c(-160,160),
                            ylim=c(-80,90),

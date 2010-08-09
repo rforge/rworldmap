@@ -2,7 +2,9 @@
 \alias{joinCountryData2Map}
 \title{ Joins user country referenced data to a map }
 \description{
-Joins user data referenced by country codes to internal map ready for plotting, reports on which countries joined.
+Joins user data referenced by country codes or names to an internal map, 
+ready for plotting using \code{\link{mapCountryData}}. 
+Reports join successes and failures.
 }
 \usage{
 joinCountryData2Map(dF
@@ -23,13 +25,13 @@ joinCountryData2Map(dF
   \item{nameCountryColumn}{ optional name of column containing country names (used in reporting of success/failure) }
   \item{suggestForFailedCodes}{ NOT YET ENABLED T/F whether you want system to suggest for failed codes  }
   \item{projection}{ which map projection to use, options 'none', 'EqualArea' latter uses Mollweide  }
-  \item{mapResolution}{options low, medium, only for projection='none' initially}
+  \item{mapResolution}{resolution of the borders in the internal map, only for projection='none' : options 'low', 'medium' }
   \item{verbose}{if set to FALSE it doesn't print progress messages to console}
   }
 \details{
 Joins data referenced by country codes to an internally stored map to enable plotting. 
 The user specifies which country code their data are referenced by, and the name of the column in their data containing that referencing data.
-The user can choose from different map resolutions and projections.
+The user can choose from different map resolutions and projections, uses the function \code{\link{getMap}} to retrieve the map.
 The function reports on how many countries successfully join to the map.
 Data can then be plotted using \code{\link{mapCountryData}}.
 }
@@ -40,7 +42,7 @@ An R 'SpatialPolygonsDataFrame' [package "sp"] object with the data joined to it
 \author{ andy south }
 
 
-\seealso{ \code{\link{mapCountryData}} }
+\seealso{ \code{\link{mapCountryData}}, \code{\link{getMap}} }
 \examples{
 data("countryExData",envir=environment(),package="rworldmap")
 

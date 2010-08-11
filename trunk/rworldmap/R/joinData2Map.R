@@ -42,7 +42,7 @@ function( dF = ""
    {
     functionName <- as.character(sys.call()[[1]])
 
-    #browser()
+    browser()
 
     if ( dF=="" || ( class(nameMap)=='character' && nameMap=="" ) )
        {
@@ -56,7 +56,11 @@ function( dF = ""
     #   }       
 
     #getting the map polygons to join the data to
-    mapWithData <- getMap(projection=projection,resolution=mapResolution)
+    if ( class(nameMap)=='SpatialPolygonsDataFrame' )
+       {
+        mapWithData <- nameMap
+       } else
+        mapWithData <- getMap(projection=projection,resolution=mapResolution)
     
     #test whether user nameJoinIDMap is one of permitted
     #listJoinCodes <- c("ISO2","ISO3","FIPS","NAME","UN") 

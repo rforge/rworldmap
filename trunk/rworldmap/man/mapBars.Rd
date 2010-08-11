@@ -75,8 +75,12 @@ currently doesn't return anything
 \author{andy south}
 
 \examples{
+
+#getting example data
 dF <- getMap()@data  
   
+## these examples repeat the same column in 'nameZs' to show that equal sized bars are created 
+
 #mapBars( dF,nameX="LON", nameY="LAT",nameZs=c('AREA','AREA') )
 
 #mapBars( dF,nameX="LON", nameY="LAT",nameZs=c('AREA','AREA'),mapRegion='africa' )

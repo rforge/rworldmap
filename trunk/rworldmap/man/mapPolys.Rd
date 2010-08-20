@@ -1,8 +1,8 @@
 \name{mapPolys}
 \alias{mapPolys}
-\title{Map country-level data.}
+\title{Map polygon data.}
 \description{
-  Draw a map of country-level data, allowing countries to be coloured, from an object created in joinCountryData2Map().
+Plot a map of polygons, from a spatialPolygonsDataFrame, coloured according to one a specified attribute column.
 }
 \usage{
 mapPolys(
@@ -25,7 +25,7 @@ mapPolys(
                            ) 
 }
 \arguments{
-  \item{mapToPlot}{ a spatial polygons dataframe from joinCountryData2Map() containing country polygons and data, if none specified an internal example data is used }
+  \item{mapToPlot}{ a spatial polygons dataframe (e.g. from joinData2Map()) containing polygons and associated data, if none specified an internal example data is used }
   \item{nameColumnToPlot}{ name of column containing the data you want to plot }
   \item{numCats}{ number of categories to put the data in, may be modified if this number is incompatible with the catMethod chosen}
   \item{xlim}{ map extents c(west,east), can be overidden by mapRegion }
@@ -49,9 +49,6 @@ mapPolys(
   
 }
 
-\section{Warning}{will generate unhelpful errors in data categorisation if inappropriate 
-options are chosen, e.g. with catMethod:Quantiles if numCats too high so that unique breaks cannot be defined.
-}
 
 \details{
 Certain catMethod and colourPalette options go well together. e.g. "diverging" and "diverging", 
@@ -75,17 +72,56 @@ along with additional options to allow greater flexibility in legend creation.
 
 \examples{
 
-data("countryExData",envir=environment(),package="rworldmap")
+## this example uses downloaded files
+## to run it download the files
+## and remove the comment symbols '#' from all the lines starting with a single '#'
 
-sPDF <- joinData2Map(countryExData
-              , getMap()
-              , nameJoinIDMap = "ISO3"
-              , nameJoinColumnData = "ISO3V10"
-              , projection = "none" 
-              )
-mapPolys( sPDF
-              , nameColumnToPlot="BIODIVERSITY" 
-              )
+## US states map downloaded from :
+## http://www2.census.gov/cgi-bin/shapefiles2009/national-files
+
+#inFile <- 'tl_2009_us_stateec.shp'
+#sPDF <- readShapePoly(inFile)
+#str(sPDF@data)
+
+##################
+## use mapPolys to map the sPDF
+#mapPolys(sPDF,nameColumnToPlot = "ALANDEC")
+#mapPolys(sPDF,nameColumnToPlot = "AWATEREC",mapRegion='North America')
+
+##################
+## join some other data to it
+## education data downloaded from here as xls then saved as csv
+## http://nces.ed.gov/ccd/drpcompstatelvl.asp
+
+#dataFile <- 'SDR071A_xls.csv'
+#dF <- read.csv(dataFile,as.is=TRUE)
+#str(dF)
+## STATENAME
+## DRP912 Dropout Rate, Grades 9 through 12
+
+## joining the data to the map
+## based upon state names (column NAMEEC in map, and STATENAME in the data)
+#sPDF2 <- joinData2Map(dF
+#        , nameMap = sPDF
+#        , nameJoinIDMap = "NAMEEC"
+#        , nameJoinColumnData = "STATENAME")
+
+#################
+## plot one of the attribute variables
+#mapDevice()# to set nice shape map window
+#mapPolys(sPDF2,nameColumnToPlot = "DRP912",mapRegion='North America')
+
+
+#################
+###to map US counties data (Tiger) downloaded from :
+##http://www2.census.gov/cgi-bin/shapefiles2009/national-files
+
+#inFile <- 'tl_2009_us_county.shp'
+#sPDF <- readShapePoly(inFile)
+#str(sPDF@data)
+#mapPolys(sPDF,nameColumnToPlot='AWATER',xlim=c(-140,-65), ylim=c(25,45))
+
+
 }              
 
 \keyword{ aplot }

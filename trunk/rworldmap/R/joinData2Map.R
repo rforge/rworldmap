@@ -42,7 +42,7 @@ function( dF = ""
    {
     functionName <- as.character(sys.call()[[1]])
 
-    browser()
+    #browser()
 
     if ( dF=="" || ( class(nameMap)=='character' && nameMap=="" ) )
        {

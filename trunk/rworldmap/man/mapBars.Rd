@@ -8,29 +8,28 @@ The length of the bars is determined by the sum of the attribute columns and eac
 }
 \usage{
 mapBars(dF = ""         
-        ,nameX="longitude", nameY="latitude" 
-        ,nameZs=c(names(dF)[3],names(dF)[4])
-        ,zColours=c(1:length(nameZs))
-
-        ,barWidth = 1
-        ,barOrient = 'vert' ## orientation of bars 'vert' as default or 'horiz'
-
-        ,ratio = 1
-        #,we=0, ea=0, so=0, no=0
-        ,addCatLegend = TRUE
-        ,addSizeLegend = TRUE
+        , nameX="longitude", nameY="latitude" 
+        , nameZs=c(names(dF)[3],names(dF)[4])
+        , zColours=c(1:length(nameZs))
+  
+        , barWidth = 1
+        , barOrient = 'vert' 
+  
+        , ratio = 1
+        , addCatLegend = TRUE
+        , addSizeLegend = TRUE
         
-        ,symbolSize = 1 #multiplier relative to the default
-        ,maxZVal=NA
+        , symbolSize = 1 
+        , maxZVal=NA
 
-         , xlim=c(-160,160)
-         , ylim=c(-80,90)                        
-         , mapRegion = "world"   #sets map extents, overrides we,ea etc.                                                    
-         , borderCol = "grey"
-         , oceanCol=NA
-         , landCol=NA
-         ,add=FALSE                        
-        ,main=''
+        , xlim=c(-160,160)
+        , ylim=c(-80,90)                        
+        , mapRegion = "world"                                                      
+        , borderCol = "grey"
+        , oceanCol=NA
+        , landCol=NA
+        , add=FALSE                        
+        , main=''
         ,... )          
           
 }
@@ -85,11 +84,17 @@ dF <- getMap()@data
 
 #mapBars( dF,nameX="LON", nameY="LAT",nameZs=c('AREA','AREA'),mapRegion='africa' )
 
-#mapBars( dF,nameX="LON", nameY="LAT",nameZs=c('AREA','AREA','AREA','AREA'),mapRegion='africa' )
+#mapBars( dF,nameX="LON", nameY="LAT"
+#       , nameZs=c('AREA','AREA','AREA','AREA'),mapRegion='africa' )
 
-#mapBars( dF,nameX="LON", nameY="LAT",nameZs=c('AREA','AREA','AREA','AREA'),mapRegion='africa',symbolSize=2 )
+#mapBars( dF,nameX="LON", nameY="LAT"
+#       , nameZs=c('AREA','AREA','AREA','AREA'),mapRegion='africa',symbolSize=2 )
 
-mapBars( dF,nameX="LON", nameY="LAT",nameZs=c('AREA','AREA','AREA','AREA'),mapRegion='africa',symbolSize=2, barOrient = 'horiz' )
+mapBars( dF, nameX="LON", nameY="LAT"
+       , nameZs=c('AREA','AREA','AREA','AREA')
+       , mapRegion='africa'
+       , symbolSize=2
+       , barOrient = 'horiz' )
 
   
 

@@ -8,34 +8,29 @@ The size of the circles is determined by the sum of the attribute columns and ea
 }
 \usage{
 mapPies(dF = ""
-          , nameX = "longitude"
-          , nameY = "latitude"
-          , nameZs=c(names(dF)[3],names(dF)[4])
-          , zColours=c(1:length(nameZs))         
-
-                        ,ratio = 1
-                        #,we=0, ea=0, so=0, no=0
-                        ,addCatLegend = TRUE
-                        ,addSizeLegend = TRUE
-                        
-                        ,symbolSize = 1 #multiplier relative to the default
-                        ,maxZVal=NA
-
-                         , xlim=c(-160,160)
-                         , ylim=c(-80,90)                        
-                         , mapRegion = "world"   #sets map extents, overrides we,ea etc.                                                    
-                         , borderCol = "grey"
-                         , oceanCol=NA
-                         , landCol=NA
-                         ,add=FALSE                                                
-
-                        ,main=''
-          , ...)
+       , nameX = "longitude"
+       , nameY = "latitude"
+       , nameZs=c(names(dF)[3],names(dF)[4])
+       , zColours=c(1:length(nameZs))         
+       , ratio = 1
+       , addCatLegend = TRUE
+       , addSizeLegend = TRUE                        
+       , symbolSize = 1 
+       , maxZVal=NA
+       , xlim=c(-160,160)
+       , ylim=c(-80,90)                        
+       , mapRegion = "world"                                                      
+       , borderCol = "grey"
+       , oceanCol=NA
+       , landCol=NA
+       , add=FALSE                                                
+       , main=''
+       , ...)
 }
 \arguments{
   \item{dF}{data frame or SpatialPolygonsDataFrame}
   \item{nameX}{name of column containing the X variable (longitude), not needed if dF is a SpatialPolygonsDataFrame }  
-  \item{nameY}{name of column containing the Y variable (lattitude), not needed if dF is a SpatialPolygonsDataFrame }
+  \item{nameY}{name of column containing the Y variable (latitude), not needed if dF is a SpatialPolygonsDataFrame }
   \item{nameZs}{name of columns containing numeric variables to determine bar sections}
   \item{zColours}{colours to apply to the bar section for each attribute column}
 
@@ -73,19 +68,20 @@ currently doesn't return anything
 #getting example data
 dF <- getMap()@data  
 
-## these examples repeat the same column in 'nameZs' to show that equal sized pies are created  
+## these examples repeat the same column in 'nameZs' 
+## to show that equal sized pies are created  
 
 #mapPies( dF,nameX="LON", nameY="LAT",nameZs=c('AREA','AREA') )
 
-#mapPies( dF,nameX="LON", nameY="LAT",nameZs=c('AREA','AREA'),mapRegion='africa' )
+#mapPies( dF,nameX="LON", nameY="LAT",nameZs=c('AREA','AREA')
+#       , mapRegion='africa' )
 
-mapPies( dF,nameX="LON", nameY="LAT",nameZs=c('AREA','AREA','AREA','AREA'),mapRegion='africa' )
-
+mapPies( dF,nameX="LON", nameY="LAT"
+       , nameZs=c('AREA','AREA','AREA','AREA'),mapRegion='africa' )
   
 
 }
 
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
+
 \keyword{ aplot }
 

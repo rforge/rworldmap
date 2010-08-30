@@ -12,13 +12,12 @@ Reports join successes and failures.
 joinData2Map(dF
         , nameMap = ""
         , nameJoinIDMap = "ISO3"
-        #, joinCode = "ISO3" #options "ISO2","ISO3","FIPS","NAME","UN"
         , nameJoinColumnData = "ISO3V10"
         , nameNameColumnData = "Country"
         , suggestForFailedCodes = FALSE 
-        , projection="none"  #options "none", "EqualArea"
-        , mapResolution="low" #options low, medium, only for projection='none' initially
-        , verbose = FALSE #if set to FALSE it doesn't print progress messages to console                         
+        , projection="none"  
+        , mapResolution="low" 
+        , verbose = FALSE                         
         )
 }
 

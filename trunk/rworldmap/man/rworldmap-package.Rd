@@ -23,9 +23,9 @@ Gridded data can be mapped using \code{\link{mapGriddedData}}.
 More generic functions allow the user to provide their own polygon map 
 using \code{\link{joinData2Map}} and \code{\link{mapPolys}}.
 
-Bar and pie charts can be added to maps using \code{\link{mapBars}} and \code{\link{mapPies}}. 
+Bubble, bar and pie charts can be added to maps using \code{\link{mapBubbles}}, \code{\link{mapBars}} and \code{\link{mapPies}}. 
 
-Options are provided for catagorising data, colouring maps and symbols, and adding legends.
+Options are provided for categorising data, colouring maps and symbols, and adding legends.
 
 Type vignette('rworldmap') to access a short document showing a few examples of 
 the main rworldmap functions to get you started.
@@ -41,6 +41,7 @@ Maintainer: <southandy@gmail.com>
 \references{
 Stable version :
 http://cran.r-project.org/web/packages/rworldmap
+\cr 
 Development version :
 http://code.google.com/p/rworld
 

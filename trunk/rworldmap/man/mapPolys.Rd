@@ -5,24 +5,22 @@
 Plot a map of polygons, from a spatialPolygonsDataFrame, coloured according to one a specified attribute column.
 }
 \usage{
-mapPolys(
-                           mapToPlot = "",
-                           nameColumnToPlot = "",
-                           
-                           numCats = 7, # *may be overridden by catMethod
-                           xlim=c(-160,160),
-                           ylim=c(-80,90),
-                           mapRegion = "world",   #sets map extents, overrides xlim, ylim
-                           catMethod="quantiles",   #any vector defining breaks, "fixedWidth","quantiles","logFixedWidth"
-                           colourPalette= "heat", #"heat","white2Black","topo","palette" for current palette
-                           addLegend=TRUE,
-                           borderCol = 'grey',
-                           mapTitle = 'columnName', #this sets it to the name of the column, any other string can be passed too
-                           oceanCol=NA,
-                           aspect=1,
-                           missingCountryCol=NA,
-                           add=FALSE                                                    
-                           ) 
+mapPolys( mapToPlot = ""
+        , nameColumnToPlot = ""
+        , numCats = 7
+        , xlim=c(-160,160)
+        , ylim=c(-80,90)
+        , mapRegion = "world"
+        , catMethod="quantiles"
+        , colourPalette= "heat"
+        , addLegend=TRUE
+        , borderCol = 'grey'
+        , mapTitle = 'columnName'
+        , oceanCol=NA
+        , aspect=1
+        , missingCountryCol=NA
+        , add=FALSE                                                    
+        ) 
 }
 \arguments{
   \item{mapToPlot}{ a spatial polygons dataframe (e.g. from joinData2Map()) containing polygons and associated data, if none specified an internal example data is used }
@@ -31,7 +29,7 @@ mapPolys(
   \item{xlim}{ map extents c(west,east), can be overidden by mapRegion }
   \item{ylim}{ map extents c(south,north), can be overidden by mapRegion }
   \item{mapRegion}{ a country name from getMap()[['NAME']] or 'world','africa','oceania','eurasia','uk' sets map extents, overrides xlim,ylim }
-  \item{catMethod}{ method for categorisation of data "pretty", "fixedWidth", "diverging", "logfixedWidth","quantiles","categorical", or a numeric vector defining breaks }
+  \item{catMethod}{ for categorisation of data "pretty", "fixedWidth", "diverging", "logfixedWidth","quantiles","categorical", or a numeric vector defining breaks }
   \item{colourPalette}{ string describing the colour palette to use, choice of:
     \enumerate{
                \item{}"palette" for the current palette 

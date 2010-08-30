@@ -62,6 +62,7 @@ mapGriddedData <- function(
        {   
         sGDF <- dataset
        } else
+    ## !! I could add option here for dataFrame with nameX & nameY columns   
        {
         stop("the first argument to ",functionName," should be a file name, 2D array or matrix, or SpatialGridDataFrame, yours is, ", class(dataset)) 
         return(FALSE)

@@ -20,7 +20,7 @@ Science (Cefas), Lowestoft, NR33 OHT, UK. {\tt andy.south at cefas.co.uk; southa
 referenced by country codes or gridded at half degree resolution.}\newline
 \vspace{1 cm}
 
-%including quest & cefas logos
+%including quest and cefas logos
 Funded by : 
 %\scaledbox{.5}{\includegraphics{questLogo}}
 \vspace{1 cm}
@@ -483,123 +483,6 @@ par(op)
 @
     \caption{Different RColorBrewer palettes applied to the same data}
   \end{center}
-\end{figure}
-
-
-\subsection{Using {\tt rworldmap} to map netCDF data in tandem with {\tt ncdf}}
-
-The package {\tt ncdf} allows netDCF files to be opened, queried and data extracted directly to R.
-Data extracted from netCDF files in this way can then be converted to {\tt sp} objects and plotted
-using {\tt rworldmap}. In the example below the netCDf file is first downloaded 
-from the Quest portal at :
-
-
-\begin{tiny}
-\url{
-http://phobos.badc.rl.ac.uk/qesdi/data/PML%20ocean%20properties%20from%20SeaWiFS-SeaStar%20%28QUEST-CASIX%202009%29/wcs?request=GetCoverage&service=WCS&version=1.0.0&crs=EPSG:4326&format=cf-netcdf&coverage=PML%20ocean%20properties%20from%20SeaWiFS-SeaStar%20(QUEST-CASIX%202009)_psc_phytoplankton_size_class&bbox=-180,-90,180,90
-}
-\end{tiny}
-
-It will soon be possible to make a WCS request directly from R to get at this data,
-but for now the netCDF (.nc) file can be downloaded and read into R.
-
-
-\begin{example}
-
-  library(ncdf)
-  #the file downloaded from the Quest portal  
-  inFile <- 'PSC_monthly_1998.nc' 
-  memory.limit(4000) #set memory limit to max 
-  nc=open.ncdf(inFile, write=FALSE)
-  print(nc)
-
-\end{example}
-
-print(nc) prints to console a description of the file contents which includes 
-the information shown below (I have edited it slightly for brevity). 
-
-%\begin{quotation}
-%{\small
-{\tiny
-\begin{verbatim}
-file PSC_monthly_1998.nc has 4 dimensions:
-time   Size: 12
-longitude   Size: 4320
-latitude   Size: 2160
-nb   Size: 2
-------------------------
-file PSC_monthly_1998.nc has 2 variables:
-byte phytoplankton_size_class[longitude,latitude,time]  
-Longname:Monthly Phytoplankton Size Class (Micro, Nano, Pico) 
-for 1998-2007 estimated from SeaWiFS/SeaStar Level 3 
-Missval:NA
-\end{verbatim}
-%\end{quotation}
-}%end of small
-
-
-After the netCDF file has been opened in this way, selected variables can be read
-into R using {\tt get.var.ncdf()}, converted to a {\tt SpatialGridDataFrame} 
-and plotted using the {\tt rworldmap} function {\tt mapGriddedData}. In this example
-I saved the plot as a jpeg rather than a pdf, because the pdf represents the 9 million
-grid cells individually and as a consequence is huge.
-
-\begin{example}
-
-m<-get.var.ncdf(nc,"phytoplankton_size_class")
-str(m)
-#x,y,month
-#int [1:4320, 1:2160, 1:12]
-
-#creating gridTopolgy from netCDF metadata
-gt<-GridTopology(
-    cellcentre.offset =
-      c(min(nc$dim$longitude$vals)
-       ,min(nc$dim$latitude$vals))
-   ,cellsize =
-      c(abs(diff(nc$dim$longitude$vals[1:2]))
-       ,abs(diff(nc$dim$latitude$vals[1:2])))
-   ,cells.dim = 
-      c(nc$dim$longitude$len
-       ,nc$dim$latitude$len ) )
-
-#getting the data for January
-month <- 1
-gridVals<-data.frame(att=as.vector(m[,,month]))                
-#creating SpatialGridDataFrame
-sGDF<-SpatialGridDataFrame(gt,data = gridVals)
-
-#setting a colourPalette
-library(RColorBrewer)
-colourPalette <- brewer.pal(5, 'PuBuGn')
-
-mapDevice()
-mapParams <- mapGriddedData(sGDF
-               ,catMethod='categorical'
-               ,addLegend=TRUE
-               ,addBorders=''
-               ,colourPalette=colourPalette)
-               
-mtext(paste('phyotoplankton size classes'))
-savePlot('questPlanktonSizeFromNetCDF'
-        , type='jpeg')
-
-\end{example}
-
-%netCDF plankton fig
-\begin{figure}
-\includegraphics[width=8cm]{questPlanktonSizeFromNetCDF.jpeg}
-\caption{\label{figure:onecolfig}Seawifs plankton data available from Quest portal, this map for January, produced using {\tt mapGriddedData()}}
-\end{figure}
-
-By simply changing {\tt month} to 6 in the above code the equivalent map for June 
-rather than January can be created and the different seasonal pattern in phytoplankton blooms
-can be seen, particularly the increased blloms in the Northern Hemisphere in June.
-
-%netCDF plankton fig
-\begin{figure}
-\includegraphics[width=8cm]{questPlanktonSizeFromNetCDFjune.jpeg}
-\caption{\label{figure:onecolfig}Seawifs plankton data for June, created by just changing {\tt month} to 6 in above code}
 \end{figure}
 
 

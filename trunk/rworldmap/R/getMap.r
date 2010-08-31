@@ -7,12 +7,13 @@
 
 function(resolution="low",projection="none"){
 
-  #trying eez map
-  if (resolution == "eez") {
-    data("eezMap", envir = environment(), package = "rworldmap")
-    mapWithData <- get("eezMap")
-  } 
-  else if (projection == "none" & resolution == "low") {
+  #trying eez map : does work - temporarily removed 31/8 to get permission
+  #if (resolution == "eez") {
+  #  data("eezMap", envir = environment(), package = "rworldmap")
+  #  mapWithData <- get("eezMap")
+  #} 
+  #else 
+  if (projection == "none" & resolution == "low") {
     data("wrld_simpl_lessIslands", envir = environment(),package = "rworldmap")
     mapWithData <- get("wrld_simpl_lessIslands")
   }

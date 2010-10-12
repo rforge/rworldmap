@@ -62,8 +62,8 @@ mapGriddedData <- function(
        {   
         sGDF <- dataset
        } else
-    ## !! I could add option here for dataFrame with nameX & nameY columns   
        {
+    ## !! I could add option here for dataFrame with nameX & nameY columns   
         stop("the first argument to ",functionName," should be a file name, 2D array or matrix, or SpatialGridDataFrame, yours is, ", class(dataset)) 
         return(FALSE)
        } 
@@ -90,7 +90,8 @@ mapGriddedData <- function(
     
     print(dataCategorised[1:10])  
     
-    #cat : checking whether method is categorical, 
+    
+    ####################### categorical 
     #length(catMethod)==1 needed to avoid warning if a vector of breaks is passed  
     if( length(catMethod)==1 && catMethod=="categorical" )    
       {
@@ -98,9 +99,15 @@ mapGriddedData <- function(
        dataCategorised <- as.factor( dataCategorised )
        cutVector <- levels(dataCategorised) #doesn't do cutting but is passed for use in legend
   		 #6/5/10 bug fix
-       numColours <- -1 + length(levels(dataCategorised))
+       #numColours <- -1 + length(levels(dataCategorised))
+       #12/10/10 the above seemed to cause one less colour than cat
+       numColours <- length(levels(dataCategorised))
+       
+       #12/10/10 added in here to avoid problem when doing the same as non-categorical
+       #this deliberately gets the numeric index of each factor
+       sGDF$indexToPlot <-  as.numeric(dataCategorised) 
       }else
-      #all other catMethods except categorical 
+      ####################### all other catMethods except categorical 
       {
        #if catMethod is not a vector of numbers 
        if(is.character(catMethod)==TRUE)
@@ -122,6 +129,8 @@ mapGriddedData <- function(
       
       dataCategorised <- cut( dataCategorised, cutVector, include.lowest=TRUE,labels=FALSE)
       
+      #12/10/10 moved into non-categorical loop from below
+      sGDF$indexToPlot <- as.numeric( as.character( dataCategorised )) 
       #cut : labels for the levels of the resulting category.  By default,
       #    labels are constructed using ‘"(a,b]"’ interval notation.
       #    If ‘labels = FALSE’, simple integer codes are returned instead of a factor.
@@ -137,7 +146,8 @@ mapGriddedData <- function(
     #sGDF$indexToPlot <- as.numeric( dataCategorised ) #BUG ? 28/4/10
     #sGDF$indexToPlot <- as.factor( dataCategorised ) #BUG correction? 28/4/10
     #sGDF$indexToPlot <- dataCategorised  #BUG correction? 28/4/10
-    sGDF$indexToPlot <- as.numeric( as.character( dataCategorised )) #BUG ? 28/4/10
+    #12/10/10 moved into non-categorical loop above
+    #sGDF$indexToPlot <- as.numeric( as.character( dataCategorised )) #BUG ? 28/4/10
     
     colourVector <- rwmGetColours(colourPalette,numColours)
 
@@ -149,14 +159,16 @@ mapGriddedData <- function(
     #to fill in any countries with NA values in the grid
     if(!is.na(landCol))
        {#plotSimpleMap(borderCol=landCol,landCol=landCol)
-        plot( getMap(), add=TRUE, border=borderCol, col=landCol )}
-       
+        plot( getMap(), add=TRUE, border=borderCol, col=landCol )
+       }
+
     #only plot ascii data if plotData=T (allows legend to be plotted on its own by setting plotData=F)
     if (plotData)
+       {
         #image(sGDF,add=TRUE,attr='indexToPlot',col=colourVector, xaxs='i', yaxs='i' ) #xaxs=i ensures maps fill plot area
         #7/5/10 !BUG without a breaks param then image fits colours to just those cats present
         image(sGDF,add=TRUE,attr='indexToPlot',col=colourVector, xaxs='i', yaxs='i',breaks=c(0:(length(cutVector)-1) )) #xaxs=i ensures maps fill plot area
-
+       }
 
     borderOptions = c('low','coarse','coasts',NA,'','none')
     if (addBorders=='low'){

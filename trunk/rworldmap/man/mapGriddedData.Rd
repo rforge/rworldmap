@@ -4,21 +4,21 @@
 \description{Produce maps of global gridded data at half degree resolution}
 
 \usage{
-mapGriddedData(dataset
-              ,nameColumnToPlot
-              ,numCats
-              ,catMethod
-              ,colourPalette
-              ,xlim
-              ,ylim
-              ,mapRegion
-              ,addLegend
-              ,addBorders
-              ,borderCol
-              ,oceanCol
-              ,landCol
-              ,plotData
-              ,aspect)
+mapGriddedData(  dataset =          ""
+               , nameColumnToPlot = "" 
+               , numCats =          5  
+               , catMethod =        "quantiles"   
+               , colourPalette =    "heat"  
+               , xlim =             c(-180,180)
+               , ylim =             c(-80,90) 
+               , mapRegion =        "world"   
+               , addLegend =        TRUE
+               , addBorders =       'low' 
+               , borderCol =        'grey'
+               , oceanCol =         NA
+               , landCol =          NA
+               , plotData =         TRUE
+               , aspect =           1            
 }
 
 \arguments{

@@ -1,22 +1,21 @@
 mapCountryData <- function(
-                           mapToPlot = "",
-                           nameColumnToPlot = "",
-                           numCats = 7, # *may be overridden by catMethod
-                           xlim=c(-160,160),
-                           ylim=c(-80,90),
-                           mapRegion = "world",   #sets map extents, overrides xlim, ylim
-                           catMethod="quantiles",   #any vector defining breaks, "fixedWidth","quantiles","logFixedWidth"
-                           colourPalette= "heat", #"heat","white2Black","topo","palette" for current palette
-                           addLegend=TRUE,
-                           borderCol = 'grey',
-                           mapTitle = 'columnName', #this sets it to the name of the column, any other string can be passed too
-                           oceanCol=NA,
-                           aspect=1,
-                           missingCountryCol=NA,
-                           add=FALSE,
-                           nameColumnToHatch = ""
-                           #hatchVar=NULL                                                 
-                           ){
+                mapToPlot =         ""
+              , nameColumnToPlot =  ""
+              , numCats =           7
+              , xlim =              c(-180,180)
+              , ylim =              c(-80,90)
+              , mapRegion =         "world"
+              , catMethod =         "quantiles"
+              , colourPalette =     "heat"
+              , addLegend =         TRUE
+              , borderCol =         'grey'
+              , mapTitle =          'columnName'
+              , oceanCol =          NA
+              , aspect =            1
+              , missingCountryCol = NA
+              , add =               FALSE
+              , nameColumnToHatch = ""                                               
+              ){
                            
   functionName <- as.character(sys.call()[[1]])
                            

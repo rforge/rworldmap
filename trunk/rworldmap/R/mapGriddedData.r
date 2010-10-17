@@ -1,22 +1,19 @@
-#7/5/2010 bug fixes for if catMethod of a vector of breaks is passed
-#!BEWARE that this may have broken other options
-#24/5/2010 fixing & tidying catMethod
 mapGriddedData <- function(
-                           dataset = ""
-                         , nameColumnToPlot = "" # only for multi-attribute spatialGridDataframes
-                         , numCats = 5  #numCategories in map, later add options for classifying
-                         , catMethod="quantiles"   #any vector defining breaks or "fixedWidth","quantiles","logFixedWidth"
-                         , colourPalette= "heat" #"heat","white2Black","topo","palette" for current palette
-                         , xlim=c(-160,160)
-                         , ylim=c(-80,90) #-55,80 works well to exclude antarctic
-                         , mapRegion = "world"   #sets map extents, overrides we,ea etc.
-                         , addLegend=TRUE
-                         , addBorders = 'low' #options for country borders, 'low','coarse' = low or coarse resolution, 'coasts' = coasts only, 'none' or NA for none
-                         , borderCol = 'grey'
-                         , oceanCol=NA
-                         , landCol=NA
-                         , plotData=TRUE
-                         , aspect=1
+                           dataset =          ""
+                         , nameColumnToPlot = "" 
+                         , numCats =          5  
+                         , catMethod =        "quantiles"   
+                         , colourPalette =    "heat"  
+                         , xlim =             c(-180,180)
+                         , ylim =             c(-80,90) 
+                         , mapRegion =        "world"   
+                         , addLegend =        TRUE
+                         , addBorders =       'low' 
+                         , borderCol =        'grey'
+                         , oceanCol =         NA
+                         , landCol =          NA
+                         , plotData =         TRUE
+                         , aspect =           1
                          )
    {
 

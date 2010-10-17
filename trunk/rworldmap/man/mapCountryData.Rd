@@ -5,20 +5,23 @@
   Draw a map of country-level data, allowing countries to be coloured, from an object created in joinCountryData2Map().
 }
 \usage{
-mapCountryData(mapToPlot = "", nameColumnToPlot = ""
-              , numCats = 7
-              , xlim=c(-160,160), ylim=c(-80,90)
-              , mapRegion = "world"
-              , catMethod="quantiles"
-              , colourPalette= "heat"
-              , addLegend=TRUE
-              , borderCol = 'grey'
-              , mapTitle = 'columnName'
-              , oceanCol=NA
-              , aspect=1
-              , missingCountryCol=NA
-              , add=FALSE
-              , nameColumnToHatch=""
+mapCountryData( 
+                mapToPlot =         ""
+              , nameColumnToPlot =  ""
+              , numCats =           7
+              , xlim =              c(-180,180)
+              , ylim =              c(-80,90)
+              , mapRegion =         "world"
+              , catMethod =         "quantiles"
+              , colourPalette =     "heat"
+              , addLegend =         TRUE
+              , borderCol =         'grey'
+              , mapTitle =          'columnName'
+              , oceanCol =          NA
+              , aspect =            1
+              , missingCountryCol = NA
+              , add =               FALSE
+              , nameColumnToHatch = ""
               )   
 }
 \arguments{

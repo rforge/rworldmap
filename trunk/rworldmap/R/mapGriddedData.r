@@ -85,8 +85,9 @@ mapGriddedData <- function(
 
     dataCategorised <- sGDF[[attrName]]
     
-    print(dataCategorised[1:10])  
+    #print(dataCategorised[1:10])  
     
+    #browser()
     
     ####################### categorical 
     #length(catMethod)==1 needed to avoid warning if a vector of breaks is passed  
@@ -100,9 +101,19 @@ mapGriddedData <- function(
        #12/10/10 the above seemed to cause one less colour than cat
        numColours <- length(levels(dataCategorised))
        
+       #1/11/10 STILL A PROBLEM WITH THIS 
+       #SEEMS THAT NOW WITH ELISABETHS EXAMPLE IT GIVES SAME NUM BREAKS AS COLOURS WHICH
+       #GENERATES AN ERROR ???
+       #******temp fix********
+       #numColours <- -1 + length(levels(dataCategorised))
+       
        #12/10/10 added in here to avoid problem when doing the same as non-categorical
        #this deliberately gets the numeric index of each factor
        sGDF$indexToPlot <-  as.numeric(dataCategorised) 
+       
+       #13/11/10 fixing breaks difference between categorical and non-categorical
+       breaks <- c(0:(length(cutVector)) )
+       
       }else
       ####################### all other catMethods except categorical 
       {
@@ -121,9 +132,7 @@ mapGriddedData <- function(
       		#6/5/10 bug fix
       		numColours <- -1 + length(cutVector)
       	}
-    	#Categorising the data, using a vector of breaks.	
-    	#dataCategorised <- cut( dataCategorised, cutVector, include.lowest=TRUE) #BUG ? 28/4/10 
-      
+    	#Categorising the data, using a vector of breaks.	     
       dataCategorised <- cut( dataCategorised, cutVector, include.lowest=TRUE,labels=FALSE)
       
       #12/10/10 moved into non-categorical loop from below
@@ -131,20 +140,13 @@ mapGriddedData <- function(
       #cut : labels for the levels of the resulting category.  By default,
       #    labels are constructed using ‘"(a,b]"’ interval notation.
       #    If ‘labels = FALSE’, simple integer codes are returned instead of a factor.
+      
+      #13/11/10 fixing breaks difference between categorical and non-categorical
+      breaks <- c(0:(length(cutVector)-1) )
         	
   	  } #end of if data are not categorical
   
-    #because the numColours may be modified slightly from numCats
-    #numColours <- -1 + length(levels(dataCategorised))
-    #numColours <- -1 + length(unique(dataCategorised))
-        
-    #browser()
-    
-    #sGDF$indexToPlot <- as.numeric( dataCategorised ) #BUG ? 28/4/10
-    #sGDF$indexToPlot <- as.factor( dataCategorised ) #BUG correction? 28/4/10
-    #sGDF$indexToPlot <- dataCategorised  #BUG correction? 28/4/10
-    #12/10/10 moved into non-categorical loop above
-    #sGDF$indexToPlot <- as.numeric( as.character( dataCategorised )) #BUG ? 28/4/10
+
     
     colourVector <- rwmGetColours(colourPalette,numColours)
 
@@ -155,7 +157,7 @@ mapGriddedData <- function(
 
     #to fill in any countries with NA values in the grid
     if(!is.na(landCol))
-       {#plotSimpleMap(borderCol=landCol,landCol=landCol)
+       {
         plot( getMap(), add=TRUE, border=borderCol, col=landCol )
        }
 
@@ -164,9 +166,19 @@ mapGriddedData <- function(
        {
         #image(sGDF,add=TRUE,attr='indexToPlot',col=colourVector, xaxs='i', yaxs='i' ) #xaxs=i ensures maps fill plot area
         #7/5/10 !BUG without a breaks param then image fits colours to just those cats present
-        image(sGDF,add=TRUE,attr='indexToPlot',col=colourVector, xaxs='i', yaxs='i',breaks=c(0:(length(cutVector)-1) )) #xaxs=i ensures maps fill plot area
+        #image(sGDF,add=TRUE,attr='indexToPlot',col=colourVector, xaxs='i', yaxs='i',breaks=c(0:(length(cutVector)-1) )) #xaxs=i ensures maps fill plot area
+        #31/10/10 setting add=FALSE otherwise breaks doesn't work
+        #browser()
+        #image(sGDF,add=FALSE,attr='indexToPlot',col=colourVector, xaxs='i', yaxs='i',breaks=c(0:(length(cutVector)-1) ))
+        #breaks still didn't work
+        #the below does by seprating out the sp bit from the graphics bit : perhaps is a problem in sp ?
+        xyz <- as.image.SpatialGridDataFrame(sGDF,attr='indexToPlot')
+        #image(xyz,add=TRUE,col=colourVector, xaxs='i', yaxs='i',breaks=c(0:(length(cutVector)-1) ))
+        #13/11/10 fixing breaks difference between categorical and non-categorical
+        image(xyz,add=TRUE,col=colourVector, xaxs='i', yaxs='i',breaks=breaks)
        }
-
+       
+       
     borderOptions = c('low','coarse','coasts',NA,'','none')
     if (addBorders=='low'){
        plot( getMap(resolution='low'), add=TRUE, border=borderCol )
@@ -207,52 +219,24 @@ mapGriddedData <- function(
     #else title( mapTitle )
 
     #returning data to be used by addMapLegend
-    #invisible(list(plottedData=sGDF[[attrName]]
-    #              ,catMethod=catMethod
-    #              ,colourPalette=colourPalette
-    #              ,numCats=numCats
-    #              )
-    #         ) 
-             
-  #invisible(list(plottedData=eval( parse(text=paste(sys.call()[[2]],"[['",attrName,"']]",sep='')))
-  #invisible(list(plottedData=mapToPlot[[nameColumnToPlot]]
-  invisible(list(plottedData=sGDF[[attrName]]
-                ,catMethod=catMethod
-                ,colourVector=colourVector
-                ,cutVector=cutVector
-                ,colourPalette=colourPalette
-                )
-           )              
+    invisible(list(plottedData=sGDF[[attrName]]
+                  ,catMethod=catMethod
+                  ,colourVector=colourVector
+                  ,cutVector=cutVector
+                  ,colourPalette=colourPalette
+                  )
+             )              
 
     } #end of mapGriddedData()
 
 
-#specific method for an ascii grid filename
-#setMethod("mapGriddedData",c("character"),
-#function(dataset,...){
-#sGDF<-readAsciiGrid(dataset)
-#!passing nameColumnToPlot isn't necessary as there's just one column in a gridascii file
-#mapGriddedData(sGDF,nameColumnToPlot=names(sGDF@data),...)
-#}) #end of setMethod(mapGriddedData(character))
 
 
-#OLD specific method for an ascii grid filename and name of the field to plot
-#!but ascii grid files only have a single layer
-#!so need to modify it to make sure it copes
-#setMethod("mapGriddedData",c("character","character"),
-#function(dataset,nameColumnToPlot,...){
-#sGDF<-readAsciiGrid(dataset)
-#!passing nameColumnToPlot isn't necessary as there's just one column in a gridascii file
-#mapGriddedData(sGDF,nameColumnToPlot,...)
 
 
-#OLD 10/9/09 shouldn't need this because specified in method above
-#if no name specified for the column to plot just use the first one
-#setMethod("mapGriddedData",c("SpatialGridDataFrame"),
-#function(dataset,nameColumnToPlot='missing',...){
-#nameColumnToPlot <- names(sGDF)[1]
-#mapGriddedData(sGDF,nameColumnToPlot=nameColumnToPlot,...)
-#}) #end of setMethod(mapGriddedData(sGDF))
+
+
+
 
 
 

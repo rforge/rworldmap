@@ -18,7 +18,8 @@ mapGriddedData(  dataset =          ""
                , oceanCol =         NA
                , landCol =          NA
                , plotData =         TRUE
-               , aspect =           1            
+               , aspect =           1   
+               )         
 }
 
 \arguments{

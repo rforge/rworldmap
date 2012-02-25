@@ -1,8 +1,8 @@
 Package: rworldmap
 Type: Package
 Title: For mapping global data : rworldmap
-Version: 0.121
-Date: 2010-12-16
+Version: 0.13
+Date: 2012-02-25
 Author: <southandy@gmail.com>, with contributions from Joe Scutt-Phillips, Barry Rowlingson, Roger Bivand & Pru Foster 
 Maintainer: Andy South <southandy@gmail.com>
 Description: Enables mapping of country level and gridded user datasets.

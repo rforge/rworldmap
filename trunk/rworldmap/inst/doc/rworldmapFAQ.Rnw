@@ -2,11 +2,11 @@
 \documentclass[a4paper]{article}
 \title{rworldmap FAQ}
 \author{Andy South\footnote{Centre for Environment, Fisheries and Aquaculture 
-Science (Cefas), Lowestoft, NR33 OHT, UK. {\tt andy.south at cefas.co.uk; southandy at gmail.com}}}
+Science (Cefas), Lowestoft, NR33 OHT, UK. {\tt southandy at gmail.com}}}
 
 %\VignetteIndexEntry{rworldmap FAQ}
 
-\SweaveOpts{echo=TRUE,print=FALSE, width=7, height=3.7, eps=FALSE}  %\default width and height for figures
+\SweaveOpts{echo=TRUE,print=FALSE, width=7, height=3.7, eps=FALSE} %\default width and height for figures
 \usepackage{Sweave}
 \usepackage{a4wide}
 %\usepackage{a4}
@@ -17,6 +17,15 @@ Science (Cefas), Lowestoft, NR33 OHT, UK. {\tt andy.south at cefas.co.uk; southa
 %this to ensure R code wraps onto next line
 <<echo=FALSE>>=
 options(width=70)
+@
+
+%9/2/2011
+%to stop R producing Rplots.pdf
+<<echo=FALSE>>=
+require(grDevices)
+options(device = function(...) {     
+.Call("R_GD_nullDevice", PACKAGE = "grDevices") 
+}) 
 @
 
 %this code used in setting up all figures later

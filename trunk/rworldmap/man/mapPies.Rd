@@ -31,8 +31,8 @@ mapPies(dF = ""
   \item{dF}{data frame or SpatialPolygonsDataFrame}
   \item{nameX}{name of column containing the X variable (longitude), not needed if dF is a SpatialPolygonsDataFrame }  
   \item{nameY}{name of column containing the Y variable (latitude), not needed if dF is a SpatialPolygonsDataFrame }
-  \item{nameZs}{name of columns containing numeric variables to determine bar sections}
-  \item{zColours}{colours to apply to the bar section for each attribute column}
+  \item{nameZs}{name of columns containing numeric variables to determine pie sections}
+  \item{zColours}{colours to apply to the pie section for each attribute column}
 
   \item{ratio}{ the ratio of Y to N in the output map, set to 1 as default}  
   
@@ -55,7 +55,7 @@ mapPies(dF = ""
   \item{\dots}{any extra arguments to points()}
 }
 \details{
-
+Beware of creating plots that are difficult for the reader to interpret. More than 3 or 4 categories may be too many.  
 
 }
 \value{

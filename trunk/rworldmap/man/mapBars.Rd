@@ -65,7 +65,7 @@ mapBars(dF = ""
   \item{\dots}{any extra arguments to points()}
 }
 \details{
-
+Horizontal or vertical bars can be achieved by using the barOrient argument 'horiz' or 'vert'.
 
 }
 \value{

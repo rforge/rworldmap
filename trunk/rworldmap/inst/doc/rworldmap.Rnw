@@ -6,6 +6,25 @@ Science (Cefas), Lowestoft, NR33 OHT, UK. {\tt southandy at gmail.com}}}
 
 %\VignetteIndexEntry{rworldmap vignette : examples to get started}
 
+% feb2012 to try to reducesize of pdf outputs
+%% Set PDF 1.5 and compression, including object compression
+%% Needed for MiKTeX -- most other distributions default to this
+\ifx\pdfoutput\undefined
+\else
+  \ifx\pdfoutput\relax
+  \else
+    \ifnum\pdfoutput>0
+      % PDF output
+      \pdfminorversion=5
+      \pdfcompresslevel=9
+      \pdfobjcompresslevel=2
+    \fi
+  \fi
+\fi
+
+
+
+
 \SweaveOpts{echo=TRUE,print=FALSE, width=7, height=3.7, eps=FALSE} %default width and height for figures
 \usepackage{Sweave}
 \usepackage{a4wide}

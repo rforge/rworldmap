@@ -1,7 +1,7 @@
 Package: rworldmap
 Type: Package
 Title: For mapping global data : rworldmap
-Version: 0.13
+Version: 0.1300
 Date: 2012-02-25
 Author: <southandy@gmail.com>, with contributions from Joe Scutt-Phillips, Barry Rowlingson, Roger Bivand & Pru Foster 
 Maintainer: Andy South <southandy@gmail.com>

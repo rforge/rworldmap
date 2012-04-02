@@ -121,8 +121,8 @@ in what a single country may be named.
 <<joinCountryData2Map1,echo=TRUE>>=
 data(countryExData)
 sPDF <- joinCountryData2Map( countryExData,
-                           joinCode = "ISO3",
-                           nameJoinColumn = "ISO3V10")
+                           , joinCode = "ISO3"
+                           , nameJoinColumn = "ISO3V10" )
 @
 \vspace{0.5 cm}
 You can see that a summary of how many countries are successfully  joined is 
@@ -148,7 +148,9 @@ In this small map the default legend is rather large. This could be fixed by
 calling the addMapLegend function as in the code below.
 
 <<mapCountryData2,fig=FALSE,echo=TRUE,results=hide>>=
-mapParams <- mapCountryData( sPDF, nameColumnToPlot="BIODIVERSITY", addLegend=FALSE )
+mapParams <- mapCountryData( sPDF
+                           , nameColumnToPlot="BIODIVERSITY"
+                           , addLegend=FALSE )
 do.call( addMapLegend, c(mapParams, legendWidth=0.5, legendMar = 2))
 @ 
 Using {\tt do.call} allows the output from mapCountryData to be used in addMapLegend 
@@ -207,13 +209,12 @@ GEO3, Stern and GBD.
 
 <<country2Region1,echo=TRUE>>= 
 #Using country2Region to calculate mean Environmental Health index in Stern regions.
-sternEnvHealth <- country2Region(inFile=countryExData,
-                nameDataColumn="ENVHEALTH",
-                joinCode="ISO3",
-                nameJoinColumn="ISO3V10",
-                regionType="Stern",
-                FUN="mean"
-                )
+sternEnvHealth <- country2Region( inFile=countryExData
+                                , nameDataColumn="ENVHEALTH"
+                                , joinCode="ISO3"
+                                , nameJoinColumn="ISO3V10"
+                                , regionType="Stern"
+                                , FUN="mean" )
 
 print(sternEnvHealth)
 @
@@ -221,13 +222,12 @@ print(sternEnvHealth)
   \begin{center}
 <<mapByRegion1,fig=TRUE,echo=TRUE,results=hide>>= 
 <<plotSetup>>  
-mapByRegion(countryExData,
-                        nameDataColumn="CLIMATE",
-                        joinCode="ISO3",
-                        nameJoinColumn="ISO3V10",
-                        regionType="Stern",
-                        FUN="mean"
-                        )
+mapByRegion( countryExData
+           , nameDataColumn="CLIMATE"
+           , joinCode="ISO3"
+           , nameJoinColumn="ISO3V10"
+           , regionType="Stern"
+           , FUN="mean" )
 @                        
   \end{center}
 
@@ -239,7 +239,7 @@ The following arguments can be specified to alter the appearance of your plots.
 
 \begin{itemize} 
 \item {\tt catMethod} method for categorisation of data "pretty", "fixedWidth",
-"diverging","logfixedWidth","quantiles","categorical", or a numeric vector 
+"diverging", "logfixedWidth", "quantiles", "categorical", or a numeric vector 
 defining breaks.
 
 \item {\tt numCats} number of categories to classify the data into, may be modified 
@@ -273,23 +273,29 @@ getMap()\$NAME or one of "eurasia","africa","latin america","uk","oceania","asia
 <<plotSetup>>
 
 #joining the data to a map
-sPDF <- joinCountryData2Map(countryExData,
-              joinCode = "ISO3",
-              nameJoinColumn = "ISO3V10",
-              projection = "none",
-              )            
+sPDF <- joinCountryData2Map( countryExData
+                           , joinCode = "ISO3"
+                           , nameJoinColumn = "ISO3V10"
+                           , projection = "none" )
+                                       
 #creating a user defined colour palette
 op <- palette(c('green','yellow','orange','red')) 
 #find quartile breaks
 cutVector <- quantile(sPDF@data[["BIODIVERSITY"]],na.rm=TRUE)
 #classify the data to a factor
-sPDF@data[["BIOcategories"]] <- cut(sPDF@data[["BIODIVERSITY"]], cutVector, include.lowest=TRUE)
+sPDF@data[["BIOcategories"]] <- cut( sPDF@data[["BIODIVERSITY"]]
+                                   , cutVector
+                                   , include.lowest=TRUE )
 #rename the categories
 levels(sPDF@data[["BIOcategories"]]) <- c('low', 'med', 'high', 'vhigh')
 #mapping
-mapCountryData(sPDF, nameColumnToPlot='BIOcategories', catMethod='categorical', 
-mapTitle='Biodiversity categories',colourPalette='palette', oceanCol='lightblue',
-missingCountryCol='white')
+mapCountryData( sPDF
+              , nameColumnToPlot='BIOcategories'
+              , catMethod='categorical'
+              , mapTitle='Biodiversity categories'
+              , colourPalette='palette'
+              , oceanCol='lightblue'
+              , missingCountryCol='white' )
 @
 
     \caption{An example of a categorical map produced from mapCountryData}
@@ -310,9 +316,15 @@ xlim and ylim) and the country outlines can be changed by borderCol="black".
 <<finalFigure2,fig=TRUE,echo=TRUE,results=hide>>=
 <<plotSetup>>
          
-mapCountryData(sPDF, nameColumnToPlot='BIOcategories', catMethod='categorical', 
-mapTitle='Biodiversity categories',colourPalette='palette', oceanCol='lightblue',
-missingCountryCol='white', mapRegion='Eurasia', borderCol='black')
+mapCountryData( sPDF
+              , nameColumnToPlot='BIOcategories'
+              , catMethod='categorical'
+              , mapTitle='Biodiversity categories'
+              , colourPalette='palette'
+              , oceanCol='lightblue'
+              , missingCountryCol='white' 
+              , mapRegion='Eurasia'
+              , borderCol='black' )
 
 ## At end of plotting, reset palette to previous settings:
 palette(op)  
@@ -339,7 +351,12 @@ will be printed on the map.
 <<bubblePlot,fig=TRUE,echo=TRUE,results=hide>>=
 <<plotSetup>>
 
-mapBubbles(dF=getMap(), nameZSize="POP2005", nameZColour="REGION",colourPalette='rainbow', oceanCol='lightblue', landCol='wheat') 
+mapBubbles( dF=getMap()
+          , nameZSize="POP2005"
+          , nameZColour="REGION"
+          ,colourPalette='rainbow'
+          , oceanCol='lightblue'
+          , landCol='wheat' ) 
 @
   \end{center}
 
@@ -356,8 +373,8 @@ the same figure and shows a selection of different RColorBrewer palettes.
   \begin{center}
 
 %I'd like to put keep.source=TRUE to keep comments, but then the R code doesn't wrap  
-%<<classInt_RColorBrewer,fig=TRUE,echo=TRUE,keep.source=TRUE,results=hide>>=
-<<classInt_RColorBrewer,fig=TRUE,echo=TRUE,results=hide>>=
+%<<classInt_RColorBrewer,fig=TRUE,echo=TRUE,results=hide>>=
+<<classInt_RColorBrewer,fig=TRUE,echo=TRUE,keep.source=TRUE,results=hide>>=
 <<plotSetup>>
 
 library(classInt)
@@ -365,7 +382,10 @@ library(RColorBrewer)
 
 #getting example data and joining to a map
 data("countryExData",envir=environment(),package="rworldmap")
-sPDF <- joinCountryData2Map(countryExData,joinCode = "ISO3",nameJoinColumn = "ISO3V10",mapResolution='coarse')
+sPDF <- joinCountryData2Map( countryExData
+                           , joinCode = "ISO3"
+                           , nameJoinColumn = "ISO3V10"
+                           , mapResolution='coarse' )
 
 #getting class intervals using a 'jenks' classification in classInt package
 classInt <- classIntervals( sPDF[["EPI"]], n=5, style="jenks")
@@ -375,8 +395,17 @@ catMethod = classInt[["brks"]]
 colourPalette <- brewer.pal(5,'RdPu')
 
 #calling mapCountryData with the parameters from classInt and RColorBrewer
-mapParams <- mapCountryData(sPDF,nameColumnToPlot="EPI", addLegend=FALSE, catMethod = catMethod, colourPalette=colourPalette )
-do.call(addMapLegend, c(mapParams,legendLabels="all",legendWidth=0.5,legendIntervals="data",legendMar = 2))
+mapParams <- mapCountryData( sPDF
+                           , nameColumnToPlot="EPI"
+                           , addLegend=FALSE
+                           , catMethod = catMethod
+                           , colourPalette=colourPalette )
+do.call( addMapLegend
+       , c( mapParams
+          , legendLabels="all"
+          , legendWidth=0.5
+          , legendIntervals="data"
+          , legendMar = 2 ))
 @
   \end{center}
 
@@ -405,9 +434,9 @@ Creating 2 columns 5 rows with a 0.5cm gap at the top
 
 #set margins to zero for the subplots
 oldPar <- par(mar=c(0, 0, 0, 0)) 
-nPanels <- layout(cbind(c(0,1,2,3,4,5),c(0,6,7,8,9,10))
-       ,heights=c(lcm(0.5),1,1,1,1,1)
-       ,respect=F)      
+nPanels <- layout( cbind(c(0,1,2,3,4,5),c(0,6,7,8,9,10))
+                 , heights=c(lcm(0.5),1,1,1,1,1)
+                 , respect=F)      
        
 layout.show(nPanels)
 par(oldPar)
@@ -418,9 +447,9 @@ Creating 3 columns 4 rows (with a gap at the top) appropriate for showing monthl
 
 #set margins to zero for the subplots
 oldPar <- par(mar=c(0, 0, 0, 0)) 
-nPanels <- layout(rbind(c(0,0,0),c(1,2,3),c(4,5,6),c(7,8,9),c(10,11,12))
-       ,heights=c(lcm(0.5),1,1,1,1)
-       ,respect=F)    
+nPanels <- layout( rbind(c(0,0,0),c(1,2,3),c(4,5,6),c(7,8,9),c(10,11,12))
+                 , heights=c(lcm(0.5),1,1,1,1)
+                 , respect=F )    
        
 layout.show(nPanels)
 par(oldPar)

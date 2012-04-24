@@ -22,8 +22,13 @@ removed Rplots.pdf from the inst/doc/ folder
 Built under R2.14, and using options to compress files
 Polygon holes in country maps fixed using rgeos package (thanks to Karl Ove Hufthammer for outlining how to solve this problem). 
 
-30/3/2012 (0.1310)
+24/4/2012 (0.1310)
 Added this changelog to the inst/doc folder
 vignette source moved to vignettes folder as suggested at R2.14.0
 in vignettes word wrap issues in R code resolved.
+Added barplotCountryData()
+
+
+
+
 

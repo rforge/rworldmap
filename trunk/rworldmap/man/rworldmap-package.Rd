@@ -13,7 +13,7 @@ Enables mapping of country level and gridded user datasets by facilitating joini
 Package: \tab rworldmap\cr
 Type: \tab Package\cr
 Version: \tab 0.1310\cr
-Date: \tab 2012-03-30\cr
+Date: \tab 2012-04-24\cr
 License: \tab GPL (>= 2)\cr
 }
 Country Level Data can be joined to a map using  \code{\link{joinCountryData2Map}}, 
@@ -24,6 +24,9 @@ More generic functions allow the user to provide their own polygon map
 using \code{\link{joinData2Map}} and \code{\link{mapPolys}}.
 
 Bubble, bar and pie charts can be added to maps using \code{\link{mapBubbles}}, \code{\link{mapBars}} and \code{\link{mapPies}}. 
+
+Try the new method \code{\link{barplotCountryData}} for producing a ranked bar plot of country data with country names that can 
+provide a useful companion to maps. 
 
 Options are provided for categorising data, colouring maps and symbols, and adding legends.
 

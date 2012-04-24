@@ -18,6 +18,8 @@ barplotCountryData( dF
                    , addLegend=TRUE
                    , toPDF = FALSE
                    , outFile = ""
+                   , decreasing = TRUE
+                   , na.last = TRUE                   
                    , ...
                )   
 }
@@ -38,7 +40,9 @@ barplotCountryData( dF
                }}
   \item{addLegend}{ NOT YET WORKING whether to add a legend or not, TRUE/FALSE }
   \item{toPDF}{ whether to output the plot to a pdf rather than the screen, TRUE/FALSE  }
-  \item{outFile}{ output filename if toPDF=TRUE  }  
+  \item{outFile}{ output filename if toPDF=TRUE  }
+  \item{decreasing}{ logical. Should the sort order be increasing or decreasing?  }
+  \item{na.last}{ for controlling the treatment of NAs. If TRUE, missing values in the data are put last; if FALSE, they are put first; if NA, they are removed. }    
   \item{\dots}{ other arguments to pass to barplot }    
   
 }

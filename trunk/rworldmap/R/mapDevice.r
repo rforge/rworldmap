@@ -25,7 +25,7 @@ function(device="dev.new"
   
   #If at least one of height and width is NULL, they are set to sensible values
   if(is.null(height) && is.null(width)){
-   if (device=='png') width=360 #default width in pixels
+   if (device=='png') width=720 #default width in pixels
    else width=9 #this width works well for powerpoint for a single plot & gets reduced for word    
   }
   if(is.null(width)){

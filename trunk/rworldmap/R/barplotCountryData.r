@@ -33,6 +33,8 @@ barplotCountryData <- function( dF=""
                          , addLegend=TRUE
                          , toPDF = FALSE
                          , outFile = ""
+                         , decreasing = TRUE
+                         , na.last = TRUE
                          , ... #allow extra params to barplot
                         )
 {
@@ -52,7 +54,9 @@ if (nameColumnToPlot=="") nameColumnToPlot <- 'POP2005'
 
 ############################
 #rank data by column to plot
-dF <- dF[ rev(order(dF[[nameColumnToPlot]])), ]
+#! problem that this puts NAs at the top
+#dF <- dF[ rev(order(dF[[nameColumnToPlot]])), ]
+dF <- dF[ order(dF[[nameColumnToPlot]],decreasing=decreasing,na.last=na.last), ]
 
 #! classification and colouring bit
 #! copied from mapCountryData

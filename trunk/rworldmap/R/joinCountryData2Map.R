@@ -32,13 +32,31 @@ function( dF
     #using match rather than merge, faster and enables greater reporting of success & failure
     
     #match returns a vector of the positions of (first) matches of its first argument in its second. 
-    #so perhaps I would also want to check that codes aren't repeated
+    #so perhaps I would also want to check that codes aren't repeated no can't do everything for people
     #!also want to find a way of coping with Namibia, the code NA gets interpreted as no data
            
     #copy the users nameJoinColumn to a new column named the same as the column in the map for the join code
     #e.g if user has ISO3166_3 it will be copied to ISO3
-    dF[[joinCode]] <- dF[[nameJoinColumn]]
+    #dF[[joinCode]] <- dF[[nameJoinColumn]]
+    #22/5/12 changed to make changing to synonyms easier
+    dF[[joinCode]] <- as.character(dF[[nameJoinColumn]])
     
+    #23/5/12
+    #if using NAME I could convert to ISO3 first using synonyms and match based on that
+    #and set nameCountryColumn to what the join column was
+    #but does everything become a bit hidden then ?
+    #not really keeps it fairly simple
+    if (joinCode=='NAME')
+        { 
+         #get the equivalent ISO 3 codes for the column
+         #create new column
+         dF$ISO3 <- NA
+         for(i in 1:nrow(dF)) dF$ISO3[i] = rwmGetISO3( dF[[nameJoinColumn]][i] )
+         #set join code to ISO3
+         joinCode='ISO3';
+         #set name for the country column to what user had as the name join column 
+         nameCountryColumn=nameJoinColumn; 
+         }
     
     matchPosnsInLookup <- match(as.character(dF[[joinCode]])
                               , as.character(mapWithData@data[[joinCode]]))
@@ -67,20 +85,27 @@ function( dF
  #[1,] "CIV"       "Ivory Coast"                   
  #[2,] "COD"       "Congo, Democratic Republic"    
                        
-    #!could create an optional loop here to go through the failed codes 
-    #& prompt the user for a choice fro a suggested list 
-    if ( suggestForFailedCodes )
+    #put something here to try to match failed countries or codes 
+    #initially just for if country name used as the join 
+    #if ( suggestForFailedCodes )
+    if ( suggestForFailedCodes && joinCode=="NAME")
        {
         for( i in 1 : numFailedCodes)
            {
-            #search for similar codes/countried & ask user to choose one
-            
+            correctCountry <- getCountryName(failedCodes[i])
+            if (!is.na(correctCountry))
+               {
+                #dF[[joinCode]][is.na(matchPosnsInLookup)]
+                dF[[joinCode]][which(dF[[joinCode]]==failedCodes[i])] <- correctCountry
+               }          
            }
        }
     #can also get at countries in the lookup that don't appear in user data, by reversing match arguments
     matchPosnsInUserData <- match(as.character(mapWithData@data[[joinCode]])
                                 , as.character(dF[[joinCode]])) 
-                                
+    
+    #23/5/12 decided no very useful printing this out
+    
     #these are the codes in lookup that aren't found in user data
     codesMissingFromUserData <- as.character( mapWithData@data[[joinCode]][is.na(matchPosnsInUserData)] )                            
     countriesMissingFromUserData <- as.character( mapWithData@data[["NAME"]][is.na(matchPosnsInUserData)] )
@@ -89,13 +114,13 @@ function( dF
     
     #printing info to console
     cat(numMissingCodes,"codes from the map weren't represented in your data\n")
-    if (verbose) #if (verbose) print more messages to console
-       {
-        if (nameJoinColumn!="NAME")                             
-        {   print(cbind(codesMissingFromUserData,countriesMissingFromUserData))
-        }else #if joined on NAME don't want to print names twice 
-            print(codesMissingFromUserData)
-       } # 
+    #if (verbose) #if (verbose) print more messages to console
+    #   {
+    #    if (nameJoinColumn!="NAME")                             
+    #    {   print(cbind(codesMissingFromUserData,countriesMissingFromUserData))
+    #    }else #if joined on NAME don't want to print names twice 
+    #        print(codesMissingFromUserData)
+    #   } # 
 
 
     ###############################################################

@@ -450,7 +450,7 @@ will be printed on the map.
 <<plotSetup>>
 
 mapBubbles( dF=getMap()
-          , nameZSize="POP2005"
+          , nameZSize="POP_EST"
           , nameZColour="REGION"
           , colourPalette='rainbow'
           , oceanCol='lightblue'

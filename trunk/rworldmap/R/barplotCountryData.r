@@ -49,7 +49,7 @@ if (toPDF) pdf(paste(outFile,".pdf",sep=''),paper='a4r',width=11,height=8)
 #for testing & example
 if (length(dF)==1 && dF=="") dF <- getMap()@data
 
-if (nameColumnToPlot=="") nameColumnToPlot <- 'POP2005'
+if (nameColumnToPlot=="") nameColumnToPlot <- 'POP_EST'
 #if (nameColumnToPlot=="") nameColumnToPlot <- 'AREA'
 
 ############################

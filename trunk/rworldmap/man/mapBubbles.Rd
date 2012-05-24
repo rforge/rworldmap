@@ -103,10 +103,10 @@ mapBubbles()
 #square symbols
 mapBubbles(pch=22)
 
-mapBubbles(dF=getMap(), nameZSize="POP2005", nameZColour="REGION")
+mapBubbles(dF=getMap(), nameZSize="POP_EST", nameZColour="GEO3")
 
 #change colour
-mapBubbles(dF=getMap(), nameZSize="POP2005", nameZColour="REGION"
+mapBubbles(dF=getMap(), nameZSize="POP_EST", nameZColour="GEO3"
           ,colourPalette='rainbow', oceanCol='lightblue', landCol='wheat') 
 
 

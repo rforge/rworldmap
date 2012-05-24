@@ -50,8 +50,8 @@ if ( class(dF)=="character" && dF=="" )
     dF=getMap()@data
     nameX="LON"
     nameY="LAT"
-    nameZSize="POP2005"
-    nameZColour="REGION"
+    nameZSize="POP_EST"
+    nameZColour="GEO3"
    }
 
 #allows just a sPDF to be passed and it will get the label points, so doesn't need nameX & nameY to be specified

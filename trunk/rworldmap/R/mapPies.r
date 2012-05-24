@@ -203,6 +203,6 @@
 #testing the function
     
 #dF <- getMap()@data   
-#mapPies( dF,nameX="LON", nameY="LAT",nameZs=c('POP2005','AREA') )
+#mapPies( dF,nameX="LON", nameY="LAT",nameZs=c('POP_EST','AREA') )
 #mapPies( dF,nameX="LON", nameY="LAT",nameZs=c('AREA','AREA') )
 #mapPies( dF,nameX="LON", nameY="LAT",nameZs=c('AREA','AREA','AREA'),mapRegion='africa' )  

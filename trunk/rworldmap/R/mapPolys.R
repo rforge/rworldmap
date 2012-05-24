@@ -42,7 +42,7 @@ mapPolys <- function(
     #data("countryExData",envir=environment(),package="rworldmap")
     #dF <- get("countryExData") # copying from the example data
     ## also setting a defsult nameColumnToPlot if it isn't set
-    if ( nameColumnToPlot == "" ) nameColumnToPlot <- "POP2005" #
+    if ( nameColumnToPlot == "" ) nameColumnToPlot <- "POP_EST" #
   } else {
     #warning(inFile," seems not to be a valid file name or data frame, exiting ",functionName,"\n")
     stop(functionName," requires a SpatialPolygonsDataFrame object created by the joinCountryData2Map() function \n")

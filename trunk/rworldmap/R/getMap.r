@@ -8,7 +8,7 @@ function(resolution="low"){
   #23/5/12 3 new resolutions
   #scrapped projections
   
-
+  #
 
   #coarsest resolution map
  if (resolution == "coarse") {
@@ -21,7 +21,13 @@ function(resolution="low"){
     #mapWithData <- get("wrld_simpl")
     data("countriesLow", envir = environment(),package = "rworldmap")
     mapWithData <- get("countriesLow")    
+  }  else if (resolution == "less islands" | resolution == "li") {
+    #data("wrld_simpl", envir = environment(), package = "rworldmap")
+    #mapWithData <- get("wrld_simpl")
+    data("countriesCoarseLessIslands", envir = environment(),package = "rworldmap")
+    mapWithData <- get("countriesCoarseLessIslands")    
   }
+  
 #  else if (projection == "EqualArea" || projection == "equalArea") {
 #    data("wrld_simpl_Mollweide", envir = environment(), package = "rworldmap")
 #    mapWithData <- get("wrld_simpl_Mollweide")

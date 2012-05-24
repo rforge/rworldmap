@@ -55,7 +55,7 @@ identify()
 #mapCountryData()
 #identifyCountries()
 
-#identifyCountries(nameColumnToPlot = "POP2005", plotSelected = TRUE)
+#identifyCountries(nameColumnToPlot = "POP_EST", plotSelected = TRUE)
 
 
 }

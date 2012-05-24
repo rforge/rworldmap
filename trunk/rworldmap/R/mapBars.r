@@ -197,7 +197,7 @@
 #testing the function
     
 #dF <- getMap()@data    
-#mapBars( dF,nameX="LON", nameY="LAT",nameZs=c('POP2005','AREA') )
+#mapBars( dF,nameX="LON", nameY="LAT",nameZs=c('POP_EST','AREA') )
 #mapBars( dF,nameX="LON", nameY="LAT",nameZs=c('AREA','AREA') )
 #mapBars( dF,nameX="LON", nameY="LAT",nameZs=c('AREA','AREA'),mapRegion='africa' )
 #mapBars( dF,nameX="LON", nameY="LAT",nameZs=c('AREA','AREA','AREA','AREA'),mapRegion='africa' )

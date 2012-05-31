@@ -12,7 +12,7 @@ joinCountryData2Map(dF
 , nameJoinColumn = "ISO3V10"
 , nameCountryColumn = "Country"
 , suggestForFailedCodes = FALSE 
-, projection="none"  #options "none", "EqualArea"
+, projection=NA #DEPRECATED
 , mapResolution="low" 
 , verbose = FALSE   
 )
@@ -24,7 +24,7 @@ joinCountryData2Map(dF
   \item{nameJoinColumn}{ name of column containing country referencing }
   \item{nameCountryColumn}{ optional name of column containing country names (used in reporting of success/failure) }
   \item{suggestForFailedCodes}{ NOT YET ENABLED T/F whether you want system to suggest for failed codes  }
-  \item{projection}{ which map projection to use, options 'none', 'EqualArea' latter uses Mollweide  }
+  \item{projection}{ DEPRECATED JUNE 2012  }
   \item{mapResolution}{resolution of the borders in the internal map, only for projection='none' : options 'low', 'medium' }
   \item{verbose}{if set to FALSE it doesn't print progress messages to console}
   }
@@ -49,7 +49,6 @@ data("countryExData",envir=environment(),package="rworldmap")
 sPDF <- joinCountryData2Map(countryExData
               , joinCode = "ISO3"
               , nameJoinColumn = "ISO3V10"
-              , projection = "none" 
               )
 mapCountryData( sPDF
               , nameColumnToPlot="BIODIVERSITY" 

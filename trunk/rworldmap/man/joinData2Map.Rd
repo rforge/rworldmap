@@ -15,7 +15,7 @@ joinData2Map(dF
         , nameJoinColumnData = "ISO3V10"
         , nameNameColumnData = "Country"
         , suggestForFailedCodes = FALSE 
-        , projection="none"  
+        , projection=NA #DEPRECATED JUNE 2012  
         , mapResolution="low" 
         , verbose = FALSE                         
         )
@@ -28,8 +28,8 @@ joinData2Map(dF
   \item{nameJoinColumnData}{ name of column in the data containing country referencing }
   \item{nameNameColumnData}{ optional name of column in the data containing polygon names (used in reporting of success/failure) }
   \item{suggestForFailedCodes}{ NOT YET ENABLED T/F whether you want system to suggest for failed codes  }
-  \item{projection}{ which map projection to use, options 'none', 'EqualArea' latter uses Mollweide  }
-  \item{mapResolution}{resolution of the borders in the internal map, only for projection='none' : options 'low', 'medium' }
+  \item{projection}{ DEPRECATED JUNE 2012  }
+  \item{mapResolution}{resolution of the borders in the internal map: options 'coarse','low', 'less islands' }
   \item{verbose}{if set to FALSE progress messages to console are restricted}
   }
 \details{
@@ -40,7 +40,7 @@ Reports join successes and failures.
 
 The user specifies the name of the column in their data containing polygon referencing.
 
-The user can choose from different internal map resolutions and projections. 
+The user can choose from different internal map resolutions. 
 Uses the function \code{\link{getMap}} to retrieve the map.
 
 }

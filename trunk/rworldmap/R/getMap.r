@@ -2,12 +2,26 @@
 
 `getMap` <-
 
-#function(resolution="low",projection="none"){
-function(resolution="low"){
+function(resolution="low",projection=NA){
+#function(resolution="low"){
   
   #23/5/12 3 new resolutions
-  #scrapped projections
+  #deprecated projection option
   
+  resolutionOptions <- c("coarse","low","less islands","li") 
+  
+  if( ! resolution %in% resolutionOptions)
+  {
+    warning("resolutio should be set to one of :",paste(resolutionOptions,""),"\nsetting to coarse as default\n")
+    resolution="coarse"
+  }
+  
+  
+  
+  if (! is.na(projection)) 
+     {
+      warning("the projection argument to getMap() in rworldmap is deprecated and will be removed in a future release")
+     }
   #
 
   #coarsest resolution map

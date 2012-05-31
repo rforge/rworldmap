@@ -31,6 +31,12 @@ countriesCoarse$ISO3 <- countriesCoarse$ISO_A3
 countriesLow$ISO3 <- countriesLow$ISO_A3
 countriesHigh$ISO3 <- countriesHigh$ISO_A3
 
+#setting any POP_EST of -99 to NA
+countriesCoarseLessIslands$POP_EST[ which(countriesCoarseLessIslands$POP_EST < 0)] <- NA
+countriesCoarse$POP_EST[ which(countriesCoarse$POP_EST < 0)] <- NA
+countriesLow$POP_EST[ which(countriesLow$POP_EST < 0)] <- NA
+countriesHigh$POP_EST[ which(countriesHigh$POP_EST < 0)] <- NA
+
 tcoarse <- countriesCoarse@data
 tlow <- countriesLow@data
 thigh <- countriesHigh@data
@@ -46,6 +52,7 @@ nrow(thigh)#253
 #some don't have an ISO_A3 so get lost
 matchPosns <- match(countriesLow@data$ISO_A3, countriesCoarse@data$ISO_A3)
 countriesLow@data$ADMIN[which(is.na(matchPosns))]
+
 #mostly islands
 #I wonder if I could add these on to the coarse map
 #or even add the high ones
@@ -77,6 +84,10 @@ countriesCoarse <- rbind(countriesCoarse,tuvalu)
 countriesLow <- rbind(countriesLow,tuvalu)
 
 #now both low & course should have 243 countries (those in low + Tuvalu)
+#testing that num polygons and num rows of data are the same
+if ( length(countriesLow@polygons) != nrow(countriesLow@data) 
+  |  length(countriesCoarse@polygons) != nrow(countriesCoarse@data) )
+   warning("seems that number of polygons different from num data rows")
 
 #testing some joining
 #sPDF <- joinCountryData2Map(tlow,joinCode='NAME',nameJoinColumn='NAME')
@@ -87,13 +98,25 @@ countriesCoarse@polygons=lapply(countriesCoarse@polygons, checkPolygonsHoles)
 countriesLow@polygons=lapply(countriesLow@polygons, checkPolygonsHoles)
 #countriesHigh@polygons=lapply(countriesHigh@polygons, checkPolygonsHoles)
 
+#adding the polygon centroids on, as columns LON and LAT (does work)
+countriesCoarseLessIslands$LON <- coordinates(countriesCoarseLessIslands)[,1]
+countriesCoarseLessIslands$LAT <- coordinates(countriesCoarseLessIslands)[,2]
+countriesCoarse$LON <- coordinates(countriesCoarse)[,1]
+countriesCoarse$LAT <- coordinates(countriesCoarse)[,2]
+countriesLow$LON <- coordinates(countriesLow)[,1]
+countriesLow$LAT <- coordinates(countriesLow)[,2]
+
 #join each map to the regions file #can't use joinCOuntryData2Map because the map data isn't in there yet !
 data(countryRegions)
+
 #matchPosns <- match(countriesCoarse@data$ISO3, countryRegions$ISO3)
 #countriesCoarse@data <- cbind(countriesCoarse@data, countryRegions[matchPosns,])
+#previous problem due to 2 repeated countries in countryRegions
+#!!DANGEROUS due to NAs
 countriesCoarse@data <- merge(countriesCoarse@data, countryRegions, by='ISO3', all.x=TRUE )
 countriesCoarseLessIslands@data <- merge(countriesCoarseLessIslands@data, countryRegions, by='ISO3', all.x=TRUE )
 countriesLow@data <- merge(countriesLow@data, countryRegions, by='ISO3', all.x=TRUE )
+
 
 save(countriesCoarseLessIslands, file="C://rworldmapWorkingCopy//rworldmap//data//countriesCoarseLessIslands.rda")
 save(countriesCoarse, file="C://rworldmapWorkingCopy//rworldmap//data//countriesCoarse.rda")

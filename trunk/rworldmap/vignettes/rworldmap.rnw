@@ -105,7 +105,6 @@ data("countryExData",envir=environment())
 sPDF <- joinCountryData2Map(countryExData,
               joinCode = "ISO3",
               nameJoinColumn = "ISO3V10",
-              projection = "none",
               mapResolution = "coarse"
               )
 #map the data with no legend
@@ -366,8 +365,7 @@ getMap()\$NAME or one of "eurasia","africa","latin america","uk","oceania","asia
 #joining the data to a map
 sPDF <- joinCountryData2Map(countryExData,
               joinCode = "ISO3",
-              nameJoinColumn = "ISO3V10",
-              projection = "none",
+              nameJoinColumn = "ISO3V10"
               )            
 #creating a user defined colour palette
 op <- palette(c('green','yellow','orange','red')) 
@@ -451,7 +449,7 @@ will be printed on the map.
 
 mapBubbles( dF=getMap()
           , nameZSize="POP_EST"
-          , nameZColour="REGION"
+          , nameZColour="GEO3major"
           , colourPalette='rainbow'
           , oceanCol='lightblue'
           , landCol='wheat'

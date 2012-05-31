@@ -9,11 +9,11 @@ A simple way to access maps stored in the package.
 A simple way to access maps stored in the package.
 }
 \usage{
-getMap(resolution = "low", projection = "none")
+getMap(resolution = "low")
 }
 \arguments{
-  \item{resolution}{options "coarse", "low" or "medium", for projection="none" only}
-  \item{projection}{Options "none" or "equalArea"}
+  \item{resolution}{options "coarse","low","less islands","li"}
+  \item{projection}{DEPRECATED JUNE 2012 to reproject maps see spTransform in rgdal}
 }
 \value{
 A SpatialPolygonsDataFrame object.

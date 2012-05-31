@@ -74,7 +74,6 @@ sPDF <- sPDF <- joinCountryData2Map(dF
               , joinCode = "ISO3"
               , nameJoinColumn = nameJoinColumn
               , mapResolution = 'coarse'
-              , projection = "none" 
               )
 
 if (mapTitle == '') mapTitle=paste(FUN,nameDataColumn,'by',regionType,'regions')

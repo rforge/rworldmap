@@ -276,7 +276,7 @@ getMap()\$NAME or one of "eurasia","africa","latin america","uk","oceania","asia
 sPDF <- joinCountryData2Map( countryExData
                            , joinCode = "ISO3"
                            , nameJoinColumn = "ISO3V10"
-                           , projection = "none" )
+                           )
                                        
 #creating a user defined colour palette
 op <- palette(c('green','yellow','orange','red')) 

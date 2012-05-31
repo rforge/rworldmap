@@ -3,7 +3,6 @@ function(device="dev.new"
                    ,rows=1
                    ,columns=1
                    ,plotOrder="rows"
-                   ,projection="none"
                    ,width=NULL
                    ,height=NULL
                    ,titleSpace=NULL
@@ -15,7 +14,8 @@ function(device="dev.new"
 {
   #aspectRatio = width/height. Unless you specify both width and height,
   #mapDevice will choose an aspect ratio for you, depending on the projection.
-  aspectRatio<-switch(projection,EqualArea=1.7,none=2)
+  #aspectRatio<-switch(projection,EqualArea=1.7,none=2)
+  aspectRatio<-2
 
   #The margin with the title is only margin you would reguarly adjust,
   #so a shortcut is provided

@@ -38,7 +38,7 @@ mapPolys <- function(
     } 
   } else if ( mapToPlot == "" ) {
     message(paste("using example data because no file specified in",functionName))
-    mapToPlot <- getMap(resolution="low",projection="none")
+    mapToPlot <- getMap(resolution="coarse")
     #data("countryExData",envir=environment(),package="rworldmap")
     #dF <- get("countryExData") # copying from the example data
     ## also setting a defsult nameColumnToPlot if it isn't set

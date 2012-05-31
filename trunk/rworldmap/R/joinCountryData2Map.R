@@ -4,7 +4,8 @@ function( dF
         , nameJoinColumn = "ISO3V10"
         , nameCountryColumn = "Country"
         , suggestForFailedCodes = FALSE 
-        , mapResolution="low" #options low, medium, only for projection='none' initially
+        , mapResolution="coarse" 
+        , projection=NA 
         , verbose = FALSE #if set to FALSE it doesn't print progress messages to console                         
         )
    {

@@ -35,8 +35,8 @@ function( dF = ""
         , nameJoinColumnData = "ISO3V10"
         , nameNameColumnData = "Country"
         , suggestForFailedCodes = FALSE 
-        , projection="none"  #options "none", "EqualArea"
-        , mapResolution="low" #options low, medium, only for projection='none' initially
+        , projection=NA  #deprecated june 2012
+        , mapResolution="coarse" 
         , verbose = FALSE #if set to FALSE it doesn't print progress messages to console                         
         )
    {
@@ -60,7 +60,7 @@ function( dF = ""
        {
         mapWithData <- nameMap
        } else
-        mapWithData <- getMap(projection=projection,resolution=mapResolution)
+        mapWithData <- getMap(resolution=mapResolution)
     
     #test whether user nameJoinIDMap is one of permitted
     #listJoinCodes <- c("ISO2","ISO3","FIPS","NAME","UN") 

@@ -11,7 +11,7 @@ mapHalfDegreeGridToCountries(
     , aggregateOption="sum"  
     , nameCountryColumn = ""
     , suggestForFailedCodes = FALSE 
-    , projection="none"  
+    , projection=NA   
     , mapResolution="low"                                                 
     , numCats = 7 
     , xlim=c(-160,160)
@@ -29,7 +29,7 @@ mapHalfDegreeGridToCountries(
   \item{aggregateOption}{ how to aggregate the data ('sum','mean','min','max') }
   \item{nameCountryColumn}{ optional name of column containing country names (used in reporting of success/failure) }
   \item{suggestForFailedCodes}{ T/F whether you want system to suggest for failed codes NOT YET WORKING }
-  \item{projection}{ 'none' or 'EqualArea' }
+  \item{projection}{ deprecated june 2012 }
   \item{mapResolution}{options low, medium, only for projection='none' initially}
   \item{numCats}{ number of categories, may be overided e.g. if catMethod ='pretty' }
   \item{xlim}{ map extents c(west,east), can be overidden by mapRegion }

@@ -89,7 +89,6 @@ data("countryExData",envir=environment())
 sPDF <- joinCountryData2Map(countryExData
               , joinCode = "ISO3"
               , nameJoinColumn = "ISO3V10"
-              , projection = "none" 
               )
 #map the data with no legend              
 mapParams <- mapCountryData( sPDF

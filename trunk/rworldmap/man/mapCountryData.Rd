@@ -83,14 +83,13 @@ data("countryExData",envir=environment(),package="rworldmap")
 sPDF <- joinCountryData2Map(countryExData
               , joinCode = "ISO3"
               , nameJoinColumn = "ISO3V10"
-              , projection = "none" 
               )
 mapCountryData( sPDF
               , nameColumnToPlot="BIODIVERSITY" 
               )
               
 #user defined map colour scheme for categorical data              
-mapParams <- mapCountryData(nameColumnToPlot='REGION'
+mapParams <- mapCountryData(nameColumnToPlot='GEO3major'
               , catMethod='categorical'
               , addLegend='FALSE'
               , colourPalette=c('white','green','red','yellow','blue','black') 

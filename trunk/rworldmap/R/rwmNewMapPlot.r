@@ -15,15 +15,6 @@ function(mapToPlot=getMap(),
     ylim <- c(dFwesn$so, dFwesn$no)
   }
   
-  #for setting region when projection is different
-  #Mollweide map goes to max 17840888 
-  #using estimated coord conversion rather than proper projection through spTransform   
-  #can instead just query the bbox of the mapToPlot object
-  if ( mapToPlot@bbox[3] > 100000 ) { 
-  #if (projection=="EqualArea" || projection=="equalArea"){  
-    xlim=xlim*100000
-    ylim=ylim*100000
-  }
   
   plot.new()
 

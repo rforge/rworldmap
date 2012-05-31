@@ -3,7 +3,7 @@ function( inFile=""
                           , aggregateOption="sum"  #"mean","max","min"
                           , nameCountryColumn = ""
                           , suggestForFailedCodes = FALSE 
-                          , projection="none"  #"none", "EqualArea" 
+                          , projection=NA 
                           , mapResolution="low" #options low, medium, only for projection='none' initially                                                 
                           , numCats = 7 # *may be ignored by catMethod
                            #we=-160,

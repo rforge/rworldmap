@@ -78,7 +78,7 @@ function()
         
     #windows() 
     #9
-    mapGriddedData(mapRegion="africa") #,projection="none")
+    mapGriddedData(mapRegion="africa") 
     mtext('mapGriddedData(mapRegion="africa")',outer=TRUE,line=-1)
             
     #switching off prompting user for keypress between plots 

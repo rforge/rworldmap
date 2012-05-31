@@ -75,7 +75,7 @@ Adds a legend to a plot.
 #Set up the plot so the world map uses the full width.
 mapDevice() 
 #map example categorical data with no legend              
-mapParams <- mapCountryData(nameColumnToPlot='REGION'
+mapParams <- mapCountryData(nameColumnToPlot='GEO3major'
               , catMethod='categorical'
               , addLegend='FALSE' 
               )
@@ -87,7 +87,7 @@ do.call( addMapLegendBoxes, c( mapParams))
 do.call( addMapLegendBoxes, c(mapParams,x='bottom',horiz=TRUE,title="Region"))
 
 #user defined map colour sceme              
-mapParams <- mapCountryData(nameColumnToPlot='REGION'
+mapParams <- mapCountryData(nameColumnToPlot='GEO3major'
               , catMethod='categorical'
               , addLegend='FALSE'
               , colourPalette=c('white','green','red','yellow','blue','black') 

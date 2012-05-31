@@ -13,7 +13,6 @@ mapDevice(
           , rows = 1
           , columns = 1
           , plotOrder="rows"
-          , projection = "none"
           , width = NULL
           , height = NULL
           , titleSpace = NULL
@@ -32,7 +31,6 @@ Giving the name of a plotting device function will use that instead. e.g. "pdf",
   \item{columns}{ The number of columns. Default 1 }
   \item{plotOrder}{ Option of 'rows' or 'columns'. For multiple plots whether to plot in row or column order.
 However, note that addMapLegend can have the effect of reverting order to rows.}
-  \item{projection}{The projection which you intend to use for the maps. Ignored if you specify both width and height.}
   \item{width}{ The width of a single plot. This includes the margins. If you do not specify both width and height, suitable values will be calculated}
   \item{height}{ The height of a single plot. This includes the margins. If you do not specify both width and height, suitable values will be calculated}
   \item{titleSpace}{ The height in inches of the gap at the plot.}

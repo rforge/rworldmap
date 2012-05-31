@@ -22,13 +22,16 @@ function( oddName ){
   #firstNameColumn <- 2 #actually it's not 2 but won't do any harm to search through the ISO codes first
   
   #this works. indexing goes beyond end of rows for later columns
-  rowNum <- which( countrySynonyms[,2:length(countrySynonyms)] ==  oddName )
-  #using tolower to avoid case things, start from col2 to include all sysnonyms
+  #rowNum <- which( countrySynonyms[,2:length(countrySynonyms)] ==  oddName )
+  
+  #using tolower to avoid case things, start from col2 to include all synonyms
   #but tolower messes up dF into a char vector
   #rowNum <- which( tolower(dFcountries[,2:length(dFcountries)]) ==  tolower(oddName) )
-
-  #this will 
-  ISO3 <- oddName
+  
+  #keeping it simple
+  cLow <- data.frame(lapply(countrySynonyms,tolower))
+  
+  rowNum <- which(cLow == tolower(oddName))
   
   #do I want it to return the oddName or NA if no match found ?
   
@@ -46,7 +49,8 @@ function( oddName ){
   #I want as uppercase
   ISO3 <- toupper(ISO3)
   
-  return(ISO3)
+  #just return the first one if there is more than one match
+  return(ISO3[1])
 }
 
 #testing

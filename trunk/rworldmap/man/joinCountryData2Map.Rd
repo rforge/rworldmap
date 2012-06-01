@@ -12,8 +12,8 @@ joinCountryData2Map(dF
 , nameJoinColumn = "ISO3V10"
 , nameCountryColumn = "Country"
 , suggestForFailedCodes = FALSE 
+, mapResolution="coarse" 
 , projection=NA #DEPRECATED
-, mapResolution="low" 
 , verbose = FALSE   
 )
 }

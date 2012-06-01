@@ -8,9 +8,9 @@ function(mapRegion='world')
     
     #adding ability to set mapRegion from any countries
     map <- getMap()
-    if ( mapRegion %in% map@data$NAME )
+    if ( mapRegion %in% map@data$ADMIN )
        {
-        bb <- bbox(map[ map@data$NAME == mapRegion, ])
+        bb <- bbox(map[ map@data$ADMIN == mapRegion, ])
         dFmapExtents <- data.frame( we=bb[1], ea=bb[3], so=bb[2], no=bb[4] )
         return(dFmapExtents)       
        }

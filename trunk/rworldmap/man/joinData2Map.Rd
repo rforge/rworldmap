@@ -16,7 +16,7 @@ joinData2Map(dF
         , nameNameColumnData = "Country"
         , suggestForFailedCodes = FALSE 
         , projection=NA #DEPRECATED JUNE 2012  
-        , mapResolution="low" 
+        , mapResolution="coarse" 
         , verbose = FALSE                         
         )
 }

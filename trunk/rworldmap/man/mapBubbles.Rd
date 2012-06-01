@@ -114,7 +114,7 @@ data("countryExData",envir=environment(),package="rworldmap")
 sPDF <- joinCountryData2Map(countryExData,joinCode = "ISO3"
                            ,nameJoinColumn = "ISO3V10")
                            
-mapBubbles(sPDF, nameZSize="AREA",nameZColour="BIODIVERSITY"
+mapBubbles(sPDF, nameZSize="POP_EST",nameZColour="BIODIVERSITY"
           ,colourPalette='topo',numCats=5,catMethod="quantiles")
 
 }

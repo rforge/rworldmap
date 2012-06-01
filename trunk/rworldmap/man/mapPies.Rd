@@ -77,7 +77,7 @@ dF <- getMap()@data
 #       , mapRegion='africa' )
 
 mapPies( dF,nameX="LON", nameY="LAT"
-       , nameZs=c('AREA','AREA','AREA','AREA'),mapRegion='africa' )
+       , nameZs=c('POP_EST','POP_EST','POP_EST','POP_EST'),mapRegion='africa' )
   
 
 }

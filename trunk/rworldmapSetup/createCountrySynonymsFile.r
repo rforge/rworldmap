@@ -29,4 +29,7 @@ countrySynonyms <- read.table(inFile,sep='\t', as.is=TRUE, fill=TRUE, header = F
 #now save this into the data folder of rworldmap
 save(countrySynonyms, file="C://rworldmapWorkingCopy//rworldmap//data//countrySynonyms.rda")
 
-
+#create the documentation files - may need editing
+#DONT run these after having edited the files
+prompt(countrySynonyms, file="c://rworldmapWorkingCopy//rworldmap//man//countrySynonyms.Rd")
+prompt(rwmGetISO3, file="c://rworldmapWorkingCopy//rworldmap//man//rwmGetISO3.Rd")

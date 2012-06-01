@@ -37,16 +37,25 @@ countriesCoarse$POP_EST[ which(countriesCoarse$POP_EST < 0)] <- NA
 countriesLow$POP_EST[ which(countriesLow$POP_EST < 0)] <- NA
 countriesHigh$POP_EST[ which(countriesHigh$POP_EST < 0)] <- NA
 
-tcoarse <- countriesCoarse@data
-tlow <- countriesLow@data
-thigh <- countriesHigh@data
+#converting curacao that can be a pain later otherwise due to non-ascii
+tmp <- countriesLow@data
+for(i in seq(tmp))
+   {
+    levels(tmp[,i])[levels(tmp[,i])=="Curaçao"] <- "Curacao"
+   }
+countriesLow@data <- tmp
+
+
 
 #Bouvet seems not to be in data
 #grep("Bouvet", sPDFhigh@data$ADMIN, ignore.case="TRUE")
 
-nrow(tcoarse) #177
-nrow(tlow) #242
-nrow(thigh)#253
+# tcoarse <- countriesCoarse@data
+# tlow <- countriesLow@data
+# thigh <- countriesHigh@data
+# nrow(tcoarse) #177
+# nrow(tlow) #242
+# nrow(thigh)#253
 
 #testing which countries are in low but not in coarse
 #some don't have an ISO_A3 so get lost
@@ -116,6 +125,32 @@ data(countryRegions)
 countriesCoarse@data <- merge(countriesCoarse@data, countryRegions, by='ISO3', all.x=TRUE )
 countriesCoarseLessIslands@data <- merge(countriesCoarseLessIslands@data, countryRegions, by='ISO3', all.x=TRUE )
 countriesLow@data <- merge(countriesLow@data, countryRegions, by='ISO3', all.x=TRUE )
+
+#how do I deal with non-ascii strings ? they cause warnings in check
+#package(tools) showNonASCII() iconv()
+#iconv(as.character(countriesCoarse@data),"ASCII","UTF-8")
+#but problem that this converts all numeric data to characters
+# * checking data for non-ASCII characters ... WARNING
+# Warning: found non-ASCII string(s)
+# 'Curagao' in object 'countriesCoarse'
+# 'Eland Islands' in object 'countriesCoarse'
+# 'Fxoroyar (Faroe Is.)' in object 'countriesCoarse'
+# 'Ivory Coast (Ctte d'Ivoire)' in object 'countriesCoarse'
+#   'Ivory Coast (Ctte d'Ivoire)' in object 'countriesCoarseLessIslands'
+#   'Curagao' in object 'countriesLow'
+#   'Eland Islands' in object 'countriesLow'
+#   'Fxoroyar (Faroe Is.)' in object 'countriesLow'
+#   'Ivory Coast (Ctte d'Ivoire)' in object 'countriesLow'
+#i had to add an if not numeric bit in
+countriesCoarseLessIslands@data <- data.frame(lapply(countriesCoarseLessIslands@data, function(x)  if(!is.numeric(x)) iconv(x,"ASCII","UTF-8") else x))
+countriesCoarse@data <- data.frame(lapply(countriesCoarse@data, function(x)  if(!is.numeric(x)) iconv(x,"ASCII","UTF-8") else x))
+countriesLow@data <- data.frame(lapply(countriesLow@data, function(x)  if(!is.numeric(x)) iconv(x,"ASCII","UTF-8") else x))
+# countriesCoarseLessIslands@data <- data.frame(lapply(countriesCoarseLessIslands@data, function(x)  if(!is.numeric(x)) iconv(x,"ASCII","ASCII") else x))
+# countriesCoarse@data <- data.frame(lapply(countriesCoarse@data, function(x)  if(!is.numeric(x)) iconv(x,"ASCII","ASCII") else x))
+# countriesLow@data <- data.frame(lapply(countriesLow@data, function(x)  if(!is.numeric(x)) iconv(x,"ASCII","ASCII") else x))
+#Curaçao remains a problem it gets converted to Curagao but still causes problem at check
+
+
 
 
 save(countriesCoarseLessIslands, file="C://rworldmapWorkingCopy//rworldmap//data//countriesCoarseLessIslands.rda")

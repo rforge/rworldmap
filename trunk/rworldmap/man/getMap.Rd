@@ -9,7 +9,7 @@ A simple way to access maps stored in the package.
 A simple way to access maps stored in the package.
 }
 \usage{
-getMap(resolution = "low")
+getMap(resolution = "low", projection=NA)
 }
 \arguments{
   \item{resolution}{options "coarse","low","less islands","li"}

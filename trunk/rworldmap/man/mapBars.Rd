@@ -80,18 +80,18 @@ dF <- getMap()@data
   
 ## these examples repeat the same column in 'nameZs' to show that equal sized bars are created 
 
-#mapBars( dF,nameX="LON", nameY="LAT",nameZs=c('AREA','AREA') )
+#mapBars( dF,nameX="LON", nameY="LAT",nameZs=c('POP_EST','POP_EST') )
 
-#mapBars( dF,nameX="LON", nameY="LAT",nameZs=c('AREA','AREA'),mapRegion='africa' )
-
-#mapBars( dF,nameX="LON", nameY="LAT"
-#       , nameZs=c('AREA','AREA','AREA','AREA'),mapRegion='africa' )
+#mapBars( dF,nameX="LON", nameY="LAT",nameZs=c('POP_EST','POP_EST'),mapRegion='africa' )
 
 #mapBars( dF,nameX="LON", nameY="LAT"
-#       , nameZs=c('AREA','AREA','AREA','AREA'),mapRegion='africa',symbolSize=2 )
+#       , nameZs=c('POP_EST','POP_EST','POP_EST','POP_EST'),mapRegion='africa' )
+
+#mapBars( dF,nameX="LON", nameY="LAT"
+#       , nameZs=c('POP_EST','POP_EST','POP_EST','POP_EST'),mapRegion='africa',symbolSize=2 )
 
 mapBars( dF, nameX="LON", nameY="LAT"
-       , nameZs=c('AREA','AREA','AREA','AREA')
+       , nameZs=c('POP_EST','POP_EST','POP_EST','POP_EST')
        , mapRegion='africa'
        , symbolSize=2
        , barOrient = 'horiz' )

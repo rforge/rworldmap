@@ -21,6 +21,10 @@ mapCountryData <- function(
                            
   #browser()  #n to enter the step through debugger, Q to exit
   
+  #29/9/2012 to avoid a polypath error, needs sp version >= 0.9-101 
+  #added usePolypath=FALSE in plot calls because safer and should work now
+  #set_Polypath(FALSE)
+  
   require(sp)
   
   ## checking the data
@@ -112,8 +116,9 @@ mapCountryData <- function(
       #setting up the map plot
       if (!add) rwmNewMapPlot(mapToPlot,mapRegion=mapRegion,xlim=xlim,ylim=ylim,oceanCol=oceanCol,aspect=aspect)
       #plotting the map
-      plot(mapToPlot,col=colourVector[dataCatNums],border=borderCol,add=TRUE)#,density=c(20:200))#angle=c(1:360),)
-     } else  
+      #plot(mapToPlot,col=colourVector[dataCatNums],border=borderCol,add=TRUE)#,density=c(20:200))#angle=c(1:360),)
+      plot(mapToPlot,col=colourVector[dataCatNums],border=borderCol,add=TRUE,usePolypath=FALSE)#29/9/2012
+      } else  
     {
     #*HATCHING OPTION*
     #setting up the map plot    
@@ -132,8 +137,8 @@ mapCountryData <- function(
       #plotting the map
       #plot(mapToPlot,col=colourVector[mapToPlot@data$dataCatNums],border=borderCol,add=TRUE, density=hatchVar, angle=135, lty=1)
       #plot(mapToPlot,col=colourVector[mapToPlot@data$dataCatNums],border=borderCol,add=TRUE, density=hatchVar, angle=45, lty=1)
-      plot(mapToPlot,col=colourVector[dataCatNums],border=borderCol, density=hatchVar, angle=135, lty=1,add=TRUE)
-      plot(mapToPlot,col=colourVector[dataCatNums],border=borderCol, density=hatchVar, angle=45, lty=1,add=TRUE)
+      plot(mapToPlot,col=colourVector[dataCatNums],border=borderCol, density=hatchVar, angle=135, lty=1,add=TRUE,usePolypath=FALSE)#29/9/2012
+      plot(mapToPlot,col=colourVector[dataCatNums],border=borderCol, density=hatchVar, angle=45, lty=1,add=TRUE,usePolypath=FALSE)#29/9/2012
                  
      }  #end of hatching option
 

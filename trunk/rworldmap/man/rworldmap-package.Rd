@@ -13,9 +13,12 @@ Enables mapping of country level and gridded user datasets by facilitating joini
 Package: \tab rworldmap\cr
 Type: \tab Package\cr
 Version: \tab 1.01\cr
-Date: \tab 2012-05-24\cr
+Date: \tab 2012-10-1\cr
 License: \tab GPL (>= 2)\cr
 }
+
+Version 1.01 newly uses updated Natural Earth Data for country boundaries.
+
 Country Level Data can be joined to a map using  \code{\link{joinCountryData2Map}}, 
 then mapped using \code{\link{mapCountryData}}.
 Gridded data can be mapped using \code{\link{mapGriddedData}}.

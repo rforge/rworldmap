@@ -24,10 +24,14 @@ contains a variable number of synonyms (mostly English language) for each countr
   }
 }
 \details{
-%%  ~~ If necessary, more details than the __description__ above ~~
+This is used by joinCountryData2Map() when country names are used as the joinCode.
+Note that using ISO codes is preferable if they are available. 
 }
 \source{
-http://www.naturalearthdata.com/
+This was derived and used with permission from the Perl Locale package. Locale::Codes::Country_Codes.
+Thanks to Sullivan Beck for pulling this together.
+Data sources are acknowledged here :
+http://search.cpan.org/~sbeck/Locale-Codes-3.23/lib/Locale/Codes/Country.pod
 }
 
 \examples{

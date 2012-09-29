@@ -55,7 +55,6 @@ function( inFile=""
     #temporary solution copying it
     sGDFcountries <- get("gridCountriesNumeric")
 
-    #inFileNumericCountryCodeLookup <- "M:\\Quest\\worldmaps\\iso3166_2_3_numeric.csv"   
             
     #getting the names of the columns containing the data
     attrNameGrid <- names(sGDF)[1]

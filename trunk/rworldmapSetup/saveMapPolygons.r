@@ -164,3 +164,18 @@ save(countriesLow, file="C://rworldmapWorkingCopy//rworldmap//data//countriesLow
 #prompt(countriesCoarseLessIslands, file="c://rworldmapWorkingCopy//rworldmap//man//countriesCoarseLessIslands.Rd")
 #prompt(countriesCoarse, file="c://rworldmapWorkingCopy//rworldmap//man//countriesCoarse.Rd")
 #prompt(countriesLow, file="c://rworldmapWorkingCopy//rworldmap//man//countriesLow.Rd")
+
+
+#30/9/2012
+#sorting coastline to remove reliance on maps package
+inCoast <- "c:\\rworldmapdata\\naturalEarthData\\110m_coastline.shp"
+
+coastsCoarse <- readShapeLines(inCoast)
+save(coastsCoarse, file="C://rworldmapWorkingCopy//rworldmap//data//coastsCoarse.rda")
+#prompt(coastsCoarse, file="c://rworldmapWorkingCopy//rworldmap//man//coastsCoarse.Rd")
+
+#plot(coast)
+
+
+
+

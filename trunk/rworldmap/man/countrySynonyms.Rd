@@ -27,13 +27,11 @@ contains a variable number of synonyms (mostly English language) for each countr
 %%  ~~ If necessary, more details than the __description__ above ~~
 }
 \source{
-%%  ~~ reference to a publication or URL from which the data were obtained ~~
+http://www.naturalearthdata.com/
 }
-\references{
-%%  ~~ possibly secondary sources and usages ~~
-}
+
 \examples{
 data(countrySynonyms)
-## maybe str(countrySynonyms) ; plot(countrySynonyms) ...
+
 }
 \keyword{datasets}

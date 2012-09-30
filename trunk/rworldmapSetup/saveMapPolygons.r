@@ -17,22 +17,15 @@ inLow <- "ne_110m_admin_0_countries.shp"
 inMed <- "ne_50m_admin_0_countries.shp"
 inHigh <- "ne_10m_admin_0_countries.shp"
 
-#sPDFlow <- readShapePoly(inLow)      
-#sPDFmed <- readShapePoly(inMed)
-#sPDFhigh <- readShapePoly(inHigh)
+
 countriesCoarse <- readShapePoly(inLow) 
-countriesCoarseLessIslands <- readShapePoly(inLow) 
+#countriesCoarseLessIslands <- readShapePoly(inLow) 
 countriesLow <- readShapePoly(inMed)
 countriesHigh <- readShapePoly(inHigh)
 
-#adding ISO3 columns as a copy of ISO_A3
-countriesCoarseLessIslands$ISO3 <- countriesCoarseLessIslands$ISO_A3
-countriesCoarse$ISO3 <- countriesCoarse$ISO_A3      
-countriesLow$ISO3 <- countriesLow$ISO_A3
-countriesHigh$ISO3 <- countriesHigh$ISO_A3
 
 #setting any POP_EST of -99 to NA
-countriesCoarseLessIslands$POP_EST[ which(countriesCoarseLessIslands$POP_EST < 0)] <- NA
+#countriesCoarseLessIslands$POP_EST[ which(countriesCoarseLessIslands$POP_EST < 0)] <- NA
 countriesCoarse$POP_EST[ which(countriesCoarse$POP_EST < 0)] <- NA
 countriesLow$POP_EST[ which(countriesLow$POP_EST < 0)] <- NA
 countriesHigh$POP_EST[ which(countriesHigh$POP_EST < 0)] <- NA
@@ -46,6 +39,39 @@ for(i in seq(tmp))
 countriesLow@data <- tmp
 
 
+##**** 30/9/12
+##**** still a problem for the 6 countries that don't have an ISO3 code
+##**** and messes up all later polygon ordering
+missingISO3nums <- which(countriesCoarse$ISO_A3 == '-99')
+#[1] 1 2 3 4 5 6
+countriesCoarse$ADMIN[missingISO3nums]
+#[1] Indian Ocean Territories Kosovo                   Western Sahara          
+#[4] Siachen Glacier          Somaliland               Northern Cyprus
+#I could set them to ADMO_A3
+countriesCoarse$ADM0_A3[missingISO3nums]
+#[1] IOA KOS SAH KAS SOL CYN
+countriesCoarse$ISO_A3 <- as.character(countriesCoarse$ISO_A3)
+countriesCoarse$ISO_A3[missingISO3nums] <- as.character(countriesCoarse$ADM0_A3[missingISO3nums])
+
+missingISO3nums <- which(countriesLow$ISO_A3 == '-99')
+#[1] 1 2 3 4 5 6
+countriesLow$ADMIN[missingISO3nums]
+#[1] Indian Ocean Territories Kosovo                   Western Sahara          
+#[4] Siachen Glacier          Somaliland               Northern Cyprus
+#I could set them to ADMO_A3
+countriesLow$ADM0_A3[missingISO3nums]
+#[1] IOA KOS SAH KAS SOL CYN
+countriesLow$ISO_A3 <- as.character(countriesLow$ISO_A3)
+countriesLow$ISO_A3[missingISO3nums] <- as.character(countriesLow$ADM0_A3[missingISO3nums])
+
+
+#adding ISO3 columns as a copy of ISO_A3
+countriesCoarse$ISO3 <- countriesCoarse$ISO_A3      
+countriesLow$ISO3 <- countriesLow$ISO_A3
+countriesHigh$ISO3 <- countriesHigh$ISO_A3
+
+#creating a copy that won't have higher res bits added
+countriesCoarseLessIslands <- countriesCoarse
 
 #Bouvet seems not to be in data
 #grep("Bouvet", sPDFhigh@data$ADMIN, ignore.case="TRUE")
@@ -80,6 +106,9 @@ countriesLow[extraPosns,]@data$ADMIN #shows the extra countries
 countriesLow <- spChFIDs(countriesLow, as.character(countriesLow$ADMIN))
 countriesCoarse <- spChFIDs(countriesCoarse, as.character(countriesCoarse$ADMIN))
 countriesCoarse <- rbind(countriesCoarse,countriesLow[extraPosns,])
+
+#Testing OK to here i think
+
 #to add Tuvalu from the high map
 #but problem that high map has 2 extra columns ne_10m_adm & OID_
 countriesHigh <- spChFIDs(countriesHigh, as.character(countriesHigh$ADMIN))
@@ -92,6 +121,8 @@ tuvalu <- countriesHigh[which(countriesHigh$ADMIN=="Tuvalu"),][-badRows]
 countriesCoarse <- rbind(countriesCoarse,tuvalu)
 countriesLow <- rbind(countriesLow,tuvalu)
 
+#***TESTING got to here
+
 #now both low & course should have 243 countries (those in low + Tuvalu)
 #testing that num polygons and num rows of data are the same
 if ( length(countriesLow@polygons) != nrow(countriesLow@data) 
@@ -101,11 +132,6 @@ if ( length(countriesLow@polygons) != nrow(countriesLow@data)
 #testing some joining
 #sPDF <- joinCountryData2Map(tlow,joinCode='NAME',nameJoinColumn='NAME')
 
-#checking fixing problems in polygon geometry
-countriesCoarseLessIslands@polygons=lapply(countriesCoarseLessIslands@polygons, checkPolygonsHoles)
-countriesCoarse@polygons=lapply(countriesCoarse@polygons, checkPolygonsHoles)
-countriesLow@polygons=lapply(countriesLow@polygons, checkPolygonsHoles)
-#countriesHigh@polygons=lapply(countriesHigh@polygons, checkPolygonsHoles)
 
 #adding the polygon centroids on, as columns LON and LAT (does work)
 countriesCoarseLessIslands$LON <- coordinates(countriesCoarseLessIslands)[,1]
@@ -118,13 +144,20 @@ countriesLow$LAT <- coordinates(countriesLow)[,2]
 #join each map to the regions file #can't use joinCOuntryData2Map because the map data isn't in there yet !
 data(countryRegions)
 
-#matchPosns <- match(countriesCoarse@data$ISO3, countryRegions$ISO3)
-#countriesCoarse@data <- cbind(countriesCoarse@data, countryRegions[matchPosns,])
-#previous problem due to 2 repeated countries in countryRegions
-#!!DANGEROUS due to NAs
-countriesCoarse@data <- merge(countriesCoarse@data, countryRegions, by='ISO3', all.x=TRUE )
-countriesCoarseLessIslands@data <- merge(countriesCoarseLessIslands@data, countryRegions, by='ISO3', all.x=TRUE )
-countriesLow@data <- merge(countriesLow@data, countryRegions, by='ISO3', all.x=TRUE )
+matchPosns <- match(countriesCoarse@data$ISO3, countryRegions$ISO3)
+countriesCoarse@data <- cbind(countriesCoarse@data, countryRegions[matchPosns,])
+
+matchPosns <- match(countriesCoarseLessIslands@data$ISO3, countryRegions$ISO3)
+countriesCoarseLessIslands@data <- cbind(countriesCoarseLessIslands@data, countryRegions[matchPosns,])
+
+matchPosns <- match(countriesLow@data$ISO3, countryRegions$ISO3)
+countriesLow@data <- cbind(countriesLow@data, countryRegions[matchPosns,])
+
+#BAD lines below screw up ordering
+#countriesCoarse@data <- merge(countriesCoarse@data, countryRegions, by='ISO3', all.x=TRUE )
+#countriesCoarseLessIslands@data <- merge(countriesCoarseLessIslands@data, countryRegions, by='ISO3', all.x=TRUE )
+#countriesLow@data <- merge(countriesLow@data, countryRegions, by='ISO3', all.x=TRUE )
+
 
 #how do I deal with non-ascii strings ? they cause warnings in check
 #package(tools) showNonASCII() iconv()
@@ -150,6 +183,18 @@ countriesLow@data <- data.frame(lapply(countriesLow@data, function(x)  if(!is.nu
 # countriesLow@data <- data.frame(lapply(countriesLow@data, function(x)  if(!is.numeric(x)) iconv(x,"ASCII","ASCII") else x))
 #Curaçao remains a problem it gets converted to Curagao but still causes problem at check
 
+#checking fixing problems in polygon geometry
+countriesCoarseLessIslands@polygons=lapply(countriesCoarseLessIslands@polygons, checkPolygonsHoles)
+countriesCoarse@polygons=lapply(countriesCoarse@polygons, checkPolygonsHoles)
+countriesLow@polygons=lapply(countriesLow@polygons, checkPolygonsHoles)
+#countriesHigh@polygons=lapply(countriesHigh@polygons, checkPolygonsHoles)
+
+###TESTING
+#tst <- countriesCoarse
+#tst$tst2 <- ifelse(tst$GEO3major=='Africa',2,1)
+#mapPolys(tst,nameColumnToPlot="tst2",catMethod='categorical',colourPalette='rainbow')
+#tst$tst <- ifelse(tst$ADMIN=='India',2,1)
+#mapPolys(tst,nameColumnToPlot="tst",catMethod='categorical',colourPalette='rainbow')
 
 
 

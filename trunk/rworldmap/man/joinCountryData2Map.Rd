@@ -34,6 +34,7 @@ The user specifies which country code their data are referenced by, and the name
 The user can choose from different map resolutions and projections, uses the function \code{\link{getMap}} to retrieve the map.
 The function reports on how many countries successfully join to the map.
 Data can then be plotted using \code{\link{mapCountryData}}.
+NEW to version 1.01 Oct 2012 : for joinCode='NAME' alternative country names are matched using data(countrySynonyms).
 }
 \value{
 An R 'SpatialPolygonsDataFrame' [package "sp"] object with the data joined to it 

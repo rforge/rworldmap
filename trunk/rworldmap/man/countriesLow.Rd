@@ -1,9 +1,9 @@
 \name{countriesLow}
 \alias{countriesLow}
 \docType{data}
-\title{ a low resolution world map, suitable for zooming in on regions or large global maps }
+\title{ a low resolution world map, a vector map of 244 country boundaries, suitable for zooming in on regions or large global maps }
 \description{
-A 'SpatialPolygonsDataFrame' [package "sp"] object containing a simplified world map. 
+A 'SpatialPolygonsDataFrame' [package "sp"] object containing country boundaries derived from Natural Earth data. 
 Polygons are attributed with country codes.
 }
 \usage{data(countriesLow)}
@@ -73,13 +73,13 @@ Formal class 'SpatialPolygonsDataFrame' [package "sp"] with 5 slots
   .. .. ..@ projargs: chr NA
 }
 \details{
-%%  ~~ If necessary, more details than the __description__ above ~~
+Derived fron version 1.4.0 of Natural Earth data 1:50 m data.      
+Added in countries from the higher resolution data.
 }
 \source{
-http://www.naturalearthdata.com/
+http://www.naturalearthdata.com/downloads/50m-cultural-vectors/
 }
 \examples{
 data(countriesLow)
-## maybe str(countriesLow) ; plot(countriesLow) ...
 }
 \keyword{datasets}

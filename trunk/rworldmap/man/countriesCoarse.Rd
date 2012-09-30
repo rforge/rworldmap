@@ -1,10 +1,11 @@
 \name{countriesCoarse}
 \alias{countriesCoarse}
 \docType{data}
-\title{ a coarse resolution world map, suitable for small global maps }
+\title{ a coarse resolution world map, a vector map of 244 country boundaries,suitable for global maps }
 \description{
 A 'SpatialPolygonsDataFrame' [package "sp"] object containing a simplified world map. 
 Polygons are attributed with country codes.
+244 countries. Based on Natural Earth data.
 }
 \usage{data(countriesCoarse)}
 \format{
@@ -49,10 +50,11 @@ Formal class 'SpatialPolygonsDataFrame' [package "sp"] with 5 slots
 
 }
 \details{
-%%  ~~ If necessary, more details than the __description__ above ~~
+Derived fron version 1.4.0 of Natural Earth data 1:110 m data.      
+Added in countries from the higher resolution data.
 }
 \source{
-http://www.naturalearthdata.com/
+http://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-0-countries/
 }
 \examples{
 data(countriesCoarse)

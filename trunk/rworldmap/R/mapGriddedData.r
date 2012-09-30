@@ -190,6 +190,7 @@ mapGriddedData <- function(
        #30/9/2012 replacing use of maps library
        #library(maps) 
        #map(interior=FALSE,add=TRUE, col=borderCol )
+       coastsCoarse <- NULL #to avoid build warning
        data(coastsCoarse)
        plot(coastsCoarse, add=TRUE, col=borderCol) 
        } else 

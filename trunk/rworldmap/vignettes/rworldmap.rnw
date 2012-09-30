@@ -23,9 +23,13 @@ Science (Cefas), Lowestoft, NR33 OHT, UK. {\tt southandy at gmail.com}}}
 \fi
 
 
-
-
 \SweaveOpts{echo=TRUE,print=FALSE, width=7, height=3.7, eps=FALSE} %default width and height for figures
+
+%trying these SweaveOpts from raster to make vignette smaller - works
+\SweaveOpts{png=TRUE}
+\SweaveOpts{resolution=200}
+\SweaveOpts{keep.source=TRUE}
+
 \usepackage{Sweave}
 \usepackage{a4wide}
 %\usepackage{a4}

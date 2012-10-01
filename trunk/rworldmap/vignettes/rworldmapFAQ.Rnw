@@ -323,15 +323,32 @@ mapCountryData( sPDF
               , missingCountryCol='white' 
               , mapRegion='Eurasia'
               , borderCol='black' )
-
-## At end of plotting, reset palette to previous settings:
-palette(op)  
+  
 
 @
   \end{center}
 
 %\pagebreak 
 
+ \section{display selected countries only ?}
+
+Subset data from your Spatial Polygons Dataframe first. e.g. to display just Landlocked Developing Countries (LLDCs).
+
+  \begin{center}
+  
+<<selectedCountries,fig=TRUE,echo=TRUE,results=hide>>=
+<<plotSetup>>
+sPDF <- getMap()  
+#select countries from the map       
+sPDF <-sPDF[which(sPDF$LDC=='LDC'),] 
+mapCountryData( sPDF
+              , nameColumnToPlot='continent'
+							, colourPalette='rainbow'
+							, mapTitle='Least Developed Countries' )
+
+
+@
+  \end{center}
 
 
 \section{create map bubble plots ?}
@@ -351,13 +368,36 @@ will be printed on the map.
 
 mapBubbles( dF=getMap()
           , nameZSize="POP_EST"
-          , nameZColour="GEO3"
+          , nameZColour="continent"
           ,colourPalette='rainbow'
           , oceanCol='lightblue'
           , landCol='wheat' ) 
 @
   \end{center}
 
+
+\section{add extra text beneath a plot}                
+
+Use {\tt mtext} with the {\tt line} argument. Making line=-1 more negative will move the text up the plot.   
+
+making line= more negative will move the text up the plot
+  \begin{center}
+
+<<mtext,fig=TRUE,echo=TRUE,results=hide>>=
+<<plotSetup>>
+
+sPDF <- getMap()  
+#select countries from the map       
+sPDF <-sPDF[which(sPDF$continent=='Africa'),] 
+mapBubbles( dF=getMap()
+          , nameZSize="POP_EST"
+          , nameZColour="continent"
+					, mapTitle='Population') 
+          
+mtext("Source: Andy South, The R Journal Vol. 3/1, June 2011",side=1,line=-1)          
+          
+@
+  \end{center}
 
 
 \section{combine rworldmap with other packages classInt and RColorBrewer ?}

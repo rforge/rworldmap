@@ -40,6 +40,6 @@ http://www.naturalearthdata.com/downloads/110m-physical-vectors/
 }
 \examples{
 data(coastsCoarse)
-mapGriddedData(addBorders='coasts')
+#mapGriddedData(addBorders='coasts')
 }
 \keyword{datasets}

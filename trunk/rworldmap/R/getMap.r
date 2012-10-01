@@ -8,11 +8,11 @@ function(resolution="low",projection=NA){
   #23/5/12 3 new resolutions
   #deprecated projection option
   
-  resolutionOptions <- c("coarse","low","less islands","li") 
+  resolutionOptions <- c("coarse","low","less islands","li","high") 
   
   if( ! resolution %in% resolutionOptions)
   {
-    warning("resolutio should be set to one of :",paste(resolutionOptions,""),"\nsetting to coarse as default\n")
+    warning("resolution should be set to one of :",paste(resolutionOptions,""),"\nsetting to coarse as default\n")
     resolution="coarse"
   }
   
@@ -41,7 +41,11 @@ function(resolution="low",projection=NA){
     #mapWithData <- get("wrld_simpl")
     data("countriesCoarseLessIslands", envir = environment(),package = "rworldmap")
     mapWithData <- get("countriesCoarseLessIslands")    
+  }  else if (resolution == "high" ) {
+    data("countriesHigh", envir = environment(),package = "rworldmap")
+    mapWithData <- get("countriesHigh")    
   }
+
   
 #  else if (projection == "EqualArea" || projection == "equalArea") {
 #    data("wrld_simpl_Mollweide", envir = environment(), package = "rworldmap")

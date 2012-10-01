@@ -11,7 +11,7 @@ function(regionType = ''
 data("countryRegions",envir=environment(),package="rworldmap")
 countryRegions <- get("countryRegions")
 
-valid_classification_types<-c("GEO3","GEO3major","IMAGE24","GLOCAF","Stern","SRESmajor","SRES","GBD","AVOIDnumeric","AVOIDname","LDC","SID","LLDC")
+valid_classification_types<-c("REGION","continent","GEO3","GEO3major","IMAGE24","GLOCAF","Stern","SRESmajor","SRES","GBD","AVOIDnumeric","AVOIDname","LDC","SID","LLDC")
 
 #prompt the user for a regionType if one is not specified    
 while(!(regionType %in% valid_classification_types))
@@ -26,7 +26,7 @@ if ( !is.data.frame(inFile) && inFile == '' && nameDataColumn == '' && joinCode 
    {
     message(paste('Countries are classified into the following ', regionType, 'regions'))
     FUN <- 'identity'
-    tapply(countryRegions$Name,countryRegions[[regionType]],FUN,...)  
+    tapply(countryRegions$ADMIN,countryRegions[[regionType]],FUN,...)  
     
    } else
    {
@@ -40,8 +40,9 @@ if ( !is.data.frame(inFile) && inFile == '' && nameDataColumn == '' && joinCode 
        FUN = "mean"
       }
     
-    valid_code_types<-c("ISO3","ISO2","Numeric","Name","FIPS")
-      
+    #valid_code_types<-c("ISO3","ISO2","Numeric","Name","FIPS")
+    valid_code_types<-c("ISO3","ADMIN")
+    
     #checking that the country join code is valid
     if(!(joinCode %in% valid_code_types))stop("joinCode is invalid. The options are: ",paste(valid_code_types,collapse=" "))
     

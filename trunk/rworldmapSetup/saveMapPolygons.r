@@ -75,6 +75,25 @@ countriesHigh$ADM0_A3[missingISO3nums]
 countriesHigh$ISO_A3 <- as.character(countriesHigh$ISO_A3)
 countriesHigh$ISO_A3[missingISO3nums] <- as.character(countriesHigh$ADM0_A3[missingISO3nums])
 
+#checking for any repeated ISO3s which may have been created
+countriesCoarse$ADMIN[which(duplicated(countriesCoarse$ISO_A3))]
+#183 Ashmore and Cartier Islands AUS
+#197 Gaza PSE
+#I'm going to set them to close to the names so that user can see they aren't ISO3
+countriesCoarse$ISO_A3[which(countriesCoarse$ADMIN=='Ashmore and Cartier Islands')] <- 'Ashm'
+countriesCoarse$ISO_A3[which(countriesCoarse$ADMIN=='Gaza')] <- 'Gaza'
+
+countriesLow@data[which(duplicated(countriesLow$ISO_A3)),]
+countriesLow$ISO_A3[which(countriesLow$ADMIN=='Ashmore and Cartier Islands')] <- 'Ashm'
+countriesLow$ISO_A3[which(countriesLow$ADMIN=='Gaza')] <- 'Gaza'
+
+countriesHigh@data[which(duplicated(countriesHigh$ISO_A3)),]
+countriesHigh$ISO_A3[which(countriesHigh$ADMIN=='Ashmore and Cartier Islands')] <- 'Ashm'
+countriesHigh$ISO_A3[which(countriesHigh$ADMIN=='Gaza')] <- 'Gaza'
+
+if ( length(which(duplicated(countriesCoarse$ISO_A3))) > 0 |
+     length(which(duplicated(countriesLow$ISO_A3))) > 0 |
+     length(which(duplicated(countriesHigh$ISO_A3))) > 0 )  warning("Duplicated ISO3 codes")        
 
 #adding ISO3 columns as a copy of ISO_A3
 countriesCoarse$ISO3 <- countriesCoarse$ISO_A3      

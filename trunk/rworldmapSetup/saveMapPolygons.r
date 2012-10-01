@@ -38,10 +38,15 @@ for(i in seq(tmp))
    }
 countriesLow@data <- tmp
 
+tmp <- countriesHigh@data
+for(i in seq(tmp))
+{
+  levels(tmp[,i])[levels(tmp[,i])=="Curaçao"] <- "Curacao"
+}
+countriesHigh@data <- tmp
 
 ##**** 30/9/12
 ##**** still a problem for the 6 countries that don't have an ISO3 code
-##**** and messes up all later polygon ordering
 missingISO3nums <- which(countriesCoarse$ISO_A3 == '-99')
 #[1] 1 2 3 4 5 6
 countriesCoarse$ADMIN[missingISO3nums]
@@ -63,6 +68,12 @@ countriesLow$ADM0_A3[missingISO3nums]
 #[1] IOA KOS SAH KAS SOL CYN
 countriesLow$ISO_A3 <- as.character(countriesLow$ISO_A3)
 countriesLow$ISO_A3[missingISO3nums] <- as.character(countriesLow$ADM0_A3[missingISO3nums])
+
+missingISO3nums <- which(countriesHigh$ISO_A3 == '-99')
+countriesHigh$ADMIN[missingISO3nums]
+countriesHigh$ADM0_A3[missingISO3nums]
+countriesHigh$ISO_A3 <- as.character(countriesHigh$ISO_A3)
+countriesHigh$ISO_A3[missingISO3nums] <- as.character(countriesHigh$ADM0_A3[missingISO3nums])
 
 
 #adding ISO3 columns as a copy of ISO_A3
@@ -106,8 +117,8 @@ countriesLow[extraPosns,]@data$ADMIN #shows the extra countries
 countriesLow <- spChFIDs(countriesLow, as.character(countriesLow$ADMIN))
 countriesCoarse <- spChFIDs(countriesCoarse, as.character(countriesCoarse$ADMIN))
 countriesCoarse <- rbind(countriesCoarse,countriesLow[extraPosns,])
+countriesHigh <- spChFIDs(countriesHigh, as.character(countriesHigh$ADMIN))
 
-#Testing OK to here i think
 
 #to add Tuvalu from the high map
 #but problem that high map has 2 extra columns ne_10m_adm & OID_
@@ -121,7 +132,6 @@ tuvalu <- countriesHigh[which(countriesHigh$ADMIN=="Tuvalu"),][-badRows]
 countriesCoarse <- rbind(countriesCoarse,tuvalu)
 countriesLow <- rbind(countriesLow,tuvalu)
 
-#***TESTING got to here
 
 #now both low & course should have 243 countries (those in low + Tuvalu)
 #testing that num polygons and num rows of data are the same
@@ -140,6 +150,8 @@ countriesCoarse$LON <- coordinates(countriesCoarse)[,1]
 countriesCoarse$LAT <- coordinates(countriesCoarse)[,2]
 countriesLow$LON <- coordinates(countriesLow)[,1]
 countriesLow$LAT <- coordinates(countriesLow)[,2]
+countriesHigh$LON <- coordinates(countriesHigh)[,1]
+countriesHigh$LAT <- coordinates(countriesHigh)[,2]
 
 #join each map to the regions file #can't use joinCOuntryData2Map because the map data isn't in there yet !
 data(countryRegions)
@@ -152,6 +164,9 @@ countriesCoarseLessIslands@data <- cbind(countriesCoarseLessIslands@data, countr
 
 matchPosns <- match(countriesLow@data$ISO3, countryRegions$ISO3)
 countriesLow@data <- cbind(countriesLow@data, countryRegions[matchPosns,])
+
+matchPosns <- match(countriesHigh@data$ISO3, countryRegions$ISO3)
+countriesHigh@data <- cbind(countriesHigh@data, countryRegions[matchPosns,])
 
 #BAD lines below screw up ordering
 #countriesCoarse@data <- merge(countriesCoarse@data, countryRegions, by='ISO3', all.x=TRUE )
@@ -178,6 +193,8 @@ countriesLow@data <- cbind(countriesLow@data, countryRegions[matchPosns,])
 countriesCoarseLessIslands@data <- data.frame(lapply(countriesCoarseLessIslands@data, function(x)  if(!is.numeric(x)) iconv(x,"ASCII","UTF-8") else x))
 countriesCoarse@data <- data.frame(lapply(countriesCoarse@data, function(x)  if(!is.numeric(x)) iconv(x,"ASCII","UTF-8") else x))
 countriesLow@data <- data.frame(lapply(countriesLow@data, function(x)  if(!is.numeric(x)) iconv(x,"ASCII","UTF-8") else x))
+countriesHigh@data <- data.frame(lapply(countriesHigh@data, function(x)  if(!is.numeric(x)) iconv(x,"ASCII","UTF-8") else x))
+
 # countriesCoarseLessIslands@data <- data.frame(lapply(countriesCoarseLessIslands@data, function(x)  if(!is.numeric(x)) iconv(x,"ASCII","ASCII") else x))
 # countriesCoarse@data <- data.frame(lapply(countriesCoarse@data, function(x)  if(!is.numeric(x)) iconv(x,"ASCII","ASCII") else x))
 # countriesLow@data <- data.frame(lapply(countriesLow@data, function(x)  if(!is.numeric(x)) iconv(x,"ASCII","ASCII") else x))
@@ -187,7 +204,7 @@ countriesLow@data <- data.frame(lapply(countriesLow@data, function(x)  if(!is.nu
 countriesCoarseLessIslands@polygons=lapply(countriesCoarseLessIslands@polygons, checkPolygonsHoles)
 countriesCoarse@polygons=lapply(countriesCoarse@polygons, checkPolygonsHoles)
 countriesLow@polygons=lapply(countriesLow@polygons, checkPolygonsHoles)
-#countriesHigh@polygons=lapply(countriesHigh@polygons, checkPolygonsHoles)
+countriesHigh@polygons=lapply(countriesHigh@polygons, checkPolygonsHoles)
 
 ###TESTING
 #tst <- countriesCoarse
@@ -202,14 +219,14 @@ save(countriesCoarseLessIslands, file="C://rworldmapWorkingCopy//rworldmap//data
 save(countriesCoarse, file="C://rworldmapWorkingCopy//rworldmap//data//countriesCoarse.rda")
 save(countriesLow, file="C://rworldmapWorkingCopy//rworldmap//data//countriesLow.rda")
 #i think this one is too big
-#save(countriesMed, file="C://rworldmapWorkingCopy//rworldmap//data//countriesMed.rda")
+save(countriesHigh, file="C://rworldmapWorkingCopy//rworldmap//data//countriesHigh.rda")
 
 #create the documentation files - may need editing
 #DONT run these after having edited the files
 #prompt(countriesCoarseLessIslands, file="c://rworldmapWorkingCopy//rworldmap//man//countriesCoarseLessIslands.Rd")
 #prompt(countriesCoarse, file="c://rworldmapWorkingCopy//rworldmap//man//countriesCoarse.Rd")
 #prompt(countriesLow, file="c://rworldmapWorkingCopy//rworldmap//man//countriesLow.Rd")
-
+prompt(countriesHigh, file="c://rworldmapWorkingCopy//rworldmap//man//countriesHigh.Rd")
 
 #30/9/2012
 #sorting coastline to remove reliance on maps package

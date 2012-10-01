@@ -54,10 +54,16 @@ mapPolys <- function(
     stop("your chosen nameColumnToPlot :'",nameColumnToPlot,"' seems not to exist in your data, columns = ",paste(names(mapToPlot@data),""))
     return(FALSE)
   } 
-  
-  ##classify data into categories   
+    
 
   dataCategorised <- mapToPlot@data[[nameColumnToPlot]]
+
+  #1/10/12 if the data are not numerical then set catMethod to categorical
+  if ( ! is.numeric(dataCategorised)  )
+  {
+    catMethod = "categorical"
+    message(paste("using catMethod='categorical' for non numeric data in",functionName))
+  }
   
   #checking whether method is categorical, length(catMethod)==1 needed to avoid warning if a vector of breaks is passed  
   if( length(catMethod)==1 && catMethod=="categorical" ) #if categorical, just copy the data, add an as.factor() to convert any data that aren't yet as a factor   

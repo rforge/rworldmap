@@ -26,10 +26,7 @@ mapCountryData <- function(
   #set_Polypath(FALSE)
   
   require(sp)
-  
-  ## checking the data
-  ## aug09 requires a SpatialPolygonsDataFrame
-  ## or uses the example data in the maps POP_EST (i.e. doesn't need to join to countryExData)
+
  
  if ( class(mapToPlot)=="SpatialPolygonsDataFrame" ) {
     ## checking if there is any data in the dataFrame

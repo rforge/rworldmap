@@ -20,7 +20,8 @@ function(resolution="low",projection=NA){
   
   if (! is.na(projection)) 
      {
-      warning("the projection argument to getMap() in rworldmap is deprecated and will be removed in a future release")
+      warning("the projection argument to getMap() in rworldmap is deprecated and will be removed in a future release.
+			        Returning an unprojected map, use spTransform() from package rgdal to project.")
      }
   #
 

@@ -16,8 +16,8 @@ function(mapToPlot=getMap(),
   }
 
   #2/10/12 getting xlim & ylim from bbox of the map
-  if (is.na(xlim)) xlim <- bbox(mapToPlot)['x',]  
-  if (is.na(ylim)) ylim <- bbox(mapToPlot)['y',]
+  if (length(xlim)<2) xlim <- bbox(mapToPlot)['x',]  
+  if (length(ylim)<2) ylim <- bbox(mapToPlot)['y',]
   
   
   plot.new()

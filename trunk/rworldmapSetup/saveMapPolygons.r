@@ -240,6 +240,7 @@ proj4string(countriesHigh) <- CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_d
 
 #transforming to mercator - have to miss out antarctica polygon 7
 #cCmerc <- spTransform(countriesCoarse[-7,], CRS=CRS("+proj=merc +ellps=WGS84"))
+#cCmerc <- spTransform(countriesCoarse[-7,], CRS=CRS("+proj=robin +ellps=WGS84"))
 
 save(countriesCoarseLessIslands, file="C://rworldmapWorkingCopy//rworldmap//data//countriesCoarseLessIslands.rda")
 save(countriesCoarse, file="C://rworldmapWorkingCopy//rworldmap//data//countriesCoarse.rda")

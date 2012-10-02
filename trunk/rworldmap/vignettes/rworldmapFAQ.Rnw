@@ -265,10 +265,9 @@ getMap()\$NAME or one of "eurasia","africa","latin america","uk","oceania","asia
 
 \section{create my own colour palette ?}
 
-\begin{figure}[bthp]
   \begin{center}
-  
-<<finalFigure1,fig=TRUE,echo=TRUE,results=hide>>=
+
+<<colourPalette,fig=TRUE,echo=TRUE,results=hide>>=
 <<plotSetup>>
 
 #joining the data to a map
@@ -297,11 +296,8 @@ mapCountryData( sPDF
               , missingCountryCol='white' )
 @
 
-    \caption{An example of a categorical map produced from mapCountryData}
   \end{center}
-\end{figure}
 
-%\clearpage 
 
 
 
@@ -414,12 +410,12 @@ To project a map you will need the rgdal package and use spTransform()
 library(rgdal)
 #first get countries excluding Antarctica which crashes spTransform
 sPDF <- getMap()[-which(getMap()$ADMIN=='Antarctica'),]
-#transform to aea (Albers Equal Area)
-sPDF <- spTransform(sPDF, CRS=CRS("+proj=aea +ellps=WGS84")) 
+#transform to robin for the Robinson projection
+sPDF <- spTransform(sPDF, CRS=CRS("+proj=robin +ellps=WGS84")) 
        
 mapCountryData( sPDF
           , nameColumnToPlot="REGION"
-					, mapTitle='Equal Area Projection'
+					, mapTitle='Robinson Projection'
 					, colourPalette='topo'
 					, addLegend = FALSE)                    
           

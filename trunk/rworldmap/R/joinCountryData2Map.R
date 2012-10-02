@@ -11,6 +11,9 @@ function( dF
    {
 
     mapWithData <- getMap(resolution=mapResolution)
+
+		if ( ! is.na(projection))
+		   warning('the projection argument has been deprecated, returning Lat Lon, use spTransform from package rgdal as shown in help details or the FAQ')
     
     #test whether user joinCode is one of permitted
     

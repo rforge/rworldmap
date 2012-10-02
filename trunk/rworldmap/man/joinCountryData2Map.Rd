@@ -31,10 +31,19 @@ joinCountryData2Map(dF
 \details{
 Joins data referenced by country codes to an internally stored map to enable plotting. 
 The user specifies which country code their data are referenced by, and the name of the column in their data containing that referencing data.
-The user can choose from different map resolutions and projections, uses the function \code{\link{getMap}} to retrieve the map.
+The user can choose from different map resolutions, using the function \code{\link{getMap}} to retrieve the map.
 The function reports on how many countries successfully join to the map.
 Data can then be plotted using \code{\link{mapCountryData}}.
-NEW to version 1.01 Oct 2012 : for joinCode='NAME' alternative country names are matched using data(countrySynonyms).
+NEW to version 1.01 Oct 2012 : for joinCode='NAME' alternative country names are matched using \code{\link{countrySynonyms}}.
+
+The projection argument has now been deprecated, you can project maps using package rgdal as shown below and in the FAQ.
+library(rgdal)
+#first get countries excluding Antarctica which crashes spTransform
+sPDF <- getMap()[-which(getMap()$ADMIN=='Antarctica'),]
+#transform to robin for the Robinson projection
+sPDF <- spTransform(sPDF, CRS=CRS("+proj=robin +ellps=WGS84"))        
+mapCountryData( sPDF, nameColumnToPlot="REGION")
+
 }
 \value{
 An R 'SpatialPolygonsDataFrame' [package "sp"] object with the data joined to it 

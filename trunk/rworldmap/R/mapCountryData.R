@@ -2,8 +2,8 @@ mapCountryData <- function(
                 mapToPlot =         ""
               , nameColumnToPlot =  ""
               , numCats =           7
-              , xlim =              c(-180,180)
-              , ylim =              c(-80,90)
+              , xlim =              NA
+              , ylim =              NA
               , mapRegion =         "world"
               , catMethod =         "quantiles"
               , colourPalette =     "heat"
@@ -56,7 +56,7 @@ mapCountryData <- function(
   dataCategorised <- mapToPlot@data[[nameColumnToPlot]]
 
   #30/5/12 if the data are not numerical then set catMethod to categorical
-  if ( ! is.numeric(dataCategorised)  )
+  if ( ! is.numeric(dataCategorised) && catMethod != "categorical" )
      {
      catMethod = "categorical"
      message(paste("using catMethod='categorical' for non numeric data in",functionName))

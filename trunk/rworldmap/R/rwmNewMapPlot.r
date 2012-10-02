@@ -2,8 +2,8 @@
 function(mapToPlot=getMap(),
          oceanCol=NA,
          mapRegion="world",
-         xlim=c(-160,160),                  
-         ylim=c(-80,90),
+         xlim=NA,                  
+         ylim=NA,
          aspect=1){
 
   #browser()
@@ -14,6 +14,10 @@ function(mapToPlot=getMap(),
     xlim <- c(dFwesn$we, dFwesn$ea)
     ylim <- c(dFwesn$so, dFwesn$no)
   }
+
+  #2/10/12 getting xlim & ylim from bbox of the map
+  if (is.na(xlim)) xlim <- bbox(cCmerc)['x',]  
+  if (is.na(ylim)) ylim <- bbox(cCmerc)['y',]
   
   
   plot.new()

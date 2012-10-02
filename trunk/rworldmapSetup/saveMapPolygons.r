@@ -232,7 +232,14 @@ countriesHigh@polygons=lapply(countriesHigh@polygons, checkPolygonsHoles)
 #tst$tst <- ifelse(tst$ADMIN=='India',2,1)
 #mapPolys(tst,nameColumnToPlot="tst",catMethod='categorical',colourPalette='rainbow')
 
+## setting the projection 
+proj4string(countriesCoarse) <- CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
+proj4string(countriesCoarseLessIslands) <- CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
+proj4string(countriesLow) <- CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
+proj4string(countriesHigh) <- CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
 
+#transforming to mercator - have to miss out antarctica polygon 7
+#cCmerc <- spTransform(countriesCoarse[-7,], CRS=CRS("+proj=merc +ellps=WGS84"))
 
 save(countriesCoarseLessIslands, file="C://rworldmapWorkingCopy//rworldmap//data//countriesCoarseLessIslands.rda")
 save(countriesCoarse, file="C://rworldmapWorkingCopy//rworldmap//data//countriesCoarse.rda")
@@ -245,7 +252,7 @@ save(countriesHigh, file="C://rworldmapWorkingCopy//rworldmap//data//countriesHi
 #prompt(countriesCoarseLessIslands, file="c://rworldmapWorkingCopy//rworldmap//man//countriesCoarseLessIslands.Rd")
 #prompt(countriesCoarse, file="c://rworldmapWorkingCopy//rworldmap//man//countriesCoarse.Rd")
 #prompt(countriesLow, file="c://rworldmapWorkingCopy//rworldmap//man//countriesLow.Rd")
-prompt(countriesHigh, file="c://rworldmapWorkingCopy//rworldmap//man//countriesHigh.Rd")
+#prompt(countriesHigh, file="c://rworldmapWorkingCopy//rworldmap//man//countriesHigh.Rd")
 
 #30/9/2012
 #sorting coastline to remove reliance on maps package

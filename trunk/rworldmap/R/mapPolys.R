@@ -10,8 +10,8 @@ mapPolys <- function(
                            nameColumnToPlot = "",
                            
                            numCats = 7, # *may be overridden by catMethod
-                           xlim=c(-160,160),
-                           ylim=c(-80,90),
+                           xlim=NA, #c(-160,160),
+                           ylim=NA, #c(-80,90),
                            mapRegion = "world",   #sets map extents, overrides xlim, ylim
                            catMethod="quantiles",   #any vector defining breaks, "fixedWidth","quantiles","logFixedWidth"
                            colourPalette= "heat", #"heat","white2Black","topo","palette" for current palette
@@ -56,10 +56,11 @@ mapPolys <- function(
   } 
     
 
+  
   dataCategorised <- mapToPlot@data[[nameColumnToPlot]]
 
   #1/10/12 if the data are not numerical then set catMethod to categorical
-  if ( ! is.numeric(dataCategorised)  )
+  if ( ! is.numeric(dataCategorised) && catMethod != "categorical" )
   {
     catMethod = "categorical"
     message(paste("using catMethod='categorical' for non numeric data in",functionName))

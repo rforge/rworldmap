@@ -67,7 +67,27 @@ Formal class 'SpatialPolygonsDataFrame' [package "sp"] with 5 slots
 
 }
 \details{
-Derived fron version 1.4.0 of Natural Earth data 1:110 m data.      
+Derived fron version 1.4.0 of Natural Earth data 1:110 m data.    
+
+The different country boundaries in rworldmap are processed from Natural Earth Data as follows :
+All :         
+~ rename any non-ASCII country names that cause R trouble
+~ rename Curacao which is particularly troublesome !
+~ check polygon geometries using checkPolygonsHoles 
+~ set projections, e.g. proj4string(countriesCoarse) <- CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
+~ set polygon IDs to country names (from ADMIN field)
+~ copy ISO_A3 to ISO3
+~ replace missing ISO3 codes (6 in this version) with ADM0_A3
+~ check for duplicate ISO3 codes (2 in this version)
+~ set ISO3 for Gaza to Gaza and 'Ashmore and Cartier Islands' to Ashm
+~ replace POP_EST of -99 with NA
+~ join on countryRegions data
+
+countriesCoarseLessIslands :  ne_110
+countriesCoarse : ne_110 plus extra countries from ne_50 plus Tuvalu from ne_10
+countriesLow :    ne_50 plus Tuvalu from ne_10
+countriesHigh :   ne_10
+  
 }
 \source{
 http://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-0-countries/

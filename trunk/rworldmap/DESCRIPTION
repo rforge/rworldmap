@@ -8,4 +8,4 @@ Maintainer: Andy South <southandy@gmail.com>
 Description: Enables mapping of country level and gridded user datasets.
 License: GPL (>= 2)
 Depends: R (>= 2.10.0), sp, maptools, foreign, fields, spam
-Suggests: RColorBrewer, classInt, cshapes, ncdf, raster
+Suggests: rgdal, RColorBrewer, classInt, cshapes, ncdf, raster

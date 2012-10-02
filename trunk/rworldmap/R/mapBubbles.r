@@ -4,7 +4,6 @@ mapBubbles <- function( dF=""
                           ,nameY="latitude"
                           ,nameZSize=""
                           ,nameZColour=""
-                          #,pointColours = "nameZColour" #eplaced by colourPalette
                           
                           ,fill = TRUE
                           ,pch=21 #circles where col defines borders, & bg defines fill
@@ -57,8 +56,13 @@ if ( class(dF)=="character" && dF=="" )
 #allows just a sPDF to be passed and it will get the label points, so doesn't need nameX & nameY to be specified
 if (class(dF)=="SpatialPolygonsDataFrame")
    {
-    #centroidCoords <- coordinates(getMap())
-    #**********************
+    if (!add) 
+      {
+        #use passed sPDF as the background map
+        rwmNewMapPlot(mapToPlot=dF,oceanCol=oceanCol,mapRegion=mapRegion)
+        plot( dF, add=TRUE, border=borderCol, col=landCol )
+      }
+  
     #22/4/10 changing this to get centroid coords from the spdf
     centroidCoords <- coordinates(dF)    
     
@@ -68,29 +72,54 @@ if (class(dF)=="SpatialPolygonsDataFrame")
     dF[['nameX']] <- centroidCoords[,1]
     dF[['nameY']] <- centroidCoords[,2]    
     nameX <- 'nameX'
-    nameY <- 'nameY'    
-   }
-
-#background map
-#these set the most common params, if user wanted finer control over map
-#they can call rwmNewMapPlot, and then call mapBubbles with add=TRUE 
-if (!add) 
+    nameY <- 'nameY'  
+   } else if (!add) 
    {
+    #background map
+    #these set the most common params, if user wanted finer control over map
+    #they can call rwmNewMapPlot, and then call mapBubbles with add=TRUE     
     rwmNewMapPlot(mapToPlot=getMap(),oceanCol=oceanCol,mapRegion=mapRegion)
     plot( getMap(), add=TRUE, border=borderCol, col=landCol )
    }
-
 
 #a bunch of code here that is repeated from mapCountryData
 #so it could probably be put into its own function
 #maybe rwmGetCategoriesAndColours, that would need to return a list
 #of both the categorised data and the colourVector
 
+#2/10/12 to allow single colour bubbles
+#check if nameZColour is one of column names
+#if not is it a colour ?
+#colours()
+## check that the column name exists in the data frame
+singleColour<-FALSE
+if (nameZColour == "") nameZColour <- 'red' #setting colour to red as default
+if ( is.na(match(nameZColour, names(dF)) )){
+  
+  #now test whether it is a colour
+  if ( is.na(match(nameZColour, colours()) ))
+     {  
+      stop("your chosen nameZColour :'",nameZColour,"' is not a colour and seems not to exist in your data, columns = ",paste(names(dF),""))
+      return(FALSE)
+     } else singleColour<-TRUE
+}
+
+
+cutVector <- colourVector <- NA
+if (!singleColour)
+{
 #start of new bit from mapCountryData
 #~^ marks changes
   #~^dataCategorised <- mapToPlot@data[[nameColumnToPlot]]
   dataCategorised <- dF[,nameZColour]
-  
+
+  #30/5/12 if the data are not numerical then set catMethod to categorical
+  if ( ! is.numeric(dataCategorised) && catMethod != "categorical" )
+  {
+    catMethod = "categorical"
+    message(paste("using catMethod='categorical' for non numeric data in",functionName))
+  }
+
   #checking whether method is categorical, length(catMethod)==1 needed to avoid warning if a vector of breaks is passed  
   if( length(catMethod)==1 && catMethod=="categorical" ) #if categorical, just copy the data, add an as.factor() to convert any data that aren't yet as a factor   
     { 
@@ -153,12 +182,17 @@ if (!add)
     #~^dataCatNums[is.na(dataCatNums)]<-length(colourVector)
   
 #end of new bit from mapCountryData
-
+} #end of if (!singleColour)
+  
 #symbol colours
-#~^if (nameZColour != "") col=dF[,nameZColour]
 #! later allow the single symbol colour to be changed here
-if (nameZColour != "") col=colourVector[dataCatNums]
-else col='black'
+#if (nameZColour != "") col=colourVector[dataCatNums]
+#else col='black'
+#2/10/12
+if (singleColour) col=nameZColour
+else col=colourVector[dataCatNums]
+
+
 
 #symbol fill
 if (fill) bg=col
@@ -234,7 +268,7 @@ points( dF[,nameX], dF[,nameY],pch=pch,cex=cex,col=col,bg=bg,... )#,
                 } #end of if (addLegend)
 
 #legend for colours, not all params can be controlled from here, it can be controlled separately too
-if ( addColourLegend && nameZColour!="" )
+if ( addColourLegend && !singleColour )
    {
     addMapLegendBoxes(colourVector=colourVector,cutVector=cutVector,x=colourLegendPos, title=colourLegendTitle)
    }

@@ -10,8 +10,8 @@ mapPolys <- function(
                            nameColumnToPlot = "",
                            
                            numCats = 7, # *may be overridden by catMethod
-                           xlim=NA, #c(-160,160),
-                           ylim=NA, #c(-80,90),
+                           xlim=NA, 
+                           ylim=NA, 
                            mapRegion = "world",   #sets map extents, overrides xlim, ylim
                            catMethod="quantiles",   #any vector defining breaks, "fixedWidth","quantiles","logFixedWidth"
                            colourPalette= "heat", #"heat","white2Black","topo","palette" for current palette

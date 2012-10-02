@@ -9,6 +9,7 @@ Added country synonym matching for user data
 *countrySynonyms : added data file to aid in matching countries in user data to those in maps
 *joinCountryData2Map : when using joinCode='NAME' option it matches synonyms
 *joinCountryData2Map : Deprecated use of ‘projection’
+*mapBubbles : now copes with no nameZColour or nameZColour='blue' etc.
 *mapCountryData stopped it crashing when given a categorical dataset
 *mapCountryData added usePolypath=FALSE to plot commands to avoid polypath error, needs sp version >= 0.9-101
 *coastsCoarse added a coasts only vector map from Natural Earth to replace reliance on maps package in mapGriddedData

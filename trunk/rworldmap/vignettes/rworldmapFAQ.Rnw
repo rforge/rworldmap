@@ -5,6 +5,7 @@
 Science (Cefas), Lowestoft, NR33 OHT, UK. {\tt southandy at gmail.com}}}
 
 %\VignetteIndexEntry{rworldmap FAQ}
+%\VignetteDepends{rgdal}
 
 \SweaveOpts{echo=TRUE,print=FALSE, width=7, height=3.7, eps=FALSE} %\default width and height for figures
 
@@ -343,8 +344,8 @@ sPDF <- getMap()
 sPDF <-sPDF[which(sPDF$LDC=='LDC'),] 
 mapCountryData( sPDF
               , nameColumnToPlot='continent'
-							, colourPalette='rainbow'
-							, mapTitle='Least Developed Countries' )
+              , colourPalette='rainbow'
+              , mapTitle='Least Developed Countries' )
 
 
 @
@@ -369,7 +370,7 @@ will be printed on the map.
 mapBubbles( dF=getMap()
           , nameZSize="POP_EST"
           , nameZColour="continent"
-          ,colourPalette='rainbow'
+          , colourPalette='rainbow'
           , oceanCol='lightblue'
           , landCol='wheat' ) 
 @
@@ -392,9 +393,35 @@ sPDF <-sPDF[which(sPDF$continent=='Africa'),]
 mapBubbles( dF=getMap()
           , nameZSize="POP_EST"
           , nameZColour="continent"
-					, mapTitle='Population') 
+					, mapTitle='Population'
+					, addColourLegend = FALSE) 
           
 mtext("Source: Andy South, The R Journal Vol. 3/1, June 2011",side=1,line=-1)          
+          
+@
+  \end{center}
+
+
+\section{plot other map projections}                
+
+To project a map you will need the rgdal package and use spTransform()
+
+  \begin{center}
+
+<<projection,fig=TRUE,echo=TRUE,results=hide>>=
+<<plotSetup>>
+
+library(rgdal)
+#first get countries excluding Antarctica which crashes spTransform
+sPDF <- getMap()[-which(getMap()$ADMIN=='Antarctica'),]
+#transform to aea (Albers Equal Area)
+sPDF <- spTransform(sPDF, CRS=CRS("+proj=aea +ellps=WGS84")) 
+       
+mapCountryData( sPDF
+          , nameColumnToPlot="REGION"
+					, mapTitle='Equal Area Projection'
+					, colourPalette='topo'
+					, addLegend = FALSE)                    
           
 @
   \end{center}

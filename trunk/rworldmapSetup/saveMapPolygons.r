@@ -259,6 +259,7 @@ save(countriesHigh, file="C://rworldmapWorkingCopy//rworldmap//data//countriesHi
 inCoast <- "c:\\rworldmapdata\\naturalEarthData\\110m_coastline.shp"
 
 coastsCoarse <- readShapeLines(inCoast)
+proj4string(coastsCoarse) <- CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
 save(coastsCoarse, file="C://rworldmapWorkingCopy//rworldmap//data//coastsCoarse.rda")
 #prompt(coastsCoarse, file="c://rworldmapWorkingCopy//rworldmap//man//coastsCoarse.Rd")
 

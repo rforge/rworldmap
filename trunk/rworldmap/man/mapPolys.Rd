@@ -8,8 +8,8 @@ Plot a map of polygons, from a spatialPolygonsDataFrame, coloured according to o
 mapPolys( mapToPlot = ""
         , nameColumnToPlot = ""
         , numCats = 7
-        , xlim=c(-160,160)
-        , ylim=c(-80,90)
+        , xlim=NA
+        , ylim=NA
         , mapRegion = "world"
         , catMethod="quantiles"
         , colourPalette= "heat"

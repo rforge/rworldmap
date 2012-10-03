@@ -17,7 +17,9 @@ Date: \tab 2012-10-1\cr
 License: \tab GPL (>= 2)\cr
 }
 
-Version 1.01 newly uses updated Natural Earth Data for country boundaries.
+Version 1.01 October 2012 newly uses updated Natural Earth Data for country boundaries 
+e.g. \code{\link{countriesLow}}. Higher resolution boundaries are provided in a companion package rworldxtra.
+It also adds country synonym matching in \code{\link{joinCountryData2Map}}.
 
 Country Level Data can be joined to a map using  \code{\link{joinCountryData2Map}}, 
 then mapped using \code{\link{mapCountryData}}.

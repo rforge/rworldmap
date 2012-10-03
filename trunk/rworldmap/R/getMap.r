@@ -41,10 +41,14 @@ function(resolution="low",projection=NA){
     #mapWithData <- get("wrld_simpl")
     data("countriesCoarseLessIslands", envir = environment(),package = "rworldmap")
     mapWithData <- get("countriesCoarseLessIslands")    
+  }  else if (resolution == "high" && !require(rworldxtra, quietly=TRUE)) {
+    warning("for resolution='high' option you need to install package rworldxtra, using low resolution version for now")
+    data("countriesLow", envir = environment(),package = "rworldmap")
+    mapWithData <- get("countriesLow")    
   }  else if (resolution == "high" ) {
-    data("countriesHigh", envir = environment(),package = "rworldmap")
+    data("countriesHigh", envir = environment(),package = "rworldxtra")
     mapWithData <- get("countriesHigh")    
-  }
+  }  
 
   
 #  else if (projection == "EqualArea" || projection == "equalArea") {

@@ -92,7 +92,7 @@ All :
 countriesCoarseLessIslands :  ne_110
 countriesCoarse : ne_110 plus extra countries from ne_50 plus Tuvalu from ne_10
 countriesLow :    ne_50 plus Tuvalu from ne_10
-countriesHigh :   ne_10
+countriesHigh (in package rworldxtra) :   ne_10
 
 }
 \source{

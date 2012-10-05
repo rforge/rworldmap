@@ -54,13 +54,12 @@ function( oddName ){
 }
 
 #testing
-rwmGetISO3("Vietnam")
-rwmGetISO3("US")
-rwmGetISO3("USA")
-rwmGetISO3("Laos") 
-rwmGetISO3("Brunei") 
-rwmGetISO3("Republic of Lithuania")
-rwmGetISO3("Commonwealth of Dominica") #this is last one & can be a problem
-rwmGetISO3("China")
-
-rwmGetISO3("not a country") #returns what you passed to it. NA
+#rwmGetISO3("Vietnam")
+#rwmGetISO3("US")
+#rwmGetISO3("USA")
+#rwmGetISO3("Laos") 
+#rwmGetISO3("Brunei") 
+#rwmGetISO3("Republic of Lithuania")
+#rwmGetISO3("Commonwealth of Dominica") #this is last one & can be a problem
+#rwmGetISO3("China")
+#rwmGetISO3("not a country") #returns what you passed to it. NA

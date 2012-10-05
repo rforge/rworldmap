@@ -1,8 +1,10 @@
 rworldmap changelog
 
+05/10/2012 (1.02)
+*rwmGetISO3.r removed test code after function def. that stopped installation, thanks to Brian Ripley
+*countrySynonyms added extra synonyms
 
-10/01/2012 (1.01)
-
+01/10/2012 (1.01)
 Changed country polygon boundaries to data derived from Natural Earth
 Added country synonym matching for user data
 *countriesHigh : added access from getMap() to higher resolution vector boundaries in companion package rworldxtra
@@ -39,7 +41,7 @@ added dependencies for fields, spam & maps
 
 
 13/12/2010 (0.120)
-correcting to problem with category colours in mapGriddedData()
+correcting problem with category colours in mapGriddedData()
 
  
 30/8/2010  (0.110)

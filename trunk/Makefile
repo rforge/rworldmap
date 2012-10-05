@@ -9,11 +9,11 @@ test:
 	R CMD build $(package)
 	
 check:
-	R CMD check $(package)*.tar.gz
+	R CMD check --as-cran $(package)*.tar.gz
 
 bnc:
 	R CMD build --resave-data --compact-vignettes $(package)
-	R CMD check $(package)*.tar.gz
+	R CMD check --as-cran $(package)*.tar.gz
 	
 novin:
 	R CMD build  --no-vignettes $(package)

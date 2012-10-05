@@ -2,8 +2,7 @@
 
 `getMap` <-
 
-function(resolution="low",projection=NA){
-#function(resolution="low"){
+function(resolution="coarse",projection=NA){
   
   #23/5/12 3 new resolutions
   #deprecated projection option
